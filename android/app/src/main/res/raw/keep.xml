@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- El icono de la notificación del reproductor se usa por nombre desde Dart
+     (androidNotificationIcon en main.dart). Sin esto, la reducción de recursos
+     de la versión release lo elimina y Android rechaza la notificación. -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/ic_stat_notification,@mipmap/ic_launcher" />
