@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../config/app_config.dart';
 import 'settings_screen.dart';
+import 'twitch_screen.dart';
 import 'webview_screen.dart';
 
 /// Enlaces, redes sociales, ajustes y acerca de.
@@ -21,7 +22,10 @@ class MoreScreen extends StatelessWidget {
       };
 
   void _open(BuildContext context, LinkConfig link) {
-    if (link.inApp) {
+    final twitch = context.read<AppConfig>().twitch;
+    if (link.id == 'twitch' && twitch != null) {
+      TwitchScreen.open(context, twitch);
+    } else if (link.inApp) {
       Navigator.of(context).push(MaterialPageRoute(
         builder: (_) => WebViewScreen(title: link.title, url: link.url),
       ));

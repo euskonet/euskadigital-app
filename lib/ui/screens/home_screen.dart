@@ -9,6 +9,7 @@ import '../widgets/episode_actions.dart';
 import '../widgets/episode_tile.dart';
 import '../widgets/live_card.dart';
 import '../widgets/news_card.dart';
+import '../widgets/twitch_card.dart';
 import 'episode_screen.dart';
 
 /// Inicio: directo, continuar escuchando, últimos episodios y noticias.
@@ -47,6 +48,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SliverToBoxAdapter(child: LiveCard()),
+            const SliverToBoxAdapter(child: TwitchCard()),
             if (inProgress.isNotEmpty) ...[
               const SliverToBoxAdapter(child: SectionHeader('Continúa escuchando')),
               SliverToBoxAdapter(child: _ContinueRow(episodes: inProgress)),

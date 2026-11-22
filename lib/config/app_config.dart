@@ -9,6 +9,7 @@ class AppConfig {
     required this.name,
     required this.contactEmail,
     required this.live,
+    this.twitch,
     required this.news,
     required this.programGroups,
     required this.links,
@@ -17,6 +18,7 @@ class AppConfig {
   final String name;
   final String contactEmail;
   final LiveConfig live;
+  final TwitchConfig? twitch;
   final NewsConfig news;
   final List<ProgramGroup> programGroups;
   final List<LinkConfig> links;
@@ -40,6 +42,7 @@ class AppConfig {
         name: j['name'] as String,
         contactEmail: j['contactEmail'] as String,
         live: LiveConfig.fromJson(j['live'] as Map<String, dynamic>),
+        twitch: j['twitch'] == null ? null : TwitchConfig.fromJson(j['twitch'] as Map<String, dynamic>),
         news: NewsConfig.fromJson(j['news'] as Map<String, dynamic>),
         programGroups: [
           for (final g in j['programGroups'] as List)
@@ -89,6 +92,28 @@ class LiveStream {
         id: j['id'] as String,
         label: j['label'] as String,
         url: j['url'] as String,
+      );
+}
+
+/// Canal de Twitch integrado (reproductor + chat).
+class TwitchConfig {
+  TwitchConfig({required this.channel, required this.parentDomain, required this.title, this.subtitle});
+
+  final String channel;
+
+  /// Dominio que se declara a Twitch como página que inserta el reproductor
+  /// (parámetro `parent` obligatorio de los embeds de Twitch).
+  final String parentDomain;
+  final String title;
+  final String? subtitle;
+
+  String get channelUrl => 'https://www.twitch.tv/$channel';
+
+  factory TwitchConfig.fromJson(Map<String, dynamic> j) => TwitchConfig(
+        channel: j['channel'] as String,
+        parentDomain: j['parentDomain'] as String,
+        title: j['title'] as String,
+        subtitle: j['subtitle'] as String?,
       );
 }
 

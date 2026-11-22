@@ -5,10 +5,24 @@
     "title": "EuskaDigital en directo",
     "subtitle": "Radio online",
     "streams": [
-      { "id": "hq", "label": "Calidad alta", "url": "http://radio1.tecnicofm.com:8000/" },
-      { "id": "mobile", "label": "Ahorro de datos", "url": "http://stream.euskadigital.eus:8000/edmvl" }
+      {
+        "id": "hq",
+        "label": "Calidad alta",
+        "url": "http://radio1.tecnicofm.com:8000/"
+      },
+      {
+        "id": "mobile",
+        "label": "Ahorro de datos",
+        "url": "http://stream.euskadigital.eus:8000/edmvl"
+      }
     ],
     "offAirText": "El resto del día tienes a tu disposición Fórmula Digital, la selección musical de EuskaDigital."
+  },
+  "twitch": {
+    "channel": "euskadigital",
+    "parentDomain": "euskadigital.eus",
+    "title": "EuskaDigital en Twitch",
+    "subtitle": "Directos en vídeo y chat"
   },
   "news": {
     "title": "Noticias",
@@ -18,29 +32,113 @@
     {
       "title": "Nuestros programas",
       "programs": [
-        { "id": "cibertxoko", "title": "CiberTxoko", "feedUrl": "https://www.euskadigital.eus/contenidos/programas/cibertxoko/feed/", "fallbackImage": "assets/images/programs/cibertxoko.png" },
-        { "id": "conferencias", "title": "Conferencias", "feedUrl": "http://conferencias.euskadigital.net/?feed=podcast", "fallbackImage": "assets/images/programs/conferencias.png" },
-        { "id": "enredando", "title": "EnRedAndo", "feedUrl": "https://enredando.euskadigital.eus/feed/podcast/", "fallbackImage": "assets/images/programs/enredando.png" },
-        { "id": "gaming-room", "title": "Gaming Room", "feedUrl": "https://gamingroom.euskadigital.eus/feed/podcast", "fallbackImage": "assets/images/programs/gaming-room.png" },
-        { "id": "sarean-zehar", "title": "Sarean Zehar", "feedUrl": "http://feeds.feedburner.com/SareanZehar", "fallbackImage": "assets/images/programs/sarean-zehar.png" }
+        {
+          "id": "cibertxoko",
+          "title": "CiberTxoko",
+          "feedUrl": "https://www.euskadigital.eus/contenidos/programas/cibertxoko/feed/",
+          "fallbackImage": "assets/images/programs/cibertxoko.png"
+        },
+        {
+          "id": "conferencias",
+          "title": "Conferencias",
+          "feedUrl": "http://conferencias.euskadigital.net/?feed=podcast",
+          "fallbackImage": "assets/images/programs/conferencias.png"
+        },
+        {
+          "id": "enredando",
+          "title": "EnRedAndo",
+          "feedUrl": "https://enredando.euskadigital.eus/feed/podcast/",
+          "fallbackImage": "assets/images/programs/enredando.png"
+        },
+        {
+          "id": "gaming-room",
+          "title": "Gaming Room",
+          "feedUrl": "https://gamingroom.euskadigital.eus/feed/podcast",
+          "fallbackImage": "assets/images/programs/gaming-room.png"
+        },
+        {
+          "id": "sarean-zehar",
+          "title": "Sarean Zehar",
+          "feedUrl": "http://feeds.feedburner.com/SareanZehar",
+          "fallbackImage": "assets/images/programs/sarean-zehar.png"
+        }
       ]
     },
     {
       "title": "También emitimos",
       "programs": [
-        { "id": "el-gato-de-turing", "title": "El Gato de Turing", "feedUrl": "http://feeds.feedburner.com/elgatodeturing", "fallbackImage": "assets/images/programs/el-gato-de-turing.png" },
-        { "id": "ecdqemsd", "title": "En Caso de que El Mundo se Desintegre", "feedUrl": "http://www.canaltrans.com/podcast/rssaudio.xml", "fallbackImage": "assets/images/programs/ecdqemsd.png" },
-        { "id": "game-over", "title": "Game Over", "feedUrl": "http://feeds2.feedburner.com/portalgameover", "fallbackImage": "assets/images/programs/game-over.png" },
-        { "id": "la-hora-retrona", "title": "La Hora Retrona", "feedUrl": "https://www.ivoox.com/hora-retrona-podcast_fg_f1248924_filtro_1.xml", "fallbackImage": "assets/images/programs/la-hora-retrona.png" }
+        {
+          "id": "el-gato-de-turing",
+          "title": "El Gato de Turing",
+          "feedUrl": "http://feeds.feedburner.com/elgatodeturing",
+          "fallbackImage": "assets/images/programs/el-gato-de-turing.png"
+        },
+        {
+          "id": "ecdqemsd",
+          "title": "En Caso de que El Mundo se Desintegre",
+          "feedUrl": "http://www.canaltrans.com/podcast/rssaudio.xml",
+          "fallbackImage": "assets/images/programs/ecdqemsd.png"
+        },
+        {
+          "id": "game-over",
+          "title": "Game Over",
+          "feedUrl": "http://feeds2.feedburner.com/portalgameover",
+          "fallbackImage": "assets/images/programs/game-over.png"
+        },
+        {
+          "id": "la-hora-retrona",
+          "title": "La Hora Retrona",
+          "feedUrl": "https://www.ivoox.com/hora-retrona-podcast_fg_f1248924_filtro_1.xml",
+          "fallbackImage": "assets/images/programs/la-hora-retrona.png"
+        }
       ]
     }
   ],
   "links": [
-    { "id": "schedule", "title": "Parrilla de programación", "subtitle": "Qué emitimos y cuándo", "icon": "calendar", "url": "https://calendar.google.com/calendar/embed?mode=AGENDA&showTitle=0&showNav=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&hl=es&ctz=Europe%2FMadrid&src=gomtuc8coeunmn6jgb9g13dj6k%40group.calendar.google.com", "inApp": true },
-    { "id": "web", "title": "Web de EuskaDigital", "subtitle": "euskadigital.eus", "icon": "web", "url": "https://www.euskadigital.eus/" },
-    { "id": "twitch", "title": "Twitch", "subtitle": "twitch.tv/euskadigital", "icon": "twitch", "url": "https://www.twitch.tv/euskadigital" },
-    { "id": "x", "title": "X (Twitter)", "subtitle": "@euskadigital", "icon": "x", "url": "https://x.com/euskadigital" },
-    { "id": "facebook", "title": "Facebook", "subtitle": "facebook.com/euskadigital", "icon": "facebook", "url": "https://www.facebook.com/euskadigital" },
-    { "id": "contact", "title": "Contacto y sugerencias", "subtitle": "Escríbenos o envíanos tu opinión", "icon": "feedback", "url": "https://docs.google.com/forms/d/1U4ArhAep20Qy1ChUlCmMk8diqco3Wv0HZA3qJ3eBwQk/viewform", "inApp": true }
+    {
+      "id": "schedule",
+      "title": "Parrilla de programación",
+      "subtitle": "Qué emitimos y cuándo",
+      "icon": "calendar",
+      "url": "https://calendar.google.com/calendar/embed?mode=AGENDA&showTitle=0&showNav=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&hl=es&ctz=Europe%2FMadrid&src=gomtuc8coeunmn6jgb9g13dj6k%40group.calendar.google.com",
+      "inApp": true
+    },
+    {
+      "id": "web",
+      "title": "Web de EuskaDigital",
+      "subtitle": "euskadigital.eus",
+      "icon": "web",
+      "url": "https://www.euskadigital.eus/"
+    },
+    {
+      "id": "twitch",
+      "title": "Twitch",
+      "subtitle": "Directos en vídeo y chat",
+      "icon": "twitch",
+      "url": "https://www.twitch.tv/euskadigital",
+      "inApp": true
+    },
+    {
+      "id": "x",
+      "title": "X (Twitter)",
+      "subtitle": "@euskadigital",
+      "icon": "x",
+      "url": "https://x.com/euskadigital"
+    },
+    {
+      "id": "facebook",
+      "title": "Facebook",
+      "subtitle": "facebook.com/euskadigital",
+      "icon": "facebook",
+      "url": "https://www.facebook.com/euskadigital"
+    },
+    {
+      "id": "contact",
+      "title": "Contacto y sugerencias",
+      "subtitle": "Escríbenos o envíanos tu opinión",
+      "icon": "feedback",
+      "url": "https://docs.google.com/forms/d/1U4ArhAep20Qy1ChUlCmMk8diqco3Wv0HZA3qJ3eBwQk/viewform",
+      "inApp": true
+    }
   ]
 }
