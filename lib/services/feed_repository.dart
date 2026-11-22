@@ -36,7 +36,10 @@ class FeedState {
 /// Cada feed se guarda en disco para que la app funcione sin conexión;
 /// al abrir se muestra la copia local y se refresca en segundo plano.
 class FeedRepository extends ChangeNotifier {
-  FeedRepository(this.config, {http.Client? client}) : _client = client ?? http.Client();
+  FeedRepository(this.config, {http.Client? client, this.onFeedLoaded}) : _client = client ?? http.Client();
+
+  /// Se llama cada vez que un feed se descarga correctamente.
+  final void Function(String feedId, ParsedFeed feed)? onFeedLoaded;
 
   static const newsId = 'news';
   static const _maxAge = Duration(minutes: 30);
@@ -113,6 +116,7 @@ class FeedRepository extends ChangeNotifier {
       final body = _decode(res);
       final parsed = await compute(_parseIsolate, [body, feedId]);
       _states[feedId] = FeedState(feed: parsed, updatedAt: DateTime.now());
+      onFeedLoaded?.call(feedId, parsed);
       unawaited(_saveToDisk(feedId, body));
     } catch (e) {
       debugPrint('Error cargando $feedId: $e');

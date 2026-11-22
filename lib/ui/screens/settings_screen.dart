@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/alerts_store.dart';
 import '../../services/download_manager.dart';
 import '../../services/library_store.dart';
 import '../../services/settings_store.dart';
 import '../format.dart';
+import 'alerts_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -44,6 +46,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onSelectionChanged: (s) => settings.themeMode = s.first,
             ),
           ),
+          header('Avisos'),
+          Builder(builder: (context) {
+            final n = context.watch<AlertsStore>().count;
+            return ListTile(
+              leading: const Icon(Icons.notifications_outlined),
+              title: const Text('Episodios nuevos'),
+              subtitle: Text(n == 0 ? 'Desactivados' : n == 1 ? '1 programa' : '$n programas'),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const AlertsScreen())),
+            );
+          }),
           header('Descargas'),
           SwitchListTile(
             title: const Text('Descargar solo con wifi'),

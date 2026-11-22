@@ -6,6 +6,7 @@ import '../../models/episode.dart';
 import '../../services/feed_parser.dart';
 import '../../services/feed_repository.dart';
 import '../widgets/artwork.dart';
+import 'alerts_screen.dart';
 import '../widgets/common.dart';
 import '../widgets/episode_actions.dart';
 import '../widgets/episode_tile.dart';
@@ -50,7 +51,11 @@ class _PodcastScreenState extends State<PodcastScreen> {
         onRefresh: () => feeds.refresh(widget.program.id, force: true),
         child: CustomScrollView(
           slivers: [
-            SliverAppBar(pinned: true, title: Text(widget.program.title)),
+            SliverAppBar(
+              pinned: true,
+              title: Text(widget.program.title),
+              actions: [AlertBellButton(program: widget.program)],
+            ),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),

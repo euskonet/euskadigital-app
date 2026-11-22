@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
+import '../config/app_config.dart';
+import '../services/episode_alerts.dart';
 import 'screens/home_screen.dart';
 import 'screens/library_screen.dart';
 import 'screens/more_screen.dart';
 import 'screens/news_screen.dart';
+import 'screens/podcast_screen.dart';
 import 'screens/programs_screen.dart';
 import 'widgets/mini_player.dart';
 
@@ -20,6 +24,34 @@ class AppShell extends StatefulWidget {
 class _AppShellState extends State<AppShell> {
   int _index = 0;
   final _navigators = List.generate(5, (_) => GlobalKey<NavigatorState>());
+
+  @override
+  void initState() {
+    super.initState();
+    EpisodeAlerts.pendingProgram.addListener(_openPendingProgram);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _openPendingProgram());
+  }
+
+  @override
+  void dispose() {
+    EpisodeAlerts.pendingProgram.removeListener(_openPendingProgram);
+    super.dispose();
+  }
+
+  /// Al pulsar un aviso de episodio nuevo: pestaña Programas → ese programa.
+  void _openPendingProgram() {
+    final id = EpisodeAlerts.pendingProgram.value;
+    if (id == null || !mounted) return;
+    EpisodeAlerts.pendingProgram.value = null;
+    final program = context.read<AppConfig>().programById(id);
+    if (program == null) return;
+    setState(() => _index = 1);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final nav = _navigators[1].currentState;
+      nav?.popUntil((r) => r.isFirst);
+      nav?.push(MaterialPageRoute(builder: (_) => PodcastScreen(program: program)));
+    });
+  }
 
   void _select(int i) {
     if (i == _index) {

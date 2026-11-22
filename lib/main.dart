@@ -4,9 +4,12 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:workmanager/workmanager.dart';
 
 import 'config/app_config.dart';
+import 'services/alerts_store.dart';
 import 'services/download_manager.dart';
+import 'services/episode_alerts.dart';
 import 'services/feed_repository.dart';
 import 'services/library_store.dart';
 import 'services/player_service.dart';
@@ -29,7 +32,19 @@ Future<void> main() async {
   final prefs = await SharedPreferences.getInstance();
   final settings = SettingsStore(prefs);
   final library = LibraryStore(prefs);
-  final feeds = FeedRepository(config)..init();
+  final feeds = FeedRepository(
+    config,
+    // Lo que ya se ha visto en la app no se notifica después.
+    onFeedLoaded: (id, feed) {
+      if (id != FeedRepository.newsId) EpisodeAlerts.rememberSeen(prefs, id, feed.items);
+    },
+  )..init();
+
+  // Avisos de episodios nuevos (tarea en segundo plano + notificaciones).
+  await Workmanager().initialize(episodeAlertsDispatcher);
+  await EpisodeAlerts.initNotifications();
+  await EpisodeAlerts.syncSchedule(prefs);
+  EpisodeAlerts.pendingProgram.value ??= await EpisodeAlerts.launchProgram();
 
   runApp(MultiProvider(
     providers: [
@@ -37,6 +52,7 @@ Future<void> main() async {
       ChangeNotifierProvider.value(value: settings),
       ChangeNotifierProvider.value(value: library),
       ChangeNotifierProvider.value(value: feeds),
+      ChangeNotifierProvider(create: (_) => AlertsStore(prefs)),
       ChangeNotifierProvider(create: (_) => DownloadManager(library, settings)),
       ChangeNotifierProvider(create: (_) => PlayerService(config, library, settings), lazy: false),
     ],

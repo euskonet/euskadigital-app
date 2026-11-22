@@ -9,6 +9,7 @@ import 'dart:io';
 
 import 'package:euskadigital/config/app_config.dart';
 import 'package:euskadigital/models/episode.dart';
+import 'package:euskadigital/services/alerts_store.dart';
 import 'package:euskadigital/services/download_manager.dart';
 import 'package:euskadigital/services/feed_repository.dart';
 import 'package:euskadigital/services/library_store.dart';
@@ -82,6 +83,7 @@ void main() {
   late LibraryStore library;
   late FeedRepository feeds;
   late PlayerService player;
+  late SharedPreferences prefs;
 
   setUpAll(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
@@ -91,7 +93,7 @@ void main() {
 
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
-    final prefs = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
     config = await AppConfig.load();
     settings = SettingsStore(prefs);
     library = LibraryStore(prefs);
@@ -132,6 +134,7 @@ void main() {
           ChangeNotifierProvider.value(value: settings),
           ChangeNotifierProvider.value(value: library),
           ChangeNotifierProvider.value(value: feeds),
+          ChangeNotifierProvider(create: (_) => AlertsStore(prefs)),
           ChangeNotifierProvider(create: (_) => DownloadManager(library, settings)),
           ChangeNotifierProvider.value(value: player),
         ],
@@ -248,6 +251,28 @@ void main() {
     await pumpApp(tester, ThemeMode.dark);
     TwitchScreen.open(tester.element(find.byType(HomeScreen)), config.twitch!);
     await shot(tester, '10_twitch_oscuro');
+  });
+
+  testWidgets('avisos de episodios', (tester) async {
+    await prefs.setStringList('alerts.programs', ['cibertxoko', 'enredando', 'gaming-room']);
+    await pumpApp(tester, ThemeMode.light);
+    await tester.tap(find.text('Más').last);
+    await settle(tester);
+    await tester.scrollUntilVisible(find.text('Ajustes'), 200, scrollable: find.byType(Scrollable).last);
+    await settle(tester);
+    await tester.tap(find.text('Ajustes'));
+    await settle(tester);
+    await tester.tap(find.text('Episodios nuevos'));
+    await shot(tester, '11_avisos');
+  });
+
+  testWidgets('programa con aviso activado', (tester) async {
+    await prefs.setStringList('alerts.programs', ['enredando']);
+    await pumpApp(tester, ThemeMode.light);
+    await tester.tap(find.text('Programas').last);
+    await settle(tester);
+    await tester.tap(find.text('EnRedAndo'));
+    await shot(tester, '12_programa_aviso');
   });
 }
 
