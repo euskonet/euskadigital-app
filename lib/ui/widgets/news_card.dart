@@ -71,7 +71,18 @@ class NewsCard extends StatelessWidget {
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  if (image != null) AspectRatio(aspectRatio: 16 / 9, child: image),
+                  if (item.imageUrl != null)
+                    // Imagen entera, con su proporción original (sin recortar).
+                    CachedNetworkImage(
+                      imageUrl: item.imageUrl!,
+                      width: double.infinity,
+                      fit: BoxFit.fitWidth,
+                      placeholder: (_, _) => AspectRatio(
+                        aspectRatio: 1,
+                        child: Container(color: scheme.surfaceContainerHighest),
+                      ),
+                      errorWidget: (_, _, _) => const SizedBox.shrink(),
+                    ),
                   Padding(padding: const EdgeInsets.all(16), child: texts),
                 ],
               ),
