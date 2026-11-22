@@ -37,6 +37,16 @@ jobs:
           cache: true
       - run: flutter pub get
       - run: flutter build apk --release
+      # El icono de la notificación del reproductor se usa por nombre desde
+      # Dart; si la reducción de recursos lo elimina, la app se cierra al
+      # reproducir ("no valid small icon").
+      - name: Comprobar icono de notificación en el APK
+        run: |
+          AAPT2=$(ls "$ANDROID_HOME"/build-tools/*/aapt2 | sort -V | tail -1)
+          "$AAPT2" dump resources build/app/outputs/flutter-apk/app-release.apk \
+            | grep -q "drawable/ic_stat_notification" \
+            && echo "OK: ic_stat_notification presente" \
+            || { echo "::error::Falta drawable/ic_stat_notification en el APK"; exit 1; }
       - uses: actions/upload-artifact@v4
         with:
           name: euskadigital-android-apk
