@@ -15,7 +15,12 @@ import 'package:euskadigital/services/library_store.dart';
 import 'package:euskadigital/services/player_service.dart';
 import 'package:euskadigital/services/settings_store.dart';
 import 'package:euskadigital/ui/app_shell.dart';
+import 'package:euskadigital/ui/screens/home_screen.dart';
 import 'package:euskadigital/ui/screens/player_screen.dart';
+import 'package:euskadigital/ui/screens/twitch_screen.dart';
+import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
+
+import 'fake_webview.dart';
 import 'package:euskadigital/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -230,6 +235,20 @@ void main() {
     await tester.tap(find.text(p.title).first);
     await shot(tester, '08_portada_apaisada');
   });
+
+  testWidgets('twitch', (tester) async {
+    WebViewPlatform.instance = FakeWebViewPlatform();
+    await pumpApp(tester, ThemeMode.light);
+    TwitchScreen.open(tester.element(find.byType(HomeScreen)), config.twitch!);
+    await shot(tester, '09_twitch');
+  });
+
+  testWidgets('twitch (oscuro)', (tester) async {
+    WebViewPlatform.instance = FakeWebViewPlatform();
+    await pumpApp(tester, ThemeMode.dark);
+    TwitchScreen.open(tester.element(find.byType(HomeScreen)), config.twitch!);
+    await shot(tester, '10_twitch_oscuro');
+  });
 }
 
 /// Espera a que carguen las imágenes locales y terminen las animaciones.
@@ -245,3 +264,4 @@ Future<void> settle(WidgetTester tester) async {
   }
   await tester.pump(const Duration(seconds: 1));
 }
+

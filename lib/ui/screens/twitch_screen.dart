@@ -164,7 +164,7 @@ class _TwitchScreenState extends State<TwitchScreen> {
     final scheme = theme.colorScheme;
     return Scaffold(
       appBar: AppBar(
-        title: Text(c.title),
+        title: const Text('Twitch'),
         actions: [
           IconButton(
             tooltip: 'Recargar',
