@@ -67,6 +67,8 @@ GitHub Actions (`.github/workflows/ci.yml`) analiza el código, pasa los tests y
 
 Identificador de la app: **`eus.euskadigital.app`** (Android e iOS). Es una app nueva, no una actualización de la de AppYet.
 
+Versión actual: **3.0** (`version: 3.0.0+300` en `pubspec.yaml`). Para cada nueva subida a las tiendas sube el número tras el `+`.
+
 ### Android (Google Play)
 
 1. Crea la clave de firma una sola vez y **guárdala a buen recaudo**:

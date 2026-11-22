@@ -81,6 +81,7 @@ class MoreScreen extends StatelessWidget {
                 onTap: () => showAboutDialog(
                   context: context,
                   applicationName: config.name,
+                  applicationVersion: 'Versión 3.0',
                   applicationIcon: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.asset('assets/branding/logo.png', width: 56, height: 56),
