@@ -101,3 +101,7 @@ Versión actual: **3.0** (`version: 3.0.0+300` en `pubspec.yaml`). Para cada nue
 - [ ] Portadas en alta resolución para los programas sin `<itunes:image>` en su feed.
 - [ ] Textos en euskera.
 - [ ] Política de privacidad (Google Play y App Store la exigen aunque no se recojan datos).
+
+## Licencia
+
+[GNU GPL v3](LICENSE). El logo y la marca EuskaDigital no están cubiertos por esta licencia.
