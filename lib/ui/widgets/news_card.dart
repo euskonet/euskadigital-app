@@ -5,6 +5,7 @@ import '../../models/episode.dart';
 import '../../services/feed_parser.dart';
 import '../format.dart';
 import '../screens/article_screen.dart';
+import 'artwork.dart';
 
 /// Tarjeta de noticia. En modo compacto, imagen pequeña a la izquierda.
 class NewsCard extends StatelessWidget {
@@ -18,18 +19,6 @@ class NewsCard extends StatelessWidget {
     final scheme = theme.colorScheme;
     final excerpt = FeedParser.stripHtml(item.description ?? '').replaceAll('\n', ' ');
     void open() => Navigator.of(context).push(MaterialPageRoute(builder: (_) => ArticleScreen(item: item)));
-
-    final image = item.imageUrl == null
-        ? null
-        : CachedNetworkImage(
-            imageUrl: item.imageUrl!,
-            fit: BoxFit.cover,
-            placeholder: (_, _) => Container(color: scheme.surfaceContainerHighest),
-            errorWidget: (_, _, _) => Container(
-              color: scheme.surfaceContainerHighest,
-              child: Icon(Icons.newspaper_rounded, color: scheme.onSurfaceVariant),
-            ),
-          );
 
     final texts = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,10 +47,8 @@ class NewsCard extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 child: Row(
                   children: [
-                    if (image != null) ...[
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: SizedBox.square(dimension: 80, child: image)),
+                    if (item.imageUrl != null) ...[
+                      Artwork(url: item.imageUrl, fallbackIcon: Icons.newspaper_rounded, size: 80),
                       const SizedBox(width: 14),
                     ],
                     Expanded(child: texts),

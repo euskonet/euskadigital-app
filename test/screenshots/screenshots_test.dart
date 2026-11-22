@@ -4,6 +4,7 @@
 @Tags(['screenshots'])
 library;
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:euskadigital/config/app_config.dart';
@@ -144,6 +145,8 @@ void main() {
   Future<void> pumpApp(WidgetTester tester, ThemeMode mode) async {
     tester.view.physicalSize = const Size(1080, 2340);
     tester.view.devicePixelRatio = 3;
+    tester.view.padding = const FakeViewPadding(top: 24 * 3, bottom: 48 * 3);
+    tester.view.viewPadding = const FakeViewPadding(top: 24 * 3, bottom: 48 * 3);
     addTearDown(tester.view.reset);
     await tester.pumpWidget(app(mode));
     await settle(tester);
@@ -209,6 +212,23 @@ void main() {
     await pumpApp(tester, ThemeMode.light);
     await tester.tap(find.text('Más').last);
     await shot(tester, '07_mas');
+  });
+
+  testWidgets('lista con portada apaisada (sin recortar)', (tester) async {
+    // Misma configuración, pero el primer programa usa como portada de
+    // respaldo la imagen apaisada del directo (500x334).
+    final raw = jsonDecode((await tester.runAsync(() => rootBundle.loadString('assets/config/app_config.json')))!);
+    final first = raw['programGroups'][0]['programs'][0];
+    first['fallbackImage'] = 'assets/images/live_cover.png';
+    config = AppConfig.fromJson(raw);
+    feeds = FeedRepository(config);
+    final p = config.allPrograms.first;
+    feeds.seed(p.id, _sample(p, 0));
+    await pumpApp(tester, ThemeMode.light);
+    await tester.tap(find.text('Programas').last);
+    await settle(tester);
+    await tester.tap(find.text(p.title).first);
+    await shot(tester, '08_portada_apaisada');
   });
 }
 

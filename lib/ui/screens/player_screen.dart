@@ -16,7 +16,12 @@ class PlayerScreen extends StatelessWidget {
         isScrollControlled: true,
         useSafeArea: true,
         showDragHandle: true,
-        builder: (_) => const FractionallySizedBox(heightFactor: 1, child: PlayerScreen()),
+        // SafeArea inferior: deja sitio a la barra de navegación / gestos de
+        // Android (la app se dibuja de borde a borde).
+        builder: (_) => const FractionallySizedBox(
+          heightFactor: 1,
+          child: SafeArea(top: false, child: PlayerScreen()),
+        ),
       );
 
   @override
