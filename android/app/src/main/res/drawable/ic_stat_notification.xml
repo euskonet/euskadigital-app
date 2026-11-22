@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icono monocromo de la notificación de reproducción (logo simplificado). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="#FFFFFFFF"
+        android:pathData="M3,2h6v2.3A8,8 0,0 0,4 12a8,8 0,0 0,5 7.7V22H3zM15,2h6v20h-6v-2.3A8,8 0,0 0,20 12a8,8 0,0 0,-5 -7.7z"/>
+    <path android:fillColor="#FFFFFFFF" android:pathData="M10,8.5v7l5.5,-3.5z"/>
+</vector>

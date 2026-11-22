@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Por defecto solo HTTPS. Excepciones para los servidores que todavía
+     sirven audio o feeds por HTTP. Eliminar cuando migren a HTTPS. -->
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">radio1.tecnicofm.com</domain>
+        <domain includeSubdomains="false">stream.euskadigital.eus</domain>
+        <domain includeSubdomains="false">conferencias.euskadigital.net</domain>
+        <domain includeSubdomains="true">canaltrans.com</domain>
+        <domain includeSubdomains="false">feeds.feedburner.com</domain>
+        <domain includeSubdomains="false">feeds2.feedburner.com</domain>
+    </domain-config>
+</network-security-config>

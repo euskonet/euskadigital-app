@@ -1,0 +1,321 @@
+{
+  "app": {
+    "nombre": "EuskaDigital Podcasts",
+    "paquete": "com.euskadigital.podcasts",
+    "version_anterior": {
+      "code": 111,
+      "name": "2.0"
+    },
+    "plantilla_appyet": "4.2.7",
+    "email_contacto": "isendino@euskadigital.eus",
+    "novedades_ultima_version": "Añadidos nuevos programas."
+  },
+  "enlaces_externos": {
+    "web": "https://www.euskadigital.eus/",
+    "web_antigua": "http://www.euskadigital.net/",
+    "facebook": "https://www.facebook.com/euskadigital",
+    "twitter": "https://twitter.com/euskadigital",
+    "twitch": "https://twitch.tv/euskadigital",
+    "google_calendar_parrilla": "gomtuc8coeunmn6jgb9g13dj6k@group.calendar.google.com",
+    "formulario_ayuda": "https://docs.google.com/forms/d/1U4ArhAep20Qy1ChUlCmMk8diqco3Wv0HZA3qJ3eBwQk/viewform"
+  },
+  "colores": {
+    "android_res": {
+      "colorPrimary": "#e67e22",
+      "colorPrimaryDark": "#c0392b",
+      "colorAccent": "#02a8f3"
+    },
+    "temas_appyet": {
+      "light_theme": {
+        "PrimaryBgColor": "LIGHT",
+        "ActionBarBgColor": "#e00000",
+        "ActionBarFgColor": false,
+        "LeftMenuBgColor": "#f5f5f5",
+        "LeftMenuIconSize": 20,
+        "LeftMenuGroupTextColor": "#999999",
+        "LeftMenuGroupTextSize": 14,
+        "LeftMenuItemTextColor": "#494949",
+        "LeftMenuItemTextSize": 15,
+        "LeftMenuItemVerticalPadding": 15,
+        "LeftMenuBadgeBgColor": "#888888",
+        "LeftMenuBadgeTextColor": "#FFFFFF",
+        "LeftMenuBadgeTextSize": 10,
+        "LeftMenuDividerColor": "#eaeae8",
+        "LeftMenuItemSelectBgColor": "#e8e8e8",
+        "LeftMenuItemSelectTextColor": "#e00000",
+        "FloatActionButtonBgColor": "#ffb805",
+        "TabHighlightColor": "#e67e22",
+        "BadgeColor": "#E84E40",
+        "StatusPrimaryColor": "#F05D6E",
+        "StatusSecondaryColor": "#16a085",
+        "SeekbarPrimaryColor": "#FF7000",
+        "ButtonColor": "#0099cb"
+      },
+      "dark_theme": {
+        "PrimaryBgColor": "DARK",
+        "ActionBarBgColor": "#222222",
+        "ActionBarFgColor": true,
+        "LeftMenuBgColor": "#222222",
+        "LeftMenuIconSize": 20,
+        "LeftMenuGroupTextColor": "#666666",
+        "LeftMenuGroupTextSize": 14,
+        "LeftMenuItemTextColor": "#eeeeee",
+        "LeftMenuItemTextSize": 15,
+        "LeftMenuItemVerticalPadding": 15,
+        "LeftMenuBadgeBgColor": "#444444",
+        "LeftMenuBadgeTextColor": "#FFFFFF",
+        "LeftMenuBadgeTextSize": 10,
+        "LeftMenuDividerColor": "#494949",
+        "LeftMenuItemSelectBgColor": "#121212",
+        "LeftMenuItemSelectTextColor": "#e00000",
+        "FloatActionButtonBgColor": "#ffb805",
+        "TabHighlightColor": "#e67e22",
+        "BadgeColor": "#E84E40",
+        "StatusPrimaryColor": "#F05D6E",
+        "StatusSecondaryColor": "#16a085",
+        "SeekbarPrimaryColor": "#FF7000",
+        "ButtonColor": "#0099cb"
+      }
+    },
+    "marca_icono": "#e00000 (rojo EuskaDigital, coincide con la barra superior del tema claro)"
+  },
+  "comportamiento": {
+    "intervalo_actualizacion_min": 60,
+    "sincronizar_al_abrir": true,
+    "descargas_solo_wifi": true,
+    "permitir_descarga_podcasts": true,
+    "notificaciones_nuevos": true,
+    "navegacion": "menú lateral (drawer) + pestañas en inicio",
+    "pantalla_bienvenida": true,
+    "compartir": true,
+    "max_articulos_por_feed": 200
+  },
+  "secciones": [
+    {
+      "id": 286517,
+      "tipo": "Feed",
+      "nombre": "Noticias",
+      "grupo": null,
+      "orden": 4,
+      "icono": "graficos/iconos-modulos/286517_Noticias.png",
+      "feed_url": "https://www.euskadigital.eus/contenidos/noticias/feed/"
+    },
+    {
+      "id": 24599957,
+      "tipo": "Media",
+      "nombre": "Reproductor",
+      "grupo": null,
+      "orden": 6,
+      "icono_generico": "faw_play",
+      "streams": [
+        {
+          "titulo": "Stream",
+          "url": "http://radio1.tecnicofm.com:8000/",
+          "imagen": "https://www.euskadigital.eus/images/headphones-2659490_1280.png"
+        },
+        {
+          "titulo": "Stream móvil (menor calidad)",
+          "url": "http://stream.euskadigital.eus:8000/edmvl",
+          "imagen": "https://www.euskadigital.eus/images/smartphone-1917228_1280.png"
+        }
+      ]
+    },
+    {
+      "id": 286190,
+      "tipo": "FeedQuery",
+      "nombre": "[unreads]",
+      "grupo": null,
+      "orden": 14,
+      "icono_generico": "all_unreads.webp",
+      "pestana_inicio": true,
+      "filtro": "IsRead=0 AND IsDeleted = 0"
+    },
+    {
+      "id": 286191,
+      "tipo": "FeedQuery",
+      "nombre": "[liked]",
+      "grupo": null,
+      "orden": 16,
+      "icono_generico": "all_stars.webp",
+      "pestana_inicio": true,
+      "filtro": "IsStar = 1 AND IsDeleted = 0"
+    },
+    {
+      "id": 286192,
+      "tipo": "FeedQuery",
+      "nombre": "[podcasts]",
+      "grupo": null,
+      "orden": 18,
+      "icono_generico": "all_podcasts.webp",
+      "pestana_inicio": true,
+      "filtro": "EnclosureLink is not null AND IsDeleted = 0"
+    },
+    {
+      "id": 38816507,
+      "tipo": "Feed",
+      "nombre": "CiberTxoko",
+      "grupo": "Nuestros programas",
+      "orden": 36,
+      "icono": "graficos/iconos-modulos/38816507_CiberTxoko.png",
+      "feed_url": "https://www.euskadigital.eus/contenidos/programas/cibertxoko/feed/"
+    },
+    {
+      "id": 286257,
+      "tipo": "Feed",
+      "nombre": "Conferencias",
+      "grupo": "Nuestros programas",
+      "orden": 40,
+      "icono": "graficos/iconos-modulos/286257_Conferencias.png",
+      "feed_url": "http://conferencias.euskadigital.net/?feed=podcast"
+    },
+    {
+      "id": 286378,
+      "tipo": "Feed",
+      "nombre": "EnRedAndo",
+      "grupo": "Nuestros programas",
+      "orden": 46,
+      "icono": "graficos/iconos-modulos/286378_EnRedAndo.png",
+      "feed_url": "https://enredando.euskadigital.eus/feed/podcast/"
+    },
+    {
+      "id": 24599986,
+      "tipo": "Feed",
+      "nombre": "Gaming Room",
+      "grupo": "Nuestros programas",
+      "orden": 52,
+      "icono": "graficos/iconos-modulos/24599986_Gaming_Room.png",
+      "feed_url": "https://gamingroom.euskadigital.eus/feed/podcast"
+    },
+    {
+      "id": 286318,
+      "tipo": "Feed",
+      "nombre": "Sarean Zehar",
+      "grupo": "Nuestros programas",
+      "orden": 54,
+      "icono": "graficos/iconos-modulos/286318_Sarean_Zehar.png",
+      "feed_url": "http://feeds.feedburner.com/SareanZehar"
+    },
+    {
+      "id": 10266690,
+      "tipo": "Feed",
+      "nombre": "El Gato de Turing",
+      "grupo": "Tambien emitimos",
+      "orden": 62,
+      "icono": "graficos/iconos-modulos/10266690_El_Gato_de_Turing.png",
+      "feed_url": "http://feeds.feedburner.com/elgatodeturing"
+    },
+    {
+      "id": 288106,
+      "tipo": "Feed",
+      "nombre": "En Caso de que El Mundo se Desintegre",
+      "grupo": "Tambien emitimos",
+      "orden": 64,
+      "icono": "graficos/iconos-modulos/288106_En_Caso_de_que_El_Mundo_se_Desintegre.png",
+      "feed_url": "http://www.canaltrans.com/podcast/rssaudio.xml"
+    },
+    {
+      "id": 288107,
+      "tipo": "Feed",
+      "nombre": "Game Over",
+      "grupo": "Tambien emitimos",
+      "orden": 66,
+      "icono": "graficos/iconos-modulos/288107_Game_Over.png",
+      "feed_url": "http://feeds2.feedburner.com/portalgameover"
+    },
+    {
+      "id": 22165645,
+      "tipo": "Feed",
+      "nombre": "La Hora Retrona",
+      "grupo": "Tambien emitimos",
+      "orden": 68,
+      "icono": "graficos/iconos-modulos/22165645_La_Hora_Retrona.png",
+      "feed_url": "https://www.ivoox.com/hora-retrona-podcast_fg_f1248924_filtro_1.xml"
+    },
+    {
+      "id": 286456,
+      "tipo": "Web",
+      "nombre": "EuskaDigital Web",
+      "grupo": "Web",
+      "orden": 74,
+      "icono": "graficos/iconos-modulos/286456_EuskaDigital_Web.png",
+      "url": "http://www.euskadigital.net/"
+    },
+    {
+      "id": 288050,
+      "tipo": "Web",
+      "nombre": "Parrilla de programación",
+      "grupo": "Web",
+      "orden": 76,
+      "icono": "graficos/iconos-modulos/288050_Parrilla_de_programación.png",
+      "html": "html-original/w02a3865e9c314b3cbfe2565f013464ed.html"
+    },
+    {
+      "id": 315810,
+      "tipo": "Web",
+      "nombre": "Facebook",
+      "grupo": "Web",
+      "orden": 78,
+      "icono": "graficos/iconos-modulos/315810_Facebook.png",
+      "html": "html-original/w00f4262ee68746da8aebda5bd96a6841.html"
+    },
+    {
+      "id": 38816509,
+      "tipo": "Web",
+      "nombre": "Twitch",
+      "grupo": "Web",
+      "orden": 82,
+      "icono_generico": "faw_twitch",
+      "url": "https://twitch.tv/euskadigital"
+    },
+    {
+      "id": 9782318,
+      "tipo": "Twitter",
+      "nombre": "Twitter",
+      "grupo": "Web",
+      "orden": 86,
+      "icono_generico": "faw_twitter",
+      "cuenta": "@euskadigital"
+    },
+    {
+      "id": 286184,
+      "tipo": "Downloads",
+      "nombre": "[downloads]",
+      "grupo": "Herramientas",
+      "orden": 120,
+      "icono_generico": "download.webp"
+    },
+    {
+      "id": 286185,
+      "tipo": "Sync",
+      "nombre": "[sync_now]",
+      "grupo": "Herramientas",
+      "orden": 122,
+      "icono_generico": "sync_now.webp"
+    },
+    {
+      "id": 286186,
+      "tipo": "Themes",
+      "nombre": "[switch_theme]",
+      "grupo": "Herramientas",
+      "orden": 124,
+      "icono_generico": "switch_theme.webp"
+    },
+    {
+      "id": 286187,
+      "tipo": "Settings",
+      "nombre": "[settings]",
+      "grupo": "Herramientas",
+      "orden": 126,
+      "icono_generico": "settings.webp"
+    },
+    {
+      "id": 286188,
+      "tipo": "Web",
+      "nombre": "[help]",
+      "grupo": "Herramientas",
+      "orden": 128,
+      "icono_generico": "help.webp",
+      "html": "html-original/w663c8ea86e544e24a3cfa8ec6fdba1a0.html"
+    }
+  ]
+}

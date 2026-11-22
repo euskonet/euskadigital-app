@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>EnRedAndo</title>
+    <link>https://enredando.euskadigital.eus</link>
+    <description>Programa de tecnología de EuskaDigital</description>
+    <itunes:author>EuskaDigital</itunes:author>
+    <itunes:image href="https://example.com/enredando.jpg"/>
+    <item>
+      <title>  Episodio 120:   Inteligencia artificial  </title>
+      <link>https://enredando.euskadigital.eus/120</link>
+      <guid isPermaLink="false">enredando-120</guid>
+      <pubDate>Tue, 10 Jun 2025 18:30:00 +0200</pubDate>
+      <description><![CDATA[<p>Hablamos de <b>IA</b> &amp; más.</p>]]></description>
+      <content:encoded><![CDATA[<p>Notas completas <img src="https://example.com/inline.jpg"/></p>]]></content:encoded>
+      <enclosure url="https://example.com/120.mp3" length="12345" type="audio/mpeg"/>
+      <itunes:duration>1:02:03</itunes:duration>
+      <itunes:image href="https://example.com/120.jpg"/>
+    </item>
+    <item>
+      <title>Episodio 119</title>
+      <pubDate>Mon, 2 Jun 25 10:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/119.mp3" type="audio/mpeg"/>
+      <itunes:duration>2730</itunes:duration>
+    </item>
+    <item>
+      <title>Entrada sin audio</title>
+      <link>https://enredando.euskadigital.eus/post</link>
+      <dc:creator>Redacción</dc:creator>
+      <description>&lt;p&gt;Texto &lt;img src="https://example.com/post.png"&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
