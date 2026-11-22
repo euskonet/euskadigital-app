@@ -65,11 +65,9 @@ class LiveConfig {
 
   final String title;
   final String subtitle;
+  /// En orden de preferencia: el primero es el principal y el resto, respaldo.
   final List<LiveStream> streams;
   final String? offAirText;
-
-  LiveStream streamById(String? id) =>
-      streams.firstWhere((s) => s.id == id, orElse: () => streams.first);
 
   factory LiveConfig.fromJson(Map<String, dynamic> j) => LiveConfig(
         title: j['title'] as String,

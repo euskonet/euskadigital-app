@@ -199,7 +199,7 @@ void main() {
     player.debugShow(NowPlaying(
       id: PlayerService.liveId,
       title: config.live.title,
-      subtitle: '${config.live.subtitle} · ${config.live.streams.first.label}',
+      subtitle: config.live.subtitle,
       fallbackImage: 'assets/branding/logo.png',
     ));
     await settle(tester);

@@ -7,12 +7,12 @@
     "streams": [
       {
         "id": "hq",
-        "label": "Calidad alta",
+        "label": "Principal",
         "url": "http://radio1.tecnicofm.com:8000/"
       },
       {
         "id": "mobile",
-        "label": "Ahorro de datos",
+        "label": "Respaldo",
         "url": "http://stream.euskadigital.eus:8000/edmvl"
       }
     ],

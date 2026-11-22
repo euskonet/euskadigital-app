@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../config/app_config.dart';
 import '../../services/download_manager.dart';
 import '../../services/library_store.dart';
 import '../../services/settings_store.dart';
@@ -21,7 +20,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     final settings = context.watch<SettingsStore>();
     final lib = context.watch<LibraryStore>();
-    final live = context.read<AppConfig>().live;
     final theme = Theme.of(context);
 
     Widget header(String t) => Padding(
@@ -44,16 +42,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ],
               selected: {settings.themeMode},
               onSelectionChanged: (s) => settings.themeMode = s.first,
-            ),
-          ),
-          header('Directo'),
-          RadioGroup<String>(
-            groupValue: live.streamById(settings.liveStreamId).id,
-            onChanged: (v) => settings.liveStreamId = v,
-            child: Column(
-              children: [
-                for (final s in live.streams) RadioListTile<String>(value: s.id, title: Text(s.label)),
-              ],
             ),
           ),
           header('Descargas'),

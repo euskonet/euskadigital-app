@@ -146,31 +146,35 @@ class PlayerService extends ChangeNotifier {
 
   // ---------------------------------------------------------------- directo
 
-  Future<void> playLive({String? streamId}) async {
+  /// Reproduce el directo. Usa el primer stream de la configuración y, si
+  /// no responde, prueba automáticamente los siguientes (respaldo).
+  Future<void> playLive({bool restart = false}) async {
     final live = _config.live;
-    final stream = live.streamById(streamId ?? _settings.liveStreamId);
-    if (isLiveActive && streamId == null) return togglePlay();
+    if (isLiveActive && !restart) return togglePlay();
     _saveCurrentProgress(force: true);
     _current = NowPlaying(
       id: liveId,
       title: live.title,
-      subtitle: '${live.subtitle} · ${stream.label}',
+      subtitle: live.subtitle,
       fallbackImage: 'assets/branding/logo.png',
     );
     _error = null;
     notifyListeners();
-    try {
-      await _player.setAudioSource(AudioSource.uri(
-        Uri.parse(stream.url),
-        tag: MediaItem(id: liveId, title: live.title, album: live.subtitle, artist: 'EuskaDigital'),
-      ));
-      await _player.setSpeed(1);
-      unawaited(_player.play());
-    } catch (err) {
-      debugPrint('Error en directo: $err');
-      _error = 'El directo no está disponible ahora mismo.';
-      notifyListeners();
+    for (final stream in live.streams) {
+      try {
+        await _player.setAudioSource(AudioSource.uri(
+          Uri.parse(stream.url),
+          tag: MediaItem(id: liveId, title: live.title, album: live.subtitle, artist: 'EuskaDigital'),
+        ));
+        await _player.setSpeed(1);
+        unawaited(_player.play());
+        return;
+      } catch (err) {
+        debugPrint('Stream ${stream.id} no disponible: $err');
+      }
     }
+    _error = 'El directo no está disponible ahora mismo.';
+    notifyListeners();
   }
 
   // --------------------------------------------------------------- control
@@ -185,7 +189,7 @@ class PlayerService extends ChangeNotifier {
       }
       if (isLiveActive) {
         // En directo, reanudar = volver al punto actual de la emisión.
-        await playLive(streamId: _settings.liveStreamId ?? _config.live.streams.first.id);
+        await playLive(restart: true);
         return;
       }
       unawaited(_player.play());
