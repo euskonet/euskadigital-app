@@ -250,7 +250,6 @@ void main() {
         id: e.id,
         title: e.title,
         subtitle: config.programById(e.feedId)!.title,
-        imageUrl: feeds.programImage(e.feedId),
         fallbackImage: config.programById(e.feedId)!.fallbackImage,
         episode: e,
       ),

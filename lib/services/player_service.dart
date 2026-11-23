@@ -168,8 +168,7 @@ class PlayerService extends ChangeNotifier {
     }
     _saveCurrentProgress(force: true);
     final title = programTitle ?? _config.programById(e.feedId)?.title ?? _config.name;
-    // Portada del programa; la del episodio solo si no hay otra.
-    final image = programImage ?? e.imageUrl;
+    final image = e.imageUrl ?? programImage;
     _current = NowPlaying(
       id: e.id,
       title: e.title,

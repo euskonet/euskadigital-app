@@ -36,8 +36,7 @@ class EpisodeActions {
           e,
           programTitle: v.programTitle,
           fallbackImage: v.fallbackAsset,
-          // Al reproducir se muestra la portada del programa, no la del episodio.
-          programImage: context.read<FeedRepository>().programImage(e.feedId),
+          programImage: v.imageUrl,
         );
   }
 
