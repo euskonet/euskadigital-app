@@ -196,6 +196,8 @@ void main() {
     await pumpApp(tester, ThemeMode.light);
     await tester.tap(find.text('Programas').last);
     await settle(tester);
+    await tester.scrollUntilVisible(find.text('EnRedAndo'), 200, scrollable: find.byType(Scrollable).last);
+    await settle(tester);
     await tester.tap(find.text('EnRedAndo'));
     await shot(tester, '04_programa');
   });
@@ -273,6 +275,8 @@ void main() {
     await prefs.setStringList('alerts.programs', ['enredando']);
     await pumpApp(tester, ThemeMode.light);
     await tester.tap(find.text('Programas').last);
+    await settle(tester);
+    await tester.scrollUntilVisible(find.text('EnRedAndo'), 200, scrollable: find.byType(Scrollable).last);
     await settle(tester);
     await tester.tap(find.text('EnRedAndo'));
     await shot(tester, '12_programa_aviso');

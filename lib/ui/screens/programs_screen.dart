@@ -34,7 +34,7 @@ class ProgramsScreen extends StatelessWidget {
                     maxCrossAxisExtent: 200,
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
-                    childAspectRatio: 0.74,
+                    childAspectRatio: 0.7,
                   ),
                   itemCount: group.programs.length,
                   itemBuilder: (context, i) => _ProgramCard(program: group.programs[i]),
@@ -69,11 +69,15 @@ class _ProgramCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Artwork(
-            url: state.channel?.imageUrl,
-            fallbackAsset: program.fallbackImage,
-            radius: 20,
-            heroTag: 'program-${program.id}',
+          // La portada ocupa el espacio que dejan los textos: con títulos
+          // de dos líneas o letra grande se reduce en vez de desbordarse.
+          Flexible(
+            child: Artwork(
+              url: state.channel?.imageUrl,
+              fallbackAsset: program.fallbackImage,
+              radius: 20,
+              heroTag: 'program-${program.id}',
+            ),
           ),
           const SizedBox(height: 8),
           Text(program.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: theme.textTheme.titleSmall),
