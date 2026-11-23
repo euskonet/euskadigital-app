@@ -16,6 +16,7 @@ import 'package:euskadigital/services/feed_repository.dart';
 import 'package:euskadigital/services/library_store.dart';
 import 'package:euskadigital/services/player_service.dart';
 import 'package:euskadigital/services/settings_store.dart';
+import 'package:euskadigital/services/twitch_live_service.dart';
 import 'package:euskadigital/ui/app_shell.dart';
 import 'package:euskadigital/ui/screens/home_screen.dart';
 import 'package:euskadigital/ui/screens/player_screen.dart';
@@ -87,6 +88,7 @@ void main() {
   late FeedRepository feeds;
   late PlayerService player;
   late SharedPreferences prefs;
+  late TwitchLiveService twitchLive;
 
   setUpAll(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
@@ -148,6 +150,10 @@ void main() {
     final continuing2 = feeds.state(config.allPrograms[0].id).items[0];
     library.saveProgress(continuing2, continuing2.duration! * 0.7, continuing2.duration);
     player = PlayerService(config, library, settings);
+    // Capturas con el canal «en directo» para mostrar la tarjeta.
+    twitchLive = TwitchLiveService('euskadigital', autoStart: false)
+      ..debugDisablePreview = true
+      ..debugSetLive(config.twitch != null);
   });
 
   Widget app(ThemeMode mode) => MultiProvider(
@@ -157,6 +163,7 @@ void main() {
           ChangeNotifierProvider.value(value: library),
           ChangeNotifierProvider.value(value: feeds),
           ChangeNotifierProvider(create: (_) => AlertsStore(prefs)),
+          ChangeNotifierProvider<TwitchLiveService?>.value(value: twitchLive),
           ChangeNotifierProvider(create: (_) => DownloadManager(library, settings)),
           ChangeNotifierProvider.value(value: player),
         ],

@@ -14,6 +14,7 @@ import 'services/feed_repository.dart';
 import 'services/library_store.dart';
 import 'services/player_service.dart';
 import 'services/settings_store.dart';
+import 'services/twitch_live_service.dart';
 import 'ui/app_shell.dart';
 import 'ui/theme.dart';
 
@@ -53,6 +54,10 @@ Future<void> main() async {
       ChangeNotifierProvider.value(value: library),
       ChangeNotifierProvider.value(value: feeds),
       ChangeNotifierProvider(create: (_) => AlertsStore(prefs)),
+      if (config.twitch != null)
+        ChangeNotifierProvider<TwitchLiveService?>(create: (_) => TwitchLiveService(config.twitch!.channel))
+      else
+        Provider<TwitchLiveService?>.value(value: null),
       ChangeNotifierProvider(create: (_) => DownloadManager(library, settings)),
       ChangeNotifierProvider(create: (_) => PlayerService(config, library, settings), lazy: false),
     ],
