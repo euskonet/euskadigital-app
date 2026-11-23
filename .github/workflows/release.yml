@@ -9,10 +9,12 @@ name: Release
 on:
   push:
     tags: ['v*']
+  # Lanzamiento manual desde la pestaña Actions: crea la etiqueta (si no
+  # existe) sobre la rama elegida y publica la release.
   workflow_dispatch:
     inputs:
       tag:
-        description: Etiqueta existente a publicar (p. ej. v3.0.0)
+        description: Etiqueta de la versión (p. ej. v3.0.0)
         required: true
 
 permissions:
@@ -25,8 +27,6 @@ jobs:
       TAG: ${{ github.event.inputs.tag || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ env.TAG }}
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -81,5 +81,5 @@ jobs:
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" $FILES --clobber
           else
-            gh release create "$TAG" $FILES --title "EuskaDigital $V" --notes-file "$NOTES" --verify-tag
+            gh release create "$TAG" $FILES --title "EuskaDigital $V" --notes-file "$NOTES" --target "$GITHUB_SHA"
           fi
