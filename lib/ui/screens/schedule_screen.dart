@@ -31,7 +31,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) context.read<ScheduleService>().refresh();
       });
-      // Actualiza «en antena» y quita lo que va terminando.
+      // Actualiza «en directo» y quita lo que va terminando.
       _tick = Timer.periodic(const Duration(minutes: 1), (_) => setState(() {}));
     }
   }
@@ -182,7 +182,7 @@ class _EntryTile extends StatelessWidget {
                   if (onAir)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 2),
-                      child: Text('EN ANTENA',
+                      child: Text('EN DIRECTO',
                           style: theme.textTheme.labelSmall?.copyWith(
                               color: scheme.primary, fontWeight: FontWeight.w800, letterSpacing: 0.8)),
                     ),
