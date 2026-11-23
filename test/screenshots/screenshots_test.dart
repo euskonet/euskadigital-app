@@ -280,7 +280,7 @@ void main() {
         id: PlayerService.liveId,
         title: config.live.title,
         subtitle: config.live.subtitle,
-        fallbackImage: 'assets/branding/logo.png',
+        fallbackImage: 'assets/branding/logo_margenes.png',
       ),
     );
     await settle(tester);

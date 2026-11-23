@@ -156,7 +156,7 @@ class PlayerService extends ChangeNotifier {
       id: liveId,
       title: live.title,
       subtitle: live.subtitle,
-      fallbackImage: 'assets/branding/logo.png',
+      fallbackImage: 'assets/branding/logo_margenes.png',
     );
     _error = null;
     notifyListeners();

@@ -84,6 +84,7 @@ flutter:
   assets:
     - assets/config/
     - assets/branding/logo.png
+    - assets/branding/logo_margenes.png
     - assets/images/
     - assets/images/programs/
 
