@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/episode.dart';
@@ -6,6 +5,7 @@ import '../../services/feed_parser.dart';
 import '../format.dart';
 import '../screens/article_screen.dart';
 import 'artwork.dart';
+import 'net_image.dart';
 
 /// Tarjeta de noticia. En modo compacto, imagen pequeña a la izquierda.
 class NewsCard extends StatelessWidget {
@@ -60,7 +60,7 @@ class NewsCard extends StatelessWidget {
                 children: [
                   if (item.imageUrl != null)
                     // Imagen entera, con su proporción original (sin recortar).
-                    CachedNetworkImage(
+                    NetImage(
                       imageUrl: item.imageUrl!,
                       width: double.infinity,
                       fit: BoxFit.fitWidth,

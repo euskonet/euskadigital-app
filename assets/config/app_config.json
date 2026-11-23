@@ -45,25 +45,25 @@
         {
           "id": "conferencias",
           "title": "Conferencias",
-          "feedUrl": "http://conferencias.euskadigital.net/?feed=podcast",
+          "feedUrl": "https://www.euskadigital.eus/contenidos/programas/conferencias/feed/",
           "fallbackImage": "assets/images/programs/conferencias.png"
         },
         {
           "id": "enredando",
           "title": "EnRedAndo",
-          "feedUrl": "https://enredando.euskadigital.eus/feed/podcast/",
+          "feedUrl": "https://www.euskadigital.eus/contenidos/programas/enredando/feed/",
           "fallbackImage": "assets/images/programs/enredando.png"
         },
         {
           "id": "gaming-room",
           "title": "Gaming Room",
-          "feedUrl": "https://gamingroom.euskadigital.eus/feed/podcast",
+          "feedUrl": "https://www.euskadigital.eus/contenidos/programas/gamingroom/feed/",
           "fallbackImage": "assets/images/programs/gaming-room.png"
         },
         {
           "id": "sarean-zehar",
           "title": "Sarean Zehar",
-          "feedUrl": "http://feeds.feedburner.com/SareanZehar",
+          "feedUrl": "https://www.euskadigital.eus/contenidos/programas/sareanzehar/feed/",
           "fallbackImage": "assets/images/programs/sarean-zehar.png"
         }
       ]
@@ -80,19 +80,19 @@
         {
           "id": "ecdqemsd",
           "title": "En Caso de que El Mundo se Desintegre",
-          "feedUrl": "http://www.canaltrans.com/podcast/rssaudio.xml",
+          "feedUrl": "https://audioboom.com/channels/3716163.rss",
           "fallbackImage": "assets/images/programs/ecdqemsd.png"
         },
         {
           "id": "game-over",
           "title": "Game Over",
-          "feedUrl": "http://feeds2.feedburner.com/portalgameover",
+          "feedUrl": "https://feeds2.feedburner.com/portalgameover",
           "fallbackImage": "assets/images/programs/game-over.png"
         },
         {
           "id": "la-hora-retrona",
           "title": "La Hora Retrona",
-          "feedUrl": "https://www.ivoox.com/hora-retrona-podcast_fg_f1248924_filtro_1.xml",
+          "feedUrl": "https://feeds.ivoox.com/feed_fg_f1248924_filtro_1.xml",
           "fallbackImage": "assets/images/programs/la-hora-retrona.png"
         }
       ]

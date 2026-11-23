@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../config/app_config.dart';
 import '../../services/twitch_live_service.dart';
 import '../screens/twitch_screen.dart';
+import 'net_image.dart';
 
 /// Tarjeta de Inicio que solo aparece mientras el canal de Twitch está en
 /// directo, con la vista previa de la emisión.
@@ -46,7 +46,7 @@ class TwitchCard extends StatelessWidget {
                                       color: Color(0xFF6E33CC),
                                       child: Icon(Icons.live_tv_rounded, color: Colors.white),
                                     )
-                                  : CachedNetworkImage(
+                                  : NetImage(
                                       imageUrl: live.previewUrl!,
                                       fit: BoxFit.cover,
                                       placeholder: (_, _) => const ColoredBox(color: Color(0xFF6E33CC)),

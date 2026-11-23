@@ -54,3 +54,7 @@ test/**/failures/
 
 # Capturas para la tienda (se generan con --dart-define=STORE=true)
 test/screenshots/goldens_store/
+
+# Datos reales para capturas (tool/descargar_datos_reales.py)
+test/screenshots/real_data/
+test/screenshots/goldens_real/

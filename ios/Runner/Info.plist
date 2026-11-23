@@ -77,28 +77,14 @@
 				<key>NSIncludesSubdomains</key>
 				<false/>
 			</dict>
-			<key>conferencias.euskadigital.net</key>
+			<key>www.portalgameover.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 				<key>NSIncludesSubdomains</key>
 				<false/>
-			</dict>
-			<key>canaltrans.com</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
 			</dict>
 			<key>feeds.feedburner.com</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<false/>
-			</dict>
-			<key>feeds2.feedburner.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>

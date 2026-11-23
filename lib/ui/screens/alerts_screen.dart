@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../config/app_config.dart';
 import '../../services/alerts_store.dart';
+import '../../services/feed_repository.dart';
 import '../widgets/artwork.dart';
 
 /// Muestra el resultado de activar/desactivar avisos.
@@ -49,6 +50,7 @@ class AlertsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final config = context.read<AppConfig>();
     final alerts = context.watch<AlertsStore>();
+    final feeds = context.watch<FeedRepository>();
     final theme = Theme.of(context);
     final all = config.allPrograms.map((p) => p.id);
     final allOn = alerts.count == config.allPrograms.length;
@@ -81,7 +83,7 @@ class AlertsScreen extends StatelessWidget {
             ),
             for (final p in group.programs)
               SwitchListTile(
-                secondary: Artwork(fallbackAsset: p.fallbackImage, size: 40, radius: 8),
+                secondary: Artwork(url: feeds.programImage(p.id), fallbackAsset: p.fallbackImage, size: 40, radius: 8),
                 title: Text(p.title),
                 value: alerts.isOn(p.id),
                 onChanged: (_) async {

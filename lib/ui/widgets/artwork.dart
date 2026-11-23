@@ -1,7 +1,8 @@
 import 'dart:ui' as ui;
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
+import 'net_image.dart';
 
 /// Portada en un hueco cuadrado con esquinas redondeadas.
 ///
@@ -42,7 +43,7 @@ class Artwork extends StatelessWidget {
 
     Widget img = (url == null || url!.isEmpty)
         ? fallback()
-        : CachedNetworkImage(
+        : NetImage(
             imageUrl: url!,
             fadeInDuration: const Duration(milliseconds: 200),
             imageBuilder: (_, provider) => fitted(provider),

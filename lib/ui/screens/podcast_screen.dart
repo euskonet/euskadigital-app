@@ -77,11 +77,13 @@ class _PodcastScreenState extends State<PodcastScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(channel?.title.isNotEmpty == true ? channel!.title : widget.program.title,
-                                  style: theme.textTheme.headlineSmall),
-                              if (channel?.author != null) ...[
+                              // El nombre de la configuración: los feeds de WordPress
+                              // añaden « - EuskaDigital» al título del canal.
+                              Text(widget.program.title, style: theme.textTheme.headlineSmall),
+                              if (channel?.author != null &&
+                                  !channel!.author!.toLowerCase().contains(widget.program.title.toLowerCase())) ...[
                                 const SizedBox(height: 4),
-                                Text(channel!.author!,
+                                Text(channel.author!,
                                     style: theme.textTheme.bodyMedium?.copyWith(color: scheme.primary)),
                               ],
                               const SizedBox(height: 12),

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -6,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../models/episode.dart';
 import '../format.dart';
 import '../widgets/html_body.dart';
+import '../widgets/net_image.dart';
 
 /// Lectura de una noticia.
 class ArticleScreen extends StatelessWidget {
@@ -45,7 +45,7 @@ class ArticleScreen extends StatelessWidget {
           if (showHero) ...[
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: CachedNetworkImage(imageUrl: item.imageUrl!, fit: BoxFit.cover),
+              child: NetImage(imageUrl: item.imageUrl!, fit: BoxFit.cover),
             ),
             const SizedBox(height: 20),
           ],

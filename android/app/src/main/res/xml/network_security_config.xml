@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Por defecto solo HTTPS. Excepciones para los servidores que todavía
-     sirven audio o feeds por HTTP. Eliminar cuando migren a HTTPS. -->
+     sirven audio por HTTP. Eliminar cuando migren a HTTPS. -->
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
+        <!-- Streams de la radio en directo -->
         <domain includeSubdomains="false">radio1.tecnicofm.com</domain>
         <domain includeSubdomains="false">stream.euskadigital.eus</domain>
-        <domain includeSubdomains="false">conferencias.euskadigital.net</domain>
-        <domain includeSubdomains="true">canaltrans.com</domain>
+        <!-- Audios del podcast Game Over -->
+        <domain includeSubdomains="false">www.portalgameover.com</domain>
+        <!-- Feed de El Gato de Turing (FeedBurner por HTTP) -->
         <domain includeSubdomains="false">feeds.feedburner.com</domain>
-        <domain includeSubdomains="false">feeds2.feedburner.com</domain>
     </domain-config>
 </network-security-config>

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,6 +11,7 @@ import '../../services/player_service.dart';
 import '../format.dart';
 import '../widgets/common.dart';
 import '../widgets/embedded_web.dart';
+import '../widgets/net_image.dart';
 
 /// Miniatura 16:9 de un vídeo con su título y fecha.
 class VideoCard extends StatelessWidget {
@@ -37,7 +37,7 @@ class VideoCard extends StatelessWidget {
                 fit: StackFit.expand,
                 children: [
                   if (video.imageUrl != null)
-                    CachedNetworkImage(
+                    NetImage(
                       imageUrl: video.imageUrl!,
                       fit: BoxFit.cover,
                       placeholder: (_, _) => ColoredBox(color: scheme.surfaceContainerHighest),
