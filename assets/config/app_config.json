@@ -6,14 +6,19 @@
     "subtitle": "Radio online",
     "streams": [
       {
-        "id": "hq",
+        "id": "principal",
         "label": "Principal",
         "url": "http://radio1.tecnicofm.com:8000/"
       },
       {
-        "id": "mobile",
-        "label": "Respaldo",
-        "url": "http://stream.euskadigital.eus:8000/edmvl"
+        "id": "euskonet",
+        "label": "EuskaDigital (128 kbps)",
+        "url": "https://stream.euskonet.eus/euskadigital"
+      },
+      {
+        "id": "euskonet-movil",
+        "label": "EuskaDigital móvil (32 kbps)",
+        "url": "https://stream.euskonet.eus/edmvl"
       }
     ],
     "offAirText": "El resto del día tienes a tu disposición Fórmula Digital, la selección musical de EuskaDigital."

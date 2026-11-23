@@ -70,13 +70,6 @@
 				<key>NSIncludesSubdomains</key>
 				<false/>
 			</dict>
-			<key>stream.euskadigital.eus</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<false/>
-			</dict>
 			<key>www.portalgameover.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>

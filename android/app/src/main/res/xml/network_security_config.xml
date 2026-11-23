@@ -5,7 +5,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <!-- Streams de la radio en directo -->
         <domain includeSubdomains="false">radio1.tecnicofm.com</domain>
-        <domain includeSubdomains="false">stream.euskadigital.eus</domain>
         <!-- Audios del podcast Game Over -->
         <domain includeSubdomains="false">www.portalgameover.com</domain>
     </domain-config>
