@@ -70,6 +70,14 @@ class LiveConfig {
   final String subtitle;
   /// En orden de preferencia: el primero es el principal y el resto, respaldo.
   final List<LiveStream> streams;
+
+  /// ¿Hay streams de las dos calidades? (si no, no se muestra el selector)
+  bool get hasQualityChoice => LiveQuality.values.every((q) => streams.any((s) => s.quality == q));
+
+  /// Streams a probar para una calidad: primero los de esa calidad y, si
+  /// todos fallan, los demás.
+  List<LiveStream> streamsFor(LiveQuality q) =>
+      [...streams.where((s) => s.quality == q), ...streams.where((s) => s.quality != q)];
   final String? offAirText;
 
   factory LiveConfig.fromJson(Map<String, dynamic> j) => LiveConfig(
@@ -83,16 +91,21 @@ class LiveConfig {
       );
 }
 
+/// Calidad del directo que elige el usuario en el reproductor.
+enum LiveQuality { high, low }
+
 class LiveStream {
-  LiveStream({required this.id, required this.label, required this.url});
+  LiveStream({required this.id, required this.label, required this.url, this.quality = LiveQuality.high});
   final String id;
   final String label;
   final String url;
+  final LiveQuality quality;
 
   factory LiveStream.fromJson(Map<String, dynamic> j) => LiveStream(
         id: j['id'] as String,
         label: j['label'] as String,
         url: j['url'] as String,
+        quality: j['quality'] == 'low' ? LiveQuality.low : LiveQuality.high,
       );
 }
 

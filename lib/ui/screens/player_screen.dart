@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../config/app_config.dart';
 import '../../services/player_service.dart';
 import '../format.dart';
 import '../widgets/artwork.dart';
@@ -209,6 +210,19 @@ class _BottomActions extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               child: Text(speedLabel(player.speed), style: Theme.of(context).textTheme.titleMedium),
             ),
+          ),
+        if (isLive && context.read<AppConfig>().live.hasQualityChoice)
+          PopupMenuButton<LiveQuality>(
+            tooltip: player.liveQuality == LiveQuality.high ? 'Calidad: alta' : 'Calidad: baja',
+            initialValue: player.liveQuality,
+            onSelected: player.setLiveQuality,
+            icon: Icon(player.liveQuality == LiveQuality.high
+                ? Icons.signal_cellular_alt_rounded
+                : Icons.signal_cellular_alt_1_bar_rounded),
+            itemBuilder: (_) => [
+              for (final (q, label) in [(LiveQuality.high, 'Alta'), (LiveQuality.low, 'Baja')])
+                CheckedPopupMenuItem(value: q, checked: player.liveQuality == q, child: Text(label)),
+            ],
           ),
         PopupMenuButton<int>(
           tooltip: 'Temporizador',

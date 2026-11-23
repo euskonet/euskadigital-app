@@ -160,7 +160,7 @@ class PlayerService extends ChangeNotifier {
     );
     _error = null;
     notifyListeners();
-    for (final stream in live.streams) {
+    for (final stream in live.streamsFor(_settings.liveQuality)) {
       try {
         await _player.setAudioSource(AudioSource.uri(
           Uri.parse(stream.url),
@@ -175,6 +175,16 @@ class PlayerService extends ChangeNotifier {
     }
     _error = 'El directo no está disponible ahora mismo.';
     notifyListeners();
+  }
+
+  LiveQuality get liveQuality => _settings.liveQuality;
+
+  /// Cambia la calidad del directo; si está sonando, continúa con la nueva.
+  Future<void> setLiveQuality(LiveQuality q) async {
+    if (q == _settings.liveQuality) return;
+    _settings.liveQuality = q;
+    notifyListeners();
+    if (isLiveActive && (_player.playing || buffering)) await playLive(restart: true);
   }
 
   // --------------------------------------------------------------- control

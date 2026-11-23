@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../config/app_config.dart';
+
 /// Preferencias del usuario.
 class SettingsStore extends ChangeNotifier {
   SettingsStore(this._prefs);
@@ -17,6 +19,12 @@ class SettingsStore extends ChangeNotifier {
   bool get wifiOnlyDownloads => _prefs.getBool('wifiOnlyDownloads') ?? true;
   set wifiOnlyDownloads(bool v) {
     _prefs.setBool('wifiOnlyDownloads', v);
+    notifyListeners();
+  }
+
+  LiveQuality get liveQuality => _prefs.getString('liveQuality') == 'low' ? LiveQuality.low : LiveQuality.high;
+  set liveQuality(LiveQuality v) {
+    _prefs.setString('liveQuality', v.name);
     notifyListeners();
   }
 
