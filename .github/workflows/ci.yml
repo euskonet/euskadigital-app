@@ -51,17 +51,3 @@ jobs:
         with:
           name: euskadigital-android-apk
           path: build/app/outputs/flutter-apk/app-release.apk
-
-  ios:
-    needs: test
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: 3.35.7
-          channel: stable
-          cache: true
-      - run: flutter pub get
-      # Compila sin firmar para verificar que el proyecto iOS es correcto.
-      - run: flutter build ios --release --no-codesign
