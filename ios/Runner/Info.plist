@@ -84,13 +84,6 @@
 				<key>NSIncludesSubdomains</key>
 				<false/>
 			</dict>
-			<key>feeds.feedburner.com</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<false/>
-			</dict>
 		</dict>
 	</dict>
 	<key>UIStatusBarHidden</key>

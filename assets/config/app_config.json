@@ -74,7 +74,7 @@
         {
           "id": "el-gato-de-turing",
           "title": "El Gato de Turing",
-          "feedUrl": "http://feeds.feedburner.com/elgatodeturing",
+          "feedUrl": "https://elgatodeturing.com/feed/podcast/el-gato-de-turing/",
           "fallbackImage": "assets/images/programs/el-gato-de-turing.png"
         },
         {

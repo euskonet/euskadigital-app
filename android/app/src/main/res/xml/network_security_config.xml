@@ -8,7 +8,5 @@
         <domain includeSubdomains="false">stream.euskadigital.eus</domain>
         <!-- Audios del podcast Game Over -->
         <domain includeSubdomains="false">www.portalgameover.com</domain>
-        <!-- Feed de El Gato de Turing (FeedBurner por HTTP) -->
-        <domain includeSubdomains="false">feeds.feedburner.com</domain>
     </domain-config>
 </network-security-config>
