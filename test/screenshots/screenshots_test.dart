@@ -97,6 +97,13 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     prefs = await SharedPreferences.getInstance();
     config = await AppConfig.load();
+    if (_store) {
+      // Las capturas de la tienda no pueden mostrar marcas de terceros (Twitch).
+      final raw = jsonDecode(await rootBundle.loadString('assets/config/app_config.json')) as Map<String, dynamic>;
+      raw.remove('twitch');
+      (raw['links'] as List).removeWhere((l) => l['id'] == 'twitch');
+      config = AppConfig.fromJson(raw);
+    }
     settings = SettingsStore(prefs);
     library = LibraryStore(prefs);
     feeds = FeedRepository(config);
@@ -244,14 +251,14 @@ void main() {
     await shot(tester, '08_portada_apaisada');
   });
 
-  testWidgets('twitch', (tester) async {
+  testWidgets('twitch', skip: _store, (tester) async {
     WebViewPlatform.instance = FakeWebViewPlatform();
     await pumpApp(tester, ThemeMode.light);
     TwitchScreen.open(tester.element(find.byType(HomeScreen)), config.twitch!);
     await shot(tester, '09_twitch');
   });
 
-  testWidgets('twitch (oscuro)', (tester) async {
+  testWidgets('twitch (oscuro)', skip: _store, (tester) async {
     WebViewPlatform.instance = FakeWebViewPlatform();
     await pumpApp(tester, ThemeMode.dark);
     TwitchScreen.open(tester.element(find.byType(HomeScreen)), config.twitch!);
