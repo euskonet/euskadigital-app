@@ -1,0 +1,85 @@
+name: Release
+
+# Al subir una etiqueta de versión (p. ej. v3.0.0) se compila la app de
+# Android y se publica una release con el APK y el AAB para Google Play.
+#
+# Firma: si existen los secretos ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD,
+# ANDROID_KEY_ALIAS y ANDROID_KEY_PASSWORD se firma con esa clave; si no, con la
+# clave de depuración (válida para instalar, no para Google Play).
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Etiqueta existente a publicar (p. ej. v3.0.0)
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.35.7
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter test --exclude-tags screenshots
+
+      - name: Clave de firma
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          if [ -n "$KEYSTORE_B64" ]; then
+            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+            cat > android/key.properties <<PROPS
+          storeFile=$RUNNER_TEMP/upload.jks
+          storePassword=$KEYSTORE_PASSWORD
+          keyAlias=$KEY_ALIAS
+          keyPassword=$KEY_PASSWORD
+          PROPS
+            echo "SIGNED=release" >> "$GITHUB_ENV"
+          else
+            echo "::warning::Sin clave de firma: se usa la clave de depuración."
+            echo "SIGNED=debug" >> "$GITHUB_ENV"
+          fi
+
+      - run: flutter build apk --release
+      - run: flutter build appbundle --release
+
+      - name: Publicar release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          V="${TAG#v}"
+          mkdir -p dist
+          cp build/app/outputs/flutter-apk/app-release.apk "dist/EuskaDigital-$V.apk"
+          FILES="dist/EuskaDigital-$V.apk"
+          # El AAB solo sirve para Google Play si está firmado con la clave de subida.
+          if [ "$SIGNED" = "release" ]; then
+            cp build/app/outputs/bundle/release/app-release.aab "dist/EuskaDigital-$V.aab"
+            FILES="$FILES dist/EuskaDigital-$V.aab"
+          fi
+          NOTES=".github/release/notas-$V.md"
+          [ -f "$NOTES" ] || { echo "EuskaDigital $V" > "$RUNNER_TEMP/notes.md"; NOTES="$RUNNER_TEMP/notes.md"; }
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" $FILES --clobber
+          else
+            gh release create "$TAG" $FILES --title "EuskaDigital $V" --notes-file "$NOTES" --verify-tag
+          fi
