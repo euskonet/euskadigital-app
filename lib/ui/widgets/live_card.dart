@@ -26,10 +26,7 @@ class LiveCard extends StatelessWidget {
           child: Stack(
             children: [
               Positioned.fill(
-                child: Opacity(
-                  opacity: 0.28,
-                  child: Image.asset('assets/images/live_cover.png', fit: BoxFit.cover),
-                ),
+                child: Opacity(opacity: 0.28, child: Image.asset('assets/images/live_cover.png', fit: BoxFit.cover)),
               ),
               Positioned.fill(
                 child: DecoratedBox(
@@ -52,11 +49,14 @@ class LiveCard extends StatelessWidget {
                         children: [
                           _LiveBadge(pulsing: playing),
                           const SizedBox(height: 12),
-                          Text(live.title,
-                              style: theme.textTheme.headlineSmall?.copyWith(color: Colors.white)),
+                          Text(live.title, style: theme.textTheme.headlineSmall?.copyWith(color: Colors.white)),
                           const SizedBox(height: 4),
                           Text(
-                            playing ? 'Sonando ahora' : live.subtitle,
+                            playing
+                                ? (player.liveTrack != null ? '♪ ${player.liveTrack}' : 'Sonando ahora')
+                                : live.subtitle,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white70),
                           ),
                         ],
@@ -116,8 +116,7 @@ class _LiveBadge extends StatefulWidget {
 }
 
 class _LiveBadgeState extends State<_LiveBadge> with SingleTickerProviderStateMixin {
-  late final AnimationController _c =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 900));
+  late final AnimationController _c = AnimationController(vsync: this, duration: const Duration(milliseconds: 900));
 
   @override
   void didUpdateWidget(covariant _LiveBadge old) {
@@ -159,8 +158,10 @@ class _LiveBadgeState extends State<_LiveBadge> with SingleTickerProviderStateMi
             child: const CircleAvatar(radius: 4, backgroundColor: brandRed),
           ),
           const SizedBox(width: 6),
-          const Text('EN DIRECTO',
-              style: TextStyle(color: brandRed, fontWeight: FontWeight.w800, fontSize: 12, letterSpacing: 0.8)),
+          const Text(
+            'EN DIRECTO',
+            style: TextStyle(color: brandRed, fontWeight: FontWeight.w800, fontSize: 12, letterSpacing: 0.8),
+          ),
         ],
       ),
     );

@@ -39,14 +39,24 @@ class PlayerScreen extends StatelessWidget {
     }
 
     return LayoutBuilder(builder: (context, c) {
-      final art = (c.maxWidth - 64).clamp(160.0, c.maxHeight * 0.42);
+      final art = (c.maxWidth - 64).clamp(120.0, c.maxHeight * 0.42);
       return Padding(
         padding: const EdgeInsets.fromLTRB(32, 0, 32, 24),
         child: Column(
           children: [
-            const Spacer(),
-            Artwork(url: now.imageUrl, fallbackAsset: now.fallbackImage, size: art, radius: 28),
-            const Spacer(),
+            // La portada ocupa el espacio libre y se encoge si falta sitio
+            // (pantallas bajas, letra grande, título de la canción...).
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: art, maxHeight: art),
+                    child: Artwork(url: now.imageUrl, fallbackAsset: now.fallbackImage, radius: 28),
+                  ),
+                ),
+              ),
+            ),
             Text(now.subtitle.toUpperCase(),
                 textAlign: TextAlign.center,
                 maxLines: 1,
@@ -58,6 +68,25 @@ class PlayerScreen extends StatelessWidget {
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.headlineSmall),
+            if (player.liveTrack != null) ...[
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.music_note_rounded, size: 18, color: scheme.onSurfaceVariant),
+                  const SizedBox(width: 6),
+                  Flexible(
+                    child: Text(
+                      player.liveTrack!,
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.titleMedium?.copyWith(color: scheme.onSurfaceVariant),
+                    ),
+                  ),
+                ],
+              ),
+            ],
             if (player.error != null) ...[
               const SizedBox(height: 8),
               Text(player.error!, style: TextStyle(color: scheme.error)),

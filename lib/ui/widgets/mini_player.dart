@@ -42,18 +42,22 @@ class MiniPlayer extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(now.title,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: theme.textTheme.titleSmall
-                                          ?.copyWith(color: scheme.onSecondaryContainer)),
-                                  Text(player.error ?? now.subtitle,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: theme.textTheme.bodySmall?.copyWith(
-                                          color: player.error != null
-                                              ? scheme.error
-                                              : scheme.onSecondaryContainer.withValues(alpha: 0.8))),
+                                  Text(
+                                    now.title,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: theme.textTheme.titleSmall?.copyWith(color: scheme.onSecondaryContainer),
+                                  ),
+                                  Text(
+                                    player.error ?? (player.liveTrack != null ? '♪ ${player.liveTrack}' : now.subtitle),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: theme.textTheme.bodySmall?.copyWith(
+                                      color: player.error != null
+                                          ? scheme.error
+                                          : scheme.onSecondaryContainer.withValues(alpha: 0.8),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -68,9 +72,10 @@ class MiniPlayer extends StatelessWidget {
                               onPressed: player.togglePlay,
                               icon: player.buffering
                                   ? const SizedBox.square(
-                                      dimension: 22, child: CircularProgressIndicator(strokeWidth: 2.5))
-                                  : Icon(player.playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
-                                      size: 30),
+                                      dimension: 22,
+                                      child: CircularProgressIndicator(strokeWidth: 2.5),
+                                    )
+                                  : Icon(player.playing ? Icons.pause_rounded : Icons.play_arrow_rounded, size: 30),
                             ),
                             IconButton(
                               tooltip: 'Cerrar',

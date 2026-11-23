@@ -39,6 +39,15 @@ class NowPlaying {
 class PlayerService extends ChangeNotifier {
   PlayerService(this._config, this._library, this._settings) {
     _player.playerStateStream.listen((_) => notifyListeners());
+    // Título de lo que suena en el directo (metadatos ICY del stream).
+    _player.icyMetadataStream.listen((m) {
+      if (!isLiveActive) return;
+      final t = cleanTrackTitle(m?.info?.title);
+      if (t != _liveTrack) {
+        _liveTrack = t;
+        notifyListeners();
+      }
+    });
     _player.processingStateStream.listen(_onProcessingState);
     _player.positionStream.listen(_onPosition);
     _player.playbackEventStream.listen((_) {}, onError: (Object e, StackTrace st) {
@@ -56,6 +65,7 @@ class PlayerService extends ChangeNotifier {
   final AudioPlayer _player = AudioPlayer();
 
   NowPlaying? _current;
+  String? _liveTrack;
   String? _error;
   DateTime _lastSave = DateTime.fromMillisecondsSinceEpoch(0);
   Timer? _sleepTimer;
@@ -64,6 +74,28 @@ class PlayerService extends ChangeNotifier {
 
   AudioPlayer get player => _player;
   NowPlaying? get current => _current;
+
+  /// Lo que está sonando en el directo («Artista - Canción»), si el stream
+  /// lo envía.
+  String? get liveTrack => isLiveActive ? _liveTrack : null;
+
+  /// Limpia el título ICY: vacío, guiones sueltos o identificadores sin
+  /// sentido se descartan.
+  static String? cleanTrackTitle(String? raw) {
+    final t = raw?.trim().replaceAll(RegExp(r'\s+'), ' ');
+    if (t == null || t.isEmpty || t == '-' || t == ' - ') return null;
+    if (RegExp(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', caseSensitive: false).hasMatch(t)) {
+      return null;
+    }
+    return t;
+  }
+
+  /// Fija el título del directo sin reproducir (capturas y tests).
+  @visibleForTesting
+  void debugSetLiveTrack(String? t) {
+    _liveTrack = t;
+    notifyListeners();
+  }
   String? get error => _error;
   bool get playing => _player.playing;
   bool get isLiveActive => _current?.isLive ?? false;
@@ -152,6 +184,7 @@ class PlayerService extends ChangeNotifier {
     final live = _config.live;
     if (isLiveActive && !restart) return togglePlay();
     _saveCurrentProgress(force: true);
+    _liveTrack = null;
     _current = NowPlaying(
       id: liveId,
       title: live.title,
@@ -224,6 +257,7 @@ class PlayerService extends ChangeNotifier {
     _saveCurrentProgress(force: true);
     await _player.stop();
     _current = null;
+    _liveTrack = null;
     cancelSleepTimer();
     notifyListeners();
   }
