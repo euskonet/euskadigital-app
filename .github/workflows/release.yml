@@ -16,6 +16,10 @@ on:
       tag:
         description: Etiqueta de la versión (p. ej. v3.0.0)
         required: true
+      replace:
+        description: Rehacer la release y la etiqueta sobre el commit actual si ya existen
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -63,6 +67,9 @@ jobs:
       - run: flutter build apk --release
       - run: flutter build appbundle --release
 
+      - name: Certificado de firma
+        run: keytool -printcert -jarfile build/app/outputs/flutter-apk/app-release.apk | grep -E "Owner|SHA1:|SHA256:"
+
       - name: Publicar release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -78,6 +85,9 @@ jobs:
           fi
           NOTES=".github/release/notas-$V.md"
           [ -f "$NOTES" ] || { echo "EuskaDigital $V" > "$RUNNER_TEMP/notes.md"; NOTES="$RUNNER_TEMP/notes.md"; }
+          if [ "${{ github.event.inputs.replace }}" = "true" ] && gh release view "$TAG" >/dev/null 2>&1; then
+            gh release delete "$TAG" --cleanup-tag --yes
+          fi
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" $FILES --clobber
           else
