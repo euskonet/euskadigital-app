@@ -10,6 +10,7 @@ class AppConfig {
     required this.contactEmail,
     required this.live,
     this.twitch,
+    this.youtube,
     required this.news,
     required this.programGroups,
     required this.links,
@@ -19,6 +20,7 @@ class AppConfig {
   final String contactEmail;
   final LiveConfig live;
   final TwitchConfig? twitch;
+  final YouTubeConfig? youtube;
   final NewsConfig news;
   final List<ProgramGroup> programGroups;
   final List<LinkConfig> links;
@@ -43,6 +45,7 @@ class AppConfig {
         contactEmail: j['contactEmail'] as String,
         live: LiveConfig.fromJson(j['live'] as Map<String, dynamic>),
         twitch: j['twitch'] == null ? null : TwitchConfig.fromJson(j['twitch'] as Map<String, dynamic>),
+        youtube: j['youtube'] == null ? null : YouTubeConfig.fromJson(j['youtube'] as Map<String, dynamic>),
         news: NewsConfig.fromJson(j['news'] as Map<String, dynamic>),
         programGroups: [
           for (final g in j['programGroups'] as List)
@@ -113,6 +116,20 @@ class TwitchConfig {
         title: j['title'] as String,
         subtitle: j['subtitle'] as String?,
       );
+}
+
+/// Canal de YouTube: lista de vídeos (feed público del canal) y reproductor.
+class YouTubeConfig {
+  YouTubeConfig({required this.channelId, required this.title});
+
+  final String channelId;
+  final String title;
+
+  String get feedUrl => 'https://www.youtube.com/feeds/videos.xml?channel_id=$channelId';
+  String get channelUrl => 'https://www.youtube.com/channel/$channelId';
+
+  factory YouTubeConfig.fromJson(Map<String, dynamic> j) =>
+      YouTubeConfig(channelId: j['channelId'] as String, title: j['title'] as String);
 }
 
 class NewsConfig {

@@ -24,6 +24,10 @@
     "title": "EuskaDigital en Twitch",
     "subtitle": "Directos en vídeo y chat"
   },
+  "youtube": {
+    "channelId": "UC2XQhr7SNke-6B7tdCdX0AA",
+    "title": "Vídeos"
+  },
   "news": {
     "title": "Noticias",
     "feedUrl": "https://www.euskadigital.eus/contenidos/noticias/feed/"
@@ -117,6 +121,13 @@
       "icon": "twitch",
       "url": "https://www.twitch.tv/euskadigital",
       "inApp": true
+    },
+    {
+      "id": "youtube",
+      "title": "YouTube",
+      "subtitle": "Canal de EuskaDigital",
+      "icon": "youtube",
+      "url": "https://www.youtube.com/channel/UC2XQhr7SNke-6B7tdCdX0AA"
     },
     {
       "id": "x",

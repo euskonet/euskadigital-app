@@ -15,6 +15,7 @@ class MoreScreen extends StatelessWidget {
         'calendar' => Icons.calendar_month_rounded,
         'web' => Icons.language_rounded,
         'twitch' => Icons.live_tv_rounded,
+        'youtube' => Icons.smart_display_outlined,
         'x' => Icons.alternate_email_rounded,
         'facebook' => Icons.facebook_rounded,
         'feedback' => Icons.mail_outline_rounded,

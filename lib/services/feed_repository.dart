@@ -42,6 +42,7 @@ class FeedRepository extends ChangeNotifier {
   final void Function(String feedId, ParsedFeed feed)? onFeedLoaded;
 
   static const newsId = 'news';
+  static const videosId = 'youtube';
   static const _maxAge = Duration(minutes: 30);
 
   final AppConfig config;
@@ -52,6 +53,7 @@ class FeedRepository extends ChangeNotifier {
   FeedState state(String feedId) => _states[feedId] ?? const FeedState();
 
   FeedState get news => state(newsId);
+  FeedState get videos => state(videosId);
 
   /// Imagen de portada del programa (del feed si existe).
   String? programImage(String programId) => state(programId).channel?.imageUrl;
@@ -81,10 +83,17 @@ class FeedRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _urlFor(String feedId) =>
-      feedId == newsId ? config.news.feedUrl : config.programById(feedId)!.feedUrl;
+  String _urlFor(String feedId) => switch (feedId) {
+        newsId => config.news.feedUrl,
+        videosId => config.youtube!.feedUrl,
+        _ => config.programById(feedId)!.feedUrl,
+      };
 
-  Iterable<String> get _allIds => [newsId, ...config.allPrograms.map((p) => p.id)];
+  Iterable<String> get _allIds => [
+        newsId,
+        if (config.youtube != null) videosId,
+        ...config.allPrograms.map((p) => p.id),
+      ];
 
   /// Carga la caché local de todos los feeds y luego los refresca.
   Future<void> init() async {

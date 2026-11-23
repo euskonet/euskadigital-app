@@ -11,6 +11,7 @@ import 'package:euskadigital/config/app_config.dart';
 import 'package:euskadigital/models/episode.dart';
 import 'package:euskadigital/services/alerts_store.dart';
 import 'package:euskadigital/services/download_manager.dart';
+import 'package:euskadigital/services/feed_parser.dart';
 import 'package:euskadigital/services/feed_repository.dart';
 import 'package:euskadigital/services/library_store.dart';
 import 'package:euskadigital/services/player_service.dart';
@@ -101,7 +102,8 @@ void main() {
       // Las capturas de la tienda no pueden mostrar marcas de terceros (Twitch).
       final raw = jsonDecode(await rootBundle.loadString('assets/config/app_config.json')) as Map<String, dynamic>;
       raw.remove('twitch');
-      (raw['links'] as List).removeWhere((l) => l['id'] == 'twitch');
+      raw.remove('youtube');
+      (raw['links'] as List).removeWhere((l) => l['id'] == 'twitch' || l['id'] == 'youtube');
       config = AppConfig.fromJson(raw);
     }
     settings = SettingsStore(prefs);
@@ -130,6 +132,17 @@ void main() {
           ),
       ]),
     );
+    if (config.youtube != null) {
+      // Sin miniaturas: la caché de imágenes de red no funciona en los tests.
+      final yt = FeedParser.parse(File('test/fixtures/youtube.xml').readAsStringSync(), feedId: FeedRepository.videosId);
+      feeds.seed(
+        FeedRepository.videosId,
+        ParsedFeed(channel: yt.channel, items: [
+          for (final v in yt.items)
+            Episode(id: v.id, feedId: v.feedId, title: v.title, link: v.link, pubDate: v.pubDate, description: v.description),
+        ]),
+      );
+    }
     final continuing = feeds.state(config.allPrograms[2].id).items[1];
     library.saveProgress(continuing, continuing.duration! * 0.4, continuing.duration);
     final continuing2 = feeds.state(config.allPrograms[0].id).items[0];

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:webview_flutter_android/webview_flutter_android.dart';
-import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 import '../../config/app_config.dart';
 import '../../services/player_service.dart';
+import '../widgets/embedded_web.dart';
 
 /// Canal de Twitch integrado: reproductor de vídeo arriba y chat debajo.
 ///
@@ -29,131 +27,45 @@ class TwitchScreen extends StatefulWidget {
   State<TwitchScreen> createState() => _TwitchScreenState();
 }
 
-class _TwitchScreenState extends State<TwitchScreen> {
+class _TwitchScreenState extends State<TwitchScreen> with FullscreenWebHost<TwitchScreen> {
   late final WebViewController _video;
   late final WebViewController _chat;
   bool _showChat = true;
 
   TwitchConfig get c => widget.config;
-  String get _base => 'https://${c.parentDomain}/';
+
+  /// Twitch exige declarar los dominios de la página que inserta el
+  /// reproductor; se incluyen con y sin www por seguridad.
+  String get _parents {
+    final host = Uri.parse(EmbeddedWeb.baseUrl).host;
+    return {host, host.replaceFirst('www.', ''), c.parentDomain}.map((h) => 'parent=$h').join('&');
+  }
 
   @override
   void initState() {
     super.initState();
-    _video = _createController(media: true)
+    _video = EmbeddedWeb.controller(media: true, fullscreenHost: this)
       ..loadHtmlString(
-        _page(
-          'https://player.twitch.tv/?channel=${c.channel}&parent=${c.parentDomain}&autoplay=true&muted=false',
+        EmbeddedWeb.page(
+          'https://player.twitch.tv/?channel=${c.channel}&$_parents&autoplay=true&muted=false',
           background: '#000000',
         ),
-        baseUrl: _base,
+        baseUrl: EmbeddedWeb.baseUrl,
       );
-    _chat = _createController(media: false);
+    _chat = EmbeddedWeb.controller(media: false);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final dark = Theme.of(context).brightness == Brightness.dark;
-    final bg = dark ? '#18181b' : '#ffffff';
     _chat.loadHtmlString(
-      _page(
-        'https://www.twitch.tv/embed/${c.channel}/chat?parent=${c.parentDomain}${dark ? '&darkpopout' : ''}',
-        background: bg,
+      EmbeddedWeb.page(
+        'https://www.twitch.tv/embed/${c.channel}/chat?$_parents${dark ? '&darkpopout' : ''}',
+        background: dark ? '#18181b' : '#ffffff',
       ),
-      baseUrl: _base,
+      baseUrl: EmbeddedWeb.baseUrl,
     );
-  }
-
-  WebViewController _createController({required bool media}) {
-    PlatformWebViewControllerCreationParams params = const PlatformWebViewControllerCreationParams();
-    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
-      // iOS: reproducir dentro de la página (no saltar a pantalla completa).
-      params = WebKitWebViewControllerCreationParams(
-        allowsInlineMediaPlayback: true,
-        mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
-      );
-    }
-    final controller = WebViewController.fromPlatformCreationParams(params)
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(media ? Colors.black : Colors.transparent)
-      ..setNavigationDelegate(NavigationDelegate(
-        onNavigationRequest: (req) {
-          // La página inicial y los iframes de Twitch se cargan dentro;
-          // cualquier otro enlace (perfil, suscripción...) va fuera.
-          if (!req.isMainFrame || req.url == _base || req.url.startsWith('about:')) {
-            return NavigationDecision.navigate;
-          }
-          launchUrl(Uri.parse(req.url), mode: LaunchMode.externalApplication);
-          return NavigationDecision.prevent;
-        },
-      ));
-
-    final platform = controller.platform;
-    if (platform is AndroidWebViewController) {
-      platform.setMediaPlaybackRequiresUserGesture(false);
-      if (media) {
-        platform.setCustomWidgetCallbacks(
-          onShowCustomWidget: (widget, onHidden) => _enterFullscreen(widget, onHidden),
-          onHideCustomWidget: _exitFullscreen,
-        );
-      }
-    }
-    return controller;
-  }
-
-  static String _page(String src, {required String background}) => '''
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<style>
-  html, body { margin: 0; padding: 0; height: 100%; background: $background; overflow: hidden; }
-  iframe { border: 0; width: 100%; height: 100%; display: block; }
-</style>
-</head>
-<body>
-<iframe src="$src" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
-</body>
-</html>''';
-
-  // ------------------------------------------------- pantalla completa (Android)
-
-  bool _fullscreen = false;
-
-  void _enterFullscreen(Widget video, VoidCallback onHidden) {
-    if (_fullscreen) return;
-    _fullscreen = true;
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
-    Navigator.of(context, rootNavigator: true)
-        .push(PageRouteBuilder(
-          opaque: true,
-          pageBuilder: (_, _, _) => PopScope(
-            onPopInvokedWithResult: (didPop, _) {
-              if (didPop) onHidden();
-            },
-            child: ColoredBox(color: Colors.black, child: video),
-          ),
-        ))
-        .then((_) => _restoreSystemUi());
-  }
-
-  void _exitFullscreen() {
-    if (!_fullscreen) return;
-    Navigator.of(context, rootNavigator: true).maybePop();
-  }
-
-  void _restoreSystemUi() {
-    _fullscreen = false;
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    SystemChrome.setPreferredOrientations(const []);
-  }
-
-  @override
-  void dispose() {
-    if (_fullscreen) _restoreSystemUi();
-    super.dispose();
   }
 
   // ------------------------------------------------------------------- UI

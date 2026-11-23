@@ -74,4 +74,17 @@ void main() {
       expect(FeedParser.stripHtml('<p>Hola&nbsp;<b>mundo</b> &amp; &#8230;</p>'), 'Hola mundo & …');
     });
   });
+
+  test('lee el feed de vídeos de YouTube', () {
+    final feed = FeedParser.parse(File('test/fixtures/youtube.xml').readAsStringSync(), feedId: 'youtube');
+    expect(feed.channel.title, 'EuskaDigital');
+    expect(feed.items, hasLength(15));
+    final v = feed.items.first;
+    expect(FeedParser.youtubeVideoId(v), '7Jcg3B6bNcE');
+    expect(v.link, 'https://www.youtube.com/watch?v=7Jcg3B6bNcE');
+    expect(v.imageUrl, 'https://i.ytimg.com/vi/7Jcg3B6bNcE/hqdefault.jpg');
+    expect(v.description, startsWith('Continuamos la octava temporada'));
+    expect(v.pubDate, DateTime.utc(2026, 11, 16, 18, 0, 7));
+    expect(v.hasAudio, isFalse);
+  });
 }

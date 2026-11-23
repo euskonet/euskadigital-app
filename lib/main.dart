@@ -36,7 +36,7 @@ Future<void> main() async {
     config,
     // Lo que ya se ha visto en la app no se notifica después.
     onFeedLoaded: (id, feed) {
-      if (id != FeedRepository.newsId) EpisodeAlerts.rememberSeen(prefs, id, feed.items);
+      if (config.programById(id) != null) EpisodeAlerts.rememberSeen(prefs, id, feed.items);
     },
   )..init();
 

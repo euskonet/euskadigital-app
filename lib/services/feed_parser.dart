@@ -88,7 +88,10 @@ class FeedParser {
     final items = <Episode>[];
     for (final e in _children(feed, 'entry')) {
       final content = _text(_child(e, 'content'));
-      final summary = _text(_child(e, 'summary'));
+      // Feeds de YouTube: descripción y miniatura dentro de <media:group>.
+      final group = _child(e, 'group', ns: 'media');
+      final videoId = _text(_child(e, 'videoId', ns: 'yt'));
+      final summary = _text(_child(e, 'summary')) ?? _text(_child(group, 'description', ns: 'media'));
       final enclosure = linkOf(e, rel: 'enclosure');
       items.add(Episode(
         id: _text(_child(e, 'id')) ?? linkOf(e) ?? '${feedId}_${items.length}',
@@ -99,7 +102,9 @@ class FeedParser {
         link: linkOf(e),
         pubDate: parseDate(_text(_child(e, 'published')) ?? _text(_child(e, 'updated'))),
         audioUrl: enclosure,
-        imageUrl: _mediaImage(e) ?? firstImageInHtml(content ?? summary ?? ''),
+        imageUrl: videoId != null
+            ? 'https://i.ytimg.com/vi/$videoId/hqdefault.jpg'
+            : _mediaImage(e) ?? (group == null ? null : _mediaImage(group)) ?? firstImageInHtml(content ?? summary ?? ''),
         author: _text(_child(_child(e, 'author'), 'name')),
       ));
     }
@@ -113,6 +118,7 @@ class FeedParser {
     'content': 'http://purl.org/rss/1.0/modules/content/',
     'media': 'http://search.yahoo.com/mrss/',
     'dc': 'http://purl.org/dc/elements/1.1/',
+    'yt': 'http://www.youtube.com/xml/schemas/2015',
   };
 
   static bool _matches(XmlElement e, String local, String? ns) {
@@ -226,5 +232,12 @@ class FeedParser {
       secs = secs * 60 + p!;
     }
     return secs > 0 ? Duration(seconds: secs) : null;
+  }
+
+  /// Identificador de vídeo de YouTube de un elemento (id `yt:video:…` o enlace).
+  static String? youtubeVideoId(Episode e) {
+    if (e.id.startsWith('yt:video:')) return e.id.substring(9);
+    final m = RegExp(r'(?:v=|youtu\.be/|/embed/)([A-Za-z0-9_-]{11})').firstMatch(e.link ?? '');
+    return m?.group(1);
   }
 }

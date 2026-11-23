@@ -10,6 +10,7 @@ import '../widgets/episode_tile.dart';
 import '../widgets/live_card.dart';
 import '../widgets/news_card.dart';
 import '../widgets/twitch_card.dart';
+import 'videos_screen.dart';
 import 'episode_screen.dart';
 
 /// Inicio: directo, continuar escuchando, últimos episodios y noticias.
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget {
     final latest = feeds.latestEpisodes(limit: 12);
     final news = feeds.news.items.take(3).toList();
     final inProgress = lib.inProgress.take(10).toList();
+    final videos = feeds.videos.items.take(8).toList();
     final loadingFirstTime = latest.isEmpty && feeds.config.allPrograms.any((p) => feeds.state(p.id).loading);
 
     return Scaffold(
@@ -49,6 +51,16 @@ class HomeScreen extends StatelessWidget {
             ),
             const SliverToBoxAdapter(child: LiveCard()),
             const SliverToBoxAdapter(child: TwitchCard()),
+            if (videos.isNotEmpty) ...[
+              SliverToBoxAdapter(
+                child: SectionHeader(
+                  'Últimos vídeos',
+                  action: 'Ver todos',
+                  onAction: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VideosScreen())),
+                ),
+              ),
+              SliverToBoxAdapter(child: LatestVideosRow(videos: videos)),
+            ],
             if (inProgress.isNotEmpty) ...[
               const SliverToBoxAdapter(child: SectionHeader('Continúa escuchando')),
               SliverToBoxAdapter(child: _ContinueRow(episodes: inProgress)),
