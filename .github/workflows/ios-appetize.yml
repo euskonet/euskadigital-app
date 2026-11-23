@@ -48,12 +48,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
-            gh release create "$RELEASE_TAG" --prerelease --target "$GITHUB_SHA" \
-              --title "Pruebas: iOS en simulador" \
-              --notes "Compilación de pruebas para el simulador de iOS (Appetize). No es una versión publicada."
-          fi
-          gh release upload "$RELEASE_TAG" "$ZIP_NAME" --clobber
+          # Si la pre-release ya existe, se reutiliza.
+          gh release create "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --prerelease --target "$GITHUB_SHA" \
+            --title "Pruebas: iOS en simulador" \
+            --notes "Compilación de pruebas para el simulador de iOS (Appetize). No es una versión publicada." \
+            || echo "La pre-release $RELEASE_TAG ya existe; se actualiza el fichero."
+          gh release upload "$RELEASE_TAG" "$ZIP_NAME" --repo "$GITHUB_REPOSITORY" --clobber
 
       - name: Subir a Appetize
         env:
