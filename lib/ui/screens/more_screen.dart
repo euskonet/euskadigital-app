@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../config/app_config.dart';
+import 'schedule_screen.dart';
 import 'settings_screen.dart';
 import 'twitch_screen.dart';
 import 'webview_screen.dart';
@@ -27,6 +28,8 @@ class MoreScreen extends StatelessWidget {
     final twitch = context.read<AppConfig>().twitch;
     if (link.id == 'twitch' && twitch != null) {
       TwitchScreen.open(context, twitch);
+    } else if (link.id == 'schedule' && context.read<AppConfig>().schedule != null) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ScheduleScreen()));
     } else if (link.inApp) {
       Navigator.of(context).push(MaterialPageRoute(
         builder: (_) => WebViewScreen(title: link.title, url: link.url),

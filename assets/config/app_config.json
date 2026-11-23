@@ -36,6 +36,10 @@
     "channelId": "UC2XQhr7SNke-6B7tdCdX0AA",
     "title": "Vídeos"
   },
+  "schedule": {
+    "url": "https://www.euskadigital.eus/social/eventos.php",
+    "title": "Parrilla de programación"
+  },
   "news": {
     "title": "Noticias",
     "feedUrl": "https://www.euskadigital.eus/contenidos/noticias/feed/"
@@ -115,7 +119,7 @@
       "title": "Parrilla de programación",
       "subtitle": "Qué emitimos y cuándo",
       "icon": "calendar",
-      "url": "https://calendar.google.com/calendar/embed?mode=AGENDA&showTitle=0&showNav=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&hl=es&ctz=Europe%2FMadrid&src=gomtuc8coeunmn6jgb9g13dj6k%40group.calendar.google.com",
+      "url": "https://www.euskadigital.eus/social/calendario-vertical.html",
       "inApp": true
     },
     {

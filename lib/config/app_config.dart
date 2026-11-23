@@ -11,6 +11,7 @@ class AppConfig {
     required this.live,
     this.twitch,
     this.youtube,
+    this.schedule,
     required this.news,
     required this.programGroups,
     required this.links,
@@ -21,6 +22,7 @@ class AppConfig {
   final LiveConfig live;
   final TwitchConfig? twitch;
   final YouTubeConfig? youtube;
+  final ScheduleConfig? schedule;
   final NewsConfig news;
   final List<ProgramGroup> programGroups;
   final List<LinkConfig> links;
@@ -46,6 +48,7 @@ class AppConfig {
         live: LiveConfig.fromJson(j['live'] as Map<String, dynamic>),
         twitch: j['twitch'] == null ? null : TwitchConfig.fromJson(j['twitch'] as Map<String, dynamic>),
         youtube: j['youtube'] == null ? null : YouTubeConfig.fromJson(j['youtube'] as Map<String, dynamic>),
+        schedule: j['schedule'] == null ? null : ScheduleConfig.fromJson(j['schedule'] as Map<String, dynamic>),
         news: NewsConfig.fromJson(j['news'] as Map<String, dynamic>),
         programGroups: [
           for (final g in j['programGroups'] as List)
@@ -143,6 +146,16 @@ class YouTubeConfig {
 
   factory YouTubeConfig.fromJson(Map<String, dynamic> j) =>
       YouTubeConfig(channelId: j['channelId'] as String, title: j['title'] as String);
+}
+
+/// Parrilla de programación del emisor (JSON, la misma fuente que la web).
+class ScheduleConfig {
+  ScheduleConfig({required this.url, required this.title});
+  final String url;
+  final String title;
+
+  factory ScheduleConfig.fromJson(Map<String, dynamic> j) =>
+      ScheduleConfig(url: j['url'] as String, title: j['title'] as String? ?? 'Parrilla de programación');
 }
 
 class NewsConfig {

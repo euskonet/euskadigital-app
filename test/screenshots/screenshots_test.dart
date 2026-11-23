@@ -15,11 +15,14 @@ import 'package:euskadigital/services/feed_parser.dart';
 import 'package:euskadigital/services/feed_repository.dart';
 import 'package:euskadigital/services/library_store.dart';
 import 'package:euskadigital/services/player_service.dart';
+import 'package:euskadigital/services/schedule_service.dart';
 import 'package:euskadigital/services/settings_store.dart';
 import 'package:euskadigital/services/twitch_live_service.dart';
 import 'package:euskadigital/ui/app_shell.dart';
 import 'package:euskadigital/ui/screens/home_screen.dart';
 import 'package:euskadigital/ui/screens/player_screen.dart';
+import 'package:euskadigital/ui/screens/more_screen.dart';
+import 'package:euskadigital/ui/screens/schedule_screen.dart';
 import 'package:euskadigital/ui/screens/twitch_screen.dart';
 import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
 
@@ -194,6 +197,9 @@ void main() {
       ChangeNotifierProvider.value(value: library),
       ChangeNotifierProvider.value(value: feeds),
       ChangeNotifierProvider(create: (_) => AlertsStore(prefs)),
+      ChangeNotifierProvider(
+        create: (_) => ScheduleService(config, prefs)..debugSetBody(File('test/fixtures/parrilla.json').readAsStringSync()),
+      ),
       ChangeNotifierProvider<TwitchLiveService?>.value(value: twitchLive),
       ChangeNotifierProvider(create: (_) => DownloadManager(library, settings)),
       ChangeNotifierProvider.value(value: player),
@@ -354,6 +360,16 @@ void main() {
     await settle(tester);
     await tester.tap(find.text('EnRedAndo'));
     await shot(tester, '12_programa_aviso');
+  });
+
+  testWidgets('parrilla', (tester) async {
+    await pumpApp(tester, ThemeMode.light);
+    await tester.tap(find.text('Más').last);
+    await settle(tester);
+    // Lunes 23 a las 20:30, en mitad de Gaming Room (datos del emisor guardados en el test).
+    Navigator.of(tester.element(find.byType(MoreScreen)))
+        .push(MaterialPageRoute(builder: (_) => ScheduleScreen(now: DateTime(2026, 11, 23, 20, 30))));
+    await shot(tester, '13_parrilla');
   });
 }
 
