@@ -139,6 +139,14 @@
       "icon": "feedback",
       "url": "https://docs.google.com/forms/d/1U4ArhAep20Qy1ChUlCmMk8diqco3Wv0HZA3qJ3eBwQk/viewform",
       "inApp": true
+    },
+    {
+      "id": "privacy",
+      "title": "Política de privacidad",
+      "subtitle": "Aviso legal de EuskaDigital",
+      "icon": "privacy",
+      "url": "https://www.euskadigital.eus/terminos-condiciones-webs/",
+      "inApp": true
     }
   ]
 }

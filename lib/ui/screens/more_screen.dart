@@ -18,6 +18,7 @@ class MoreScreen extends StatelessWidget {
         'x' => Icons.alternate_email_rounded,
         'facebook' => Icons.facebook_rounded,
         'feedback' => Icons.mail_outline_rounded,
+        'privacy' => Icons.privacy_tip_outlined,
         _ => Icons.link_rounded,
       };
 
@@ -39,8 +40,9 @@ class MoreScreen extends StatelessWidget {
     final config = context.read<AppConfig>();
     final theme = Theme.of(context);
     final main = config.links.where((l) => l.id == 'schedule' || l.id == 'web').toList();
-    final social = config.links.where((l) => l.id != 'schedule' && l.id != 'web' && l.id != 'contact').toList();
-    final contact = config.links.where((l) => l.id == 'contact').toList();
+    const appLinks = {'contact', 'privacy'};
+    final social = config.links.where((l) => l.id != 'schedule' && l.id != 'web' && !appLinks.contains(l.id)).toList();
+    final contact = config.links.where((l) => appLinks.contains(l.id)).toList();
 
     Widget group(String title, List<Widget> children) => Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
