@@ -15,7 +15,7 @@ permissions:
   contents: write
 
 env:
-  APPETIZE_PUBLIC_KEY: ''
+  APPETIZE_PUBLIC_KEY: 'tfpkz7ld6nzt2ynasemj4igaby'
   RELEASE_TAG: simulador-ios
   ZIP_NAME: EuskaDigital-simulador-ios.zip
 
@@ -70,10 +70,16 @@ jobs:
           else
             ENDPOINT="https://api.appetize.io/v1/apps"
           fi
-          RESP=$(curl -sS --fail-with-body -X POST "$ENDPOINT" \
+          # La respuesta incluye una clave privada: no se imprime nunca.
+          HTTP=$(curl -sS -o resp.json -w '%{http_code}' -X POST "$ENDPOINT" \
             -H "X-API-KEY: $APPETIZE_API_TOKEN" -H "Content-Type: application/json" -d "$BODY")
-          echo "$RESP"
-          KEY=$(echo "$RESP" | jq -r '.publicKey')
+          KEY=$(jq -r '.publicKey // empty' resp.json)
+          ERR=$(jq -r '.message // .error // empty' resp.json 2>/dev/null)
+          rm -f resp.json
+          if [ "$HTTP" != "200" ] || [ -z "$KEY" ]; then
+            echo "::error::Appetize respondió HTTP $HTTP ${ERR}"; exit 1
+          fi
+          echo "Subido a Appetize: https://appetize.io/app/$KEY (versión actualizada)"
           {
             echo "## iOS en el navegador"
             echo ""
