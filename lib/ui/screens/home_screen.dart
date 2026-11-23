@@ -51,16 +51,6 @@ class HomeScreen extends StatelessWidget {
             ),
             const SliverToBoxAdapter(child: LiveCard()),
             const SliverToBoxAdapter(child: TwitchCard()),
-            if (videos.isNotEmpty) ...[
-              SliverToBoxAdapter(
-                child: SectionHeader(
-                  'Últimos vídeos',
-                  action: 'Ver todos',
-                  onAction: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VideosScreen())),
-                ),
-              ),
-              SliverToBoxAdapter(child: LatestVideosRow(videos: videos)),
-            ],
             if (inProgress.isNotEmpty) ...[
               const SliverToBoxAdapter(child: SectionHeader('Continúa escuchando')),
               SliverToBoxAdapter(child: _ContinueRow(episodes: inProgress)),
@@ -87,6 +77,16 @@ class HomeScreen extends StatelessWidget {
                 itemCount: latest.length,
                 itemBuilder: (_, i) => EpisodeTile(episode: latest[i]),
               ),
+            if (videos.isNotEmpty) ...[
+              SliverToBoxAdapter(
+                child: SectionHeader(
+                  'Últimos vídeos',
+                  action: 'Ver todos',
+                  onAction: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VideosScreen())),
+                ),
+              ),
+              SliverToBoxAdapter(child: LatestVideosRow(videos: videos)),
+            ],
             if (news.isNotEmpty) ...[
               SliverToBoxAdapter(
                 child: SectionHeader('Noticias', action: 'Ver todas', onAction: () => onOpenTab(2)),
