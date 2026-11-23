@@ -16,10 +16,12 @@ void main() {
       ProgramConfig(id: 'enredando', title: 'EnRedAndo', feedUrl: ''),
       ProgramConfig(id: 'gaming-room', title: 'Gaming Room', feedUrl: ''),
       ProgramConfig(id: 'sarean-zehar', title: 'Sarean Zehar', feedUrl: ''),
+      ProgramConfig(id: 'ecdqemsd', title: 'En Caso de que El Mundo se Desintegre', feedUrl: '', aliases: ['ECDQEMSD']),
     ];
     expect(PlayerService.matchProgram('EnRedAndo 838 - La informática que se escucha', programs)?.id, 'enredando');
     expect(PlayerService.matchProgram('GAMING ROOM #135', programs)?.id, 'gaming-room');
     expect(PlayerService.matchProgram('Sarean-Zehar: especial', programs)?.id, 'sarean-zehar');
+    expect(PlayerService.matchProgram('ECDQEMSD S28 Ep6441', programs)?.id, 'ecdqemsd');
     expect(PlayerService.matchProgram('Drunksouls - No more fighting', programs), isNull);
   });
 }

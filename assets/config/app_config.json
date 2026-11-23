@@ -89,7 +89,10 @@
           "id": "ecdqemsd",
           "title": "En Caso de que El Mundo se Desintegre",
           "feedUrl": "https://audioboom.com/channels/3716163.rss",
-          "fallbackImage": "assets/images/programs/ecdqemsd.png"
+          "fallbackImage": "assets/images/programs/ecdqemsd.png",
+          "aliases": [
+            "ECDQEMSD"
+          ]
         },
         {
           "id": "game-over",

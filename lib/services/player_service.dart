@@ -86,13 +86,16 @@ class PlayerService extends ChangeNotifier {
     return track == null ? null : matchProgram(track, _config.allPrograms);
   }
 
-  /// Programa cuyo nombre aparece en el título (sin tildes, mayúsculas ni
-  /// signos: «EnRedAndo 838» → EnRedAndo).
+  /// Programa cuyo nombre (o alias) aparece en el título, sin tener en
+  /// cuenta tildes, mayúsculas ni signos: «EnRedAndo 838» → EnRedAndo,
+  /// «ECDQEMSD 6441» → En Caso de que El Mundo se Desintegre.
   static ProgramConfig? matchProgram(String track, List<ProgramConfig> programs) {
     final t = _normalize(track);
     for (final p in programs) {
-      final name = _normalize(p.title);
-      if (name.length >= 4 && t.contains(name)) return p;
+      for (final n in [p.title, ...p.aliases]) {
+        final name = _normalize(n);
+        if (name.length >= 4 && t.contains(name)) return p;
+      }
     }
     return null;
   }

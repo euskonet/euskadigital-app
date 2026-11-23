@@ -174,11 +174,16 @@ class ProgramConfig {
     required this.title,
     required this.feedUrl,
     this.fallbackImage,
+    this.aliases = const [],
   });
 
   final String id;
   final String title;
   final String feedUrl;
+
+  /// Otros nombres con los que aparece el programa (p. ej. siglas en el
+  /// título que envía el stream de la radio).
+  final List<String> aliases;
 
   /// Imagen local (asset) que se usa si el feed no trae portada.
   final String? fallbackImage;
@@ -188,6 +193,7 @@ class ProgramConfig {
         title: j['title'] as String,
         feedUrl: j['feedUrl'] as String,
         fallbackImage: j['fallbackImage'] as String?,
+        aliases: [for (final a in (j['aliases'] as List? ?? const [])) a as String],
       );
 }
 
