@@ -2,13 +2,13 @@ name: iOS
 
 # Compilación de iOS (sin firmar) para comprobar que el proyecto es correcto.
 # Va aparte del CI porque los Mac de GitHub tienen colas largas por falta de
-# capacidad: se lanza una vez por semana, al publicar una versión y a mano.
+# capacidad: se lanza una vez por semana y a mano, y el flujo Release lo llama
+# antes de publicar una versión.
 on:
   schedule:
     - cron: '17 3 * * 1'
-  push:
-    tags: ['v*']
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   ios:
