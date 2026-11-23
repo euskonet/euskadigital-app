@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/feed_repository.dart';
 import '../../services/player_service.dart';
 import '../screens/player_screen.dart';
 import 'artwork.dart';
@@ -36,7 +37,14 @@ class MiniPlayer extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(8, 8, 4, 6),
                         child: Row(
                           children: [
-                            Artwork(url: now.imageUrl, fallbackAsset: now.fallbackImage, size: 44, radius: 10),
+                            Artwork(
+                              url: player.liveProgram != null
+                                  ? context.watch<FeedRepository>().programImage(player.liveProgram!.id)
+                                  : now.imageUrl,
+                              fallbackAsset: player.liveProgram?.fallbackImage ?? now.fallbackImage,
+                              size: 44,
+                              radius: 10,
+                            ),
                             const SizedBox(width: 12),
                             Expanded(
                               child: Column(

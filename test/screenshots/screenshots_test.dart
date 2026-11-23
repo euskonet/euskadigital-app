@@ -285,7 +285,7 @@ void main() {
     );
     await settle(tester);
     PlayerScreen.show(tester.element(find.byType(AppShell)));
-    player.debugSetLiveTrack('Drunksouls - No more fighting');
+    player.debugSetLiveTrack('EnRedAndo 838');
     await shot(tester, '05_reproductor_directo');
   });
 

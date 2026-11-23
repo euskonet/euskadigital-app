@@ -79,6 +79,36 @@ class PlayerService extends ChangeNotifier {
   /// lo envía.
   String? get liveTrack => isLiveActive ? _liveTrack : null;
 
+  /// Programa propio que está sonando en el directo, si el título del
+  /// stream lo menciona (p. ej. «EnRedAndo 838»).
+  ProgramConfig? get liveProgram {
+    final track = liveTrack;
+    return track == null ? null : matchProgram(track, _config.allPrograms);
+  }
+
+  /// Programa cuyo nombre aparece en el título (sin tildes, mayúsculas ni
+  /// signos: «EnRedAndo 838» → EnRedAndo).
+  static ProgramConfig? matchProgram(String track, List<ProgramConfig> programs) {
+    final t = _normalize(track);
+    for (final p in programs) {
+      final name = _normalize(p.title);
+      if (name.length >= 4 && t.contains(name)) return p;
+    }
+    return null;
+  }
+
+  static String _normalize(String s) {
+    const from = 'áàäâéèëêíìïîóòöôúùüûñç';
+    const to = 'aaaaeeeeiiiioooouuuunc';
+    final b = StringBuffer();
+    for (final ch in s.toLowerCase().split('')) {
+      final i = from.indexOf(ch);
+      final c = i >= 0 ? to[i] : ch;
+      if (RegExp(r'[a-z0-9]').hasMatch(c)) b.write(c);
+    }
+    return b.toString();
+  }
+
   /// Limpia el título ICY: vacío, guiones sueltos o identificadores sin
   /// sentido se descartan.
   static String? cleanTrackTitle(String? raw) {

@@ -52,11 +52,7 @@ class LiveCard extends StatelessWidget {
                           Text(live.title, style: theme.textTheme.headlineSmall?.copyWith(color: Colors.white)),
                           const SizedBox(height: 4),
                           Text(
-                            playing
-                                ? (player.liveTrack != null ? '♪ ${player.liveTrack}' : 'Sonando ahora')
-                                : live.subtitle,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
+                            playing ? 'Sonando ahora' : live.subtitle,
                             style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white70),
                           ),
                         ],

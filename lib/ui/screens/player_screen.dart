@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../config/app_config.dart';
+import '../../services/feed_repository.dart';
 import '../../services/player_service.dart';
 import '../format.dart';
 import '../widgets/artwork.dart';
@@ -12,18 +13,15 @@ class PlayerScreen extends StatelessWidget {
   const PlayerScreen({super.key});
 
   static Future<void> show(BuildContext context) => showModalBottomSheet(
-        context: context,
-        useRootNavigator: true,
-        isScrollControlled: true,
-        useSafeArea: true,
-        showDragHandle: true,
-        // SafeArea inferior: deja sitio a la barra de navegación / gestos de
-        // Android (la app se dibuja de borde a borde).
-        builder: (_) => const FractionallySizedBox(
-          heightFactor: 1,
-          child: SafeArea(top: false, child: PlayerScreen()),
-        ),
-      );
+    context: context,
+    useRootNavigator: true,
+    isScrollControlled: true,
+    useSafeArea: true,
+    showDragHandle: true,
+    // SafeArea inferior: deja sitio a la barra de navegación / gestos de
+    // Android (la app se dibuja de borde a borde).
+    builder: (_) => const FractionallySizedBox(heightFactor: 1, child: SafeArea(top: false, child: PlayerScreen())),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -38,69 +36,74 @@ class PlayerScreen extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    return LayoutBuilder(builder: (context, c) {
-      final art = (c.maxWidth - 64).clamp(120.0, c.maxHeight * 0.42);
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(32, 0, 32, 24),
-        child: Column(
-          children: [
-            // La portada ocupa el espacio libre y se encoge si falta sitio
-            // (pantallas bajas, letra grande, título de la canción...).
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Center(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: art, maxHeight: art),
-                    child: Artwork(url: now.imageUrl, fallbackAsset: now.fallbackImage, radius: 28),
+    // Si por la radio suena uno de nuestros programas, su portada.
+    final liveProgram = now.isLive ? player.liveProgram : null;
+    final feeds = context.watch<FeedRepository>();
+    final artUrl = liveProgram != null ? feeds.programImage(liveProgram.id) : now.imageUrl;
+    final artFallback = liveProgram?.fallbackImage ?? now.fallbackImage;
+
+    return LayoutBuilder(
+      builder: (context, c) {
+        final art = (c.maxWidth - 64).clamp(120.0, c.maxHeight * 0.42);
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(32, 0, 32, 24),
+          child: Column(
+            children: [
+              // La portada ocupa el espacio libre y se encoge si falta sitio
+              // (pantallas bajas, letra grande, títulos largos...).
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Center(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: art, maxHeight: art),
+                      child: Artwork(url: artUrl, fallbackAsset: artFallback, radius: 28),
+                    ),
                   ),
                 ),
               ),
-            ),
-            Text(now.subtitle.toUpperCase(),
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.labelLarge?.copyWith(color: scheme.primary, letterSpacing: 0.8)),
-            const SizedBox(height: 8),
-            Text(now.title,
-                textAlign: TextAlign.center,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.headlineSmall),
-            if (player.liveTrack != null) ...[
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.music_note_rounded, size: 18, color: scheme.onSurfaceVariant),
-                  const SizedBox(width: 6),
-                  Flexible(
-                    child: Text(
-                      player.liveTrack!,
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.titleMedium?.copyWith(color: scheme.onSurfaceVariant),
-                    ),
-                  ),
-                ],
-              ),
+              if (now.isLive) ...[
+                _LiveLabel(text: now.title),
+                const SizedBox(height: 10),
+                Text(
+                  player.liveTrack ?? now.subtitle,
+                  textAlign: TextAlign.center,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.headlineSmall,
+                ),
+              ] else ...[
+                Text(
+                  now.subtitle.toUpperCase(),
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.labelLarge?.copyWith(color: scheme.primary, letterSpacing: 0.8),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  now.title,
+                  textAlign: TextAlign.center,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.headlineSmall,
+                ),
+              ],
+              if (player.error != null) ...[
+                const SizedBox(height: 8),
+                Text(player.error!, style: TextStyle(color: scheme.error)),
+              ],
+              const SizedBox(height: 24),
+              if (!now.isLive) const _SeekBar(),
+              const SizedBox(height: 12),
+              _Controls(isLive: now.isLive),
+              const SizedBox(height: 16),
+              _BottomActions(isLive: now.isLive),
             ],
-            if (player.error != null) ...[
-              const SizedBox(height: 8),
-              Text(player.error!, style: TextStyle(color: scheme.error)),
-            ],
-            const SizedBox(height: 24),
-            if (now.isLive) const _LiveIndicator() else const _SeekBar(),
-            const SizedBox(height: 12),
-            _Controls(isLive: now.isLive),
-            const SizedBox(height: 16),
-            _BottomActions(isLive: now.isLive),
-          ],
-        ),
-      );
-    });
+          ),
+        );
+      },
+    );
   }
 }
 
@@ -157,17 +160,34 @@ class _SeekBarState extends State<_SeekBar> {
   }
 }
 
-class _LiveIndicator extends StatelessWidget {
-  const _LiveIndicator();
+/// «● EUSKADIGITAL EN DIRECTO»: una sola etiqueta para el directo.
+class _LiveLabel extends StatelessWidget {
+  const _LiveLabel({required this.text});
+  final String text;
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-      decoration: BoxDecoration(color: scheme.primary, borderRadius: BorderRadius.circular(10)),
-      child: Text('EN DIRECTO',
-          style: TextStyle(color: scheme.onPrimary, fontWeight: FontWeight.w800, letterSpacing: 1)),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(color: scheme.primary, shape: BoxShape.circle),
+        ),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(
+            text.toUpperCase(),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(
+              context,
+            ).textTheme.labelLarge?.copyWith(color: scheme.primary, fontWeight: FontWeight.w800, letterSpacing: 0.8),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -186,8 +206,7 @@ class _Controls extends StatelessWidget {
         style: FilledButton.styleFrom(shape: const CircleBorder(), padding: EdgeInsets.zero),
         onPressed: player.togglePlay,
         child: player.buffering
-            ? SizedBox.square(
-                dimension: 32, child: CircularProgressIndicator(strokeWidth: 3, color: scheme.onPrimary))
+            ? SizedBox.square(dimension: 32, child: CircularProgressIndicator(strokeWidth: 3, color: scheme.onPrimary))
             : Icon(player.playing ? Icons.pause_rounded : Icons.play_arrow_rounded, size: 48),
       ),
     );
@@ -224,7 +243,8 @@ class _BottomActions extends StatelessWidget {
     final player = context.watch<PlayerService>();
     final episode = player.current?.episode;
     final sleepActive = player.sleepAt != null || player.sleepAtEnd;
-    String speedLabel(double s) => '${s.toStringAsFixed(s == s.roundToDouble() ? 0 : 2).replaceAll(RegExp(r'0$'), '').replaceAll('.', ',')}×';
+    String speedLabel(double s) =>
+        '${s.toStringAsFixed(s == s.roundToDouble() ? 0 : 2).replaceAll(RegExp(r'0$'), '').replaceAll('.', ',')}×';
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -245,9 +265,11 @@ class _BottomActions extends StatelessWidget {
             tooltip: player.liveQuality == LiveQuality.high ? 'Calidad: alta' : 'Calidad: baja',
             initialValue: player.liveQuality,
             onSelected: player.setLiveQuality,
-            icon: Icon(player.liveQuality == LiveQuality.high
-                ? Icons.signal_cellular_alt_rounded
-                : Icons.signal_cellular_alt_1_bar_rounded),
+            icon: Icon(
+              player.liveQuality == LiveQuality.high
+                  ? Icons.signal_cellular_alt_rounded
+                  : Icons.signal_cellular_alt_1_bar_rounded,
+            ),
             itemBuilder: (_) => [
               for (final (q, label) in [(LiveQuality.high, 'Alta'), (LiveQuality.low, 'Baja')])
                 CheckedPopupMenuItem(value: q, checked: player.liveQuality == q, child: Text(label)),
@@ -255,8 +277,10 @@ class _BottomActions extends StatelessWidget {
           ),
         PopupMenuButton<int>(
           tooltip: 'Temporizador',
-          icon: Icon(sleepActive ? Icons.bedtime_rounded : Icons.bedtime_outlined,
-              color: sleepActive ? Theme.of(context).colorScheme.primary : null),
+          icon: Icon(
+            sleepActive ? Icons.bedtime_rounded : Icons.bedtime_outlined,
+            color: sleepActive ? Theme.of(context).colorScheme.primary : null,
+          ),
           onSelected: (m) {
             if (m == 0) {
               player.cancelSleepTimer();
