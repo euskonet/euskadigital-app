@@ -1,0 +1,85 @@
+name: iOS en el navegador (Appetize)
+
+# Compila la app para el simulador de iOS y la publica en Appetize.io para
+# probarla desde el navegador. Se lanza a mano desde Actions.
+#
+# Requisitos:
+#   - Secreto APPETIZE_API_TOKEN (Appetize → Settings → API token).
+#   - Tras la primera ejecución, poner la publicKey que aparece en el
+#     resumen en APPETIZE_PUBLIC_KEY (abajo) para que las siguientes
+#     actualicen la misma app en lugar de crear otra.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  APPETIZE_PUBLIC_KEY: ''
+  RELEASE_TAG: simulador-ios
+  ZIP_NAME: EuskaDigital-simulador-ios.zip
+
+jobs:
+  appetize:
+    # Mac Intel: los Mac Apple Silicon de GitHub tienen colas por falta de capacidad.
+    runs-on: macos-15-intel
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.35.7
+          channel: stable
+          cache: true
+      - run: flutter pub get
+
+      # En el simulador Flutter solo admite el modo debug.
+      - run: flutter build ios --simulator --debug
+
+      - name: Comprimir el .app
+        run: |
+          cd build/ios/iphonesimulator
+          zip -qry "$GITHUB_WORKSPACE/$ZIP_NAME" Runner.app
+          ls -la "$GITHUB_WORKSPACE/$ZIP_NAME"
+
+      # Appetize descarga la app desde un enlace público: se deja en una
+      # pre-release de pruebas del repositorio.
+      - name: Publicar el .zip
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release create "$RELEASE_TAG" --prerelease --target "$GITHUB_SHA" \
+              --title "Pruebas: iOS en simulador" \
+              --notes "Compilación de pruebas para el simulador de iOS (Appetize). No es una versión publicada."
+          fi
+          gh release upload "$RELEASE_TAG" "$ZIP_NAME" --clobber
+
+      - name: Subir a Appetize
+        env:
+          APPETIZE_API_TOKEN: ${{ secrets.APPETIZE_API_TOKEN }}
+        run: |
+          if [ -z "$APPETIZE_API_TOKEN" ]; then
+            echo "::error::Falta el secreto APPETIZE_API_TOKEN"; exit 1
+          fi
+          URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}/${ZIP_NAME}"
+          BODY=$(jq -n --arg url "$URL" --arg note "EuskaDigital ${GITHUB_SHA::7}" \
+            '{url: $url, platform: "ios", fileType: "zip", note: $note}')
+          if [ -n "$APPETIZE_PUBLIC_KEY" ]; then
+            ENDPOINT="https://api.appetize.io/v1/apps/$APPETIZE_PUBLIC_KEY"
+          else
+            ENDPOINT="https://api.appetize.io/v1/apps"
+          fi
+          RESP=$(curl -sS --fail-with-body -X POST "$ENDPOINT" \
+            -H "X-API-KEY: $APPETIZE_API_TOKEN" -H "Content-Type: application/json" -d "$BODY")
+          echo "$RESP"
+          KEY=$(echo "$RESP" | jq -r '.publicKey')
+          {
+            echo "## iOS en el navegador"
+            echo ""
+            echo "Abrir: https://appetize.io/app/$KEY"
+            echo ""
+            if [ -z "$APPETIZE_PUBLIC_KEY" ]; then
+              echo "Primera subida: guarda \`$KEY\` en APPETIZE_PUBLIC_KEY del flujo para que las próximas actualicen esta misma app."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
