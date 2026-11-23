@@ -31,6 +31,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+const _store = bool.fromEnvironment('STORE');
+
 Future<void> _loadFonts() async {
   const dir = '/opt/sdk/flutter/bin/cache/artifacts/material_fonts';
   Future<ByteData> f(String name) async =>
@@ -151,7 +153,8 @@ void main() {
       );
 
   Future<void> pumpApp(WidgetTester tester, ThemeMode mode) async {
-    tester.view.physicalSize = const Size(1080, 2340);
+    // Con --dart-define=STORE=true: 1080x1920 (formato admitido por Google Play).
+    tester.view.physicalSize = _store ? const Size(1080, 1920) : const Size(1080, 2340);
     tester.view.devicePixelRatio = 3;
     tester.view.padding = const FakeViewPadding(top: 24 * 3, bottom: 48 * 3);
     tester.view.viewPadding = const FakeViewPadding(top: 24 * 3, bottom: 48 * 3);
@@ -162,7 +165,7 @@ void main() {
 
   Future<void> shot(WidgetTester tester, String name) async {
     await settle(tester);
-    await expectLater(find.byType(MaterialApp), matchesGoldenFile('goldens/$name.png'));
+    await expectLater(find.byType(MaterialApp), matchesGoldenFile('${_store ? 'goldens_store' : 'goldens'}/$name.png'));
   }
 
   testWidgets('inicio (claro)', (tester) async {

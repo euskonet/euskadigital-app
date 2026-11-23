@@ -51,3 +51,6 @@ app.*.map.json
 
 # Capturas fallidas de golden tests
 test/**/failures/
+
+# Capturas para la tienda (se generan con --dart-define=STORE=true)
+test/screenshots/goldens_store/
