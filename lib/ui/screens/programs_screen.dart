@@ -5,6 +5,7 @@ import '../../config/app_config.dart';
 import '../../services/feed_repository.dart';
 import '../widgets/artwork.dart';
 import 'podcast_screen.dart';
+import '../widgets/brand_header.dart';
 
 /// Rejilla de programas agrupados.
 class ProgramsScreen extends StatelessWidget {
@@ -21,7 +22,7 @@ class ProgramsScreen extends StatelessWidget {
         onRefresh: () => feeds.refreshAll(force: true),
         child: CustomScrollView(
           slivers: [
-            const SliverAppBar.large(title: Text('Programas')),
+            const BrandSliverAppBar('Programas'),
             for (final group in config.programGroups) ...[
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
@@ -63,9 +64,7 @@ class _ProgramCard extends StatelessWidget {
 
     return InkWell(
       borderRadius: BorderRadius.circular(20),
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => PodcastScreen(program: program)),
-      ),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => PodcastScreen(program: program))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -82,9 +81,7 @@ class _ProgramCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(program.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: theme.textTheme.titleSmall),
           Text(
-            state.feed == null
-                ? (state.loading ? 'Cargando…' : 'Sin conexión')
-                : '$count episodios',
+            state.feed == null ? (state.loading ? 'Cargando…' : 'Sin conexión') : '$count episodios',
             style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
           ),
         ],

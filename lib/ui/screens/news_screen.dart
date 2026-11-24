@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../services/feed_repository.dart';
 import '../widgets/common.dart';
 import '../widgets/news_card.dart';
+import '../widgets/brand_header.dart';
 
 class NewsScreen extends StatelessWidget {
   const NewsScreen({super.key});
@@ -18,7 +19,7 @@ class NewsScreen extends StatelessWidget {
         onRefresh: () => feeds.refresh(FeedRepository.newsId, force: true),
         child: CustomScrollView(
           slivers: [
-            SliverAppBar.large(title: Text(feeds.config.news.title)),
+            BrandSliverAppBar(feeds.config.news.title),
             if (state.error != null && state.feed != null) SliverToBoxAdapter(child: InlineNotice(state.error!)),
             if (state.feed == null && state.loading)
               const SliverFillRemaining(hasScrollBody: false, child: Center(child: CircularProgressIndicator()))

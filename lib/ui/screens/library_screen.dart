@@ -5,6 +5,7 @@ import '../../models/episode.dart';
 import '../../services/library_store.dart';
 import '../widgets/common.dart';
 import '../widgets/episode_tile.dart';
+import '../widgets/brand_header.dart';
 
 /// Biblioteca personal: en curso, favoritos, descargas e historial.
 class LibraryScreen extends StatelessWidget {
@@ -17,7 +18,8 @@ class LibraryScreen extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Mi biblioteca'),
+          titleSpacing: 20,
+          title: const BrandTitle('Mi biblioteca'),
           bottom: const TabBar(
             isScrollable: true,
             tabAlignment: TabAlignment.start,

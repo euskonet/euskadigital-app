@@ -12,6 +12,7 @@ import '../widgets/news_card.dart';
 import '../widgets/twitch_card.dart';
 import 'videos_screen.dart';
 import 'episode_screen.dart';
+import '../widgets/brand_header.dart';
 
 /// Inicio: directo, continuar escuchando, últimos episodios y noticias.
 class HomeScreen extends StatelessWidget {
@@ -35,20 +36,7 @@ class HomeScreen extends StatelessWidget {
         onRefresh: () => feeds.refreshAll(force: true),
         child: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              floating: true,
-              titleSpacing: 20,
-              title: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.asset('assets/branding/logo.png', width: 32, height: 32),
-                  ),
-                  const SizedBox(width: 12),
-                  const Text('EuskaDigital', style: TextStyle(fontWeight: FontWeight.w800)),
-                ],
-              ),
-            ),
+            const BrandSliverAppBar('EuskaDigital'),
             const SliverToBoxAdapter(child: LiveCard()),
             const SliverToBoxAdapter(child: TwitchCard()),
             if (inProgress.isNotEmpty) ...[
@@ -60,7 +48,10 @@ class HomeScreen extends StatelessWidget {
             ),
             if (loadingFirstTime)
               const SliverToBoxAdapter(
-                child: Padding(padding: EdgeInsets.all(32), child: Center(child: CircularProgressIndicator())),
+                child: Padding(
+                  padding: EdgeInsets.all(32),
+                  child: Center(child: CircularProgressIndicator()),
+                ),
               )
             else if (latest.isEmpty)
               SliverToBoxAdapter(
