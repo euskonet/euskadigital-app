@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../../config/app_config.dart';
 import '../../services/feed_repository.dart';
 import '../widgets/artwork.dart';
-import 'podcast_screen.dart';
 import '../widgets/brand_header.dart';
+import 'podcast_screen.dart';
 
 /// Rejilla de programas agrupados.
 class ProgramsScreen extends StatelessWidget {

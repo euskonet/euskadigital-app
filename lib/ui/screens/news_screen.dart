@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/feed_repository.dart';
+import '../widgets/brand_header.dart';
 import '../widgets/common.dart';
 import '../widgets/news_card.dart';
-import '../widgets/brand_header.dart';
 
 class NewsScreen extends StatelessWidget {
   const NewsScreen({super.key});

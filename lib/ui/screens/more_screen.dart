@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../config/app_config.dart';
+import '../widgets/brand_header.dart';
 import 'schedule_screen.dart';
 import 'settings_screen.dart';
 import 'twitch_screen.dart';
 import 'webview_screen.dart';
-import '../widgets/brand_header.dart';
 
 /// Enlaces, redes sociales, ajustes y acerca de.
 class MoreScreen extends StatelessWidget {
