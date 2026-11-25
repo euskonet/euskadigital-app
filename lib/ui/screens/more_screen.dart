@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -92,20 +93,24 @@ class MoreScreen extends StatelessWidget {
                 ListTile(
                   leading: const Icon(Icons.info_outline_rounded),
                   title: const Text('Acerca de'),
-                  onTap: () => showAboutDialog(
-                    context: context,
-                    applicationName: config.name,
-                    applicationVersion: 'Versión 3.0',
-                    applicationIcon: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset('assets/branding/logo.png', width: 56, height: 56),
-                    ),
-                    children: [
-                      const Text('Radio online, podcasts y noticias de tecnología.'),
-                      const SizedBox(height: 12),
-                      SelectableText('Contacto: ${config.contactEmail}'),
-                    ],
-                  ),
+                  onTap: () async {
+                    final info = await PackageInfo.fromPlatform();
+                    if (!context.mounted) return;
+                    showAboutDialog(
+                      context: context,
+                      applicationName: config.name,
+                      applicationVersion: 'Versión ${info.version}',
+                      applicationIcon: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.asset('assets/branding/logo.png', width: 56, height: 56),
+                      ),
+                      children: [
+                        const Text('Radio online, podcasts y noticias de tecnología.'),
+                        const SizedBox(height: 12),
+                        SelectableText('Contacto: ${config.contactEmail}'),
+                      ],
+                    );
+                  },
                 ),
               ]),
               const SizedBox(height: 24),
