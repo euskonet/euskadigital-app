@@ -25,7 +25,8 @@ jobs:
           fastlane supply init \
             --package_name eus.euskadigital.app \
             --json_key_data "$PLAY_JSON" \
-            --metadata_path "$RUNNER_TEMP/ficha"
+            --metadata_path "$RUNNER_TEMP/ficha" \
+            --track beta
           find "$RUNNER_TEMP/ficha" -type f | sort
       - name: Guardar en la rama ficha-play-actual
         run: |
