@@ -54,6 +54,6 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
           packageName: eus.euskadigital.app
           releaseFiles: dist/*.aab
-          track: ${{ inputs.track }}
+          tracks: ${{ inputs.track }}
           status: ${{ inputs.status }}
           whatsNewDirectory: distribution/whatsnew
