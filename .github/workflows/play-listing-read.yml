@@ -1,0 +1,40 @@
+name: Leer ficha de Google Play
+
+# Descarga la ficha actual de Google Play (textos e imágenes de todos los
+# idiomas) y la deja en la rama «ficha-play-actual» para revisarla.
+# No cambia nada en Google Play. Requiere PLAY_SERVICE_ACCOUNT_JSON.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - run: gem install fastlane --no-document
+      - name: Descargar la ficha
+        env:
+          PLAY_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/ficha"
+          fastlane supply init \
+            --package_name eus.euskadigital.app \
+            --json_key_data "$PLAY_JSON" \
+            --metadata_path "$RUNNER_TEMP/ficha"
+          find "$RUNNER_TEMP/ficha" -type f | sort
+      - name: Guardar en la rama ficha-play-actual
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan ficha-play-actual
+          git rm -rq --cached . && find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -r "$RUNNER_TEMP/ficha" ./ficha
+          git add ficha
+          git commit -qm "Ficha actual de Google Play ($(date -u +%F))"
+          git push -f origin ficha-play-actual
