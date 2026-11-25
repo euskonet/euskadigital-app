@@ -1,0 +1,33 @@
+name: Ficha de Google Play
+
+# Sube a Google Play los textos e imágenes de la ficha de la tienda
+# (fastlane/metadata/android/es-ES). No sube versiones de la app.
+# Requiere el secreto PLAY_SERVICE_ACCOUNT_JSON.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  listing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - run: gem install fastlane --no-document
+      - name: Subir la ficha
+        env:
+          PLAY_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -z "$PLAY_JSON" ]; then echo "::error::Falta el secreto PLAY_SERVICE_ACCOUNT_JSON"; exit 1; fi
+          fastlane supply \
+            --package_name eus.euskadigital.app \
+            --json_key_data "$PLAY_JSON" \
+            --metadata_path fastlane/metadata/android \
+            --skip_upload_apk true \
+            --skip_upload_aab true \
+            --skip_upload_changelogs true \
+            --sync_image_upload true

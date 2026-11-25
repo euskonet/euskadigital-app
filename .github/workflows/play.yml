@@ -1,0 +1,59 @@
+name: Google Play
+
+# Sube a Google Play el .aab de una release ya publicada en GitHub (así la
+# tienda recibe exactamente la versión publicada). Se lanza a mano.
+#
+# Requisitos:
+#   - Secreto PLAY_SERVICE_ACCOUNT_JSON: clave JSON de una cuenta de servicio
+#     con acceso a la app en Play Console.
+#   - La primera versión de una app nueva debe subirse a mano en Play Console
+#     (limitación de Google); a partir de ahí, este flujo.
+#   - Notas de la versión: distribution/whatsnew/whatsnew-es-ES (máx. 500).
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release de GitHub a subir (p. ej. v3.0.0)
+        required: true
+      track:
+        description: Pista de Google Play
+        type: choice
+        options: [internal, alpha, beta, production]
+        default: internal
+      status:
+        description: Estado de la versión (draft = borrador para revisar en Play Console)
+        type: choice
+        options: [draft, completed]
+        default: draft
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar el .aab de la release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "*.aab" --dir dist
+          ls -la dist
+          test -n "$(ls dist/*.aab)" || { echo "::error::La release $TAG no tiene .aab (¿se firmó con la clave de subida?)"; exit 1; }
+      - name: Comprobar credenciales
+        env:
+          JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -z "$JSON" ]; then
+            echo "::error::Falta el secreto PLAY_SERVICE_ACCOUNT_JSON"; exit 1
+          fi
+      - uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: eus.euskadigital.app
+          releaseFiles: dist/*.aab
+          track: ${{ inputs.track }}
+          status: ${{ inputs.status }}
+          whatsNewDirectory: distribution/whatsnew
