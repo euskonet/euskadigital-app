@@ -2,10 +2,12 @@
 """Publica en Google Play una versión que está en borrador en una pista.
 
 Uso (en GitHub Actions, con PLAY_SERVICE_ACCOUNT_JSON en el entorno):
-    python3 tool/play_publicar.py <pista> <versionCode>
+    python3 tool/play_publicar.py <pista> <versionCode> [pista_origen]
 
 Cambia el estado de la versión de «draft» a «completed» y confirma la
 edición; Google la envía a revisión y, una vez aprobada, la distribuye.
+Con pista_origen, copia la versión desde esa pista (p. ej. de la prueba
+abierta «beta» a «production») y la publica en la de destino.
 """
 import json
 import os
@@ -21,6 +23,7 @@ API = f'https://androidpublisher.googleapis.com/androidpublisher/v3/applications
 
 def main() -> int:
     track, code = sys.argv[1], sys.argv[2]
+    source = sys.argv[3] if len(sys.argv) > 3 and sys.argv[3] else None
     creds = service_account.Credentials.from_service_account_info(
         json.loads(os.environ['PLAY_SERVICE_ACCOUNT_JSON']),
         scopes=['https://www.googleapis.com/auth/androidpublisher'],
@@ -41,6 +44,16 @@ def main() -> int:
     releases = t.get('releases', [])
     print('Versiones en la pista:', [(r.get('name'), r.get('versionCodes'), r.get('status')) for r in releases])
     target = next((r for r in releases if code in (r.get('versionCodes') or [])), None)
+    if target is None and source:
+        src = call('GET', f'/edits/{edit}/tracks/{source}')
+        found = next((r for r in src.get('releases', []) if code in (r.get('versionCodes') or [])), None)
+        if found is None:
+            print(f'::error::No hay ninguna versión {code} en la pista {source}.')
+            return 1
+        target = {k: found[k] for k in ('name', 'versionCodes', 'releaseNotes') if k in found}
+        target['status'] = 'draft'
+        t = {'track': track, 'releases': [target]}
+        print(f'Copiando la versión {code} de {source} a {track}.')
     if target is None:
         print(f'::error::No hay ninguna versión {code} en la pista {track}.')
         return 1

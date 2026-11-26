@@ -14,6 +14,11 @@ on:
       version_code:
         description: versionCode a publicar (p. ej. 301)
         required: true
+      from_track:
+        description: Copiarla desde esta pista (vacío = ya está en la pista de destino)
+        type: choice
+        options: ['', internal, alpha, beta]
+        default: ''
 
 permissions:
   contents: read
@@ -30,4 +35,4 @@ jobs:
       - name: Publicar
         env:
           PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
-        run: python3 tool/play_publicar.py "${{ inputs.track }}" "${{ inputs.version_code }}"
+        run: python3 tool/play_publicar.py "${{ inputs.track }}" "${{ inputs.version_code }}" "${{ inputs.from_track }}"
