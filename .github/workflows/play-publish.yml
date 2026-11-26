@@ -1,0 +1,33 @@
+name: Publicar versión en Google Play
+
+# Pasa a «publicada» una versión que está en borrador en una pista de
+# Google Play (la sube antes el flujo «Google Play»). Se lanza a mano.
+# Requiere el secreto PLAY_SERVICE_ACCOUNT_JSON.
+on:
+  workflow_dispatch:
+    inputs:
+      track:
+        description: Pista (beta = prueba abierta)
+        type: choice
+        options: [internal, alpha, beta, production]
+        default: beta
+      version_code:
+        description: versionCode a publicar (p. ej. 301)
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet google-auth requests
+      - name: Publicar
+        env:
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: python3 tool/play_publicar.py "${{ inputs.track }}" "${{ inputs.version_code }}"
