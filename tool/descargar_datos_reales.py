@@ -98,6 +98,8 @@ def main() -> int:
     for g in cfg['programGroups']:
         for p in g['programs']:
             feeds[p['id']] = p['feedUrl']
+            if p.get('videoPlaylistId'):
+                feeds[f"video-{p['id']}"] = f"https://www.youtube.com/feeds/videos.xml?playlist_id={p['videoPlaylistId']}"
     if cfg.get('youtube'):
         feeds['youtube'] = f"https://www.youtube.com/feeds/videos.xml?channel_id={cfg['youtube']['channelId']}"
 

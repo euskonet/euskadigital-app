@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns:media="http://search.yahoo.com/mrss/" xmlns="http://www.w3.org/2005/Atom">
+ <link rel="self" href="http://www.youtube.com/feeds/videos.xml?playlist_id=PL6Izbjhvb8aCljwgi_QtaEEMctWhw-4ff"/>
+ <id>yt:playlist:PL6Izbjhvb8aCljwgi_QtaEEMctWhw-4ff</id>
+ <yt:playlistId>PL6Izbjhvb8aCljwgi_QtaEEMctWhw-4ff</yt:playlistId>
+ <yt:channelId>UC2XQhr7SNke-6B7tdCdX0AA</yt:channelId>
+ <title>Cibertxoko</title>
+ <author>
+  <name>EuskaDigital</name>
+  <uri>https://www.youtube.com/channel/UC2XQhr7SNke-6B7tdCdX0AA</uri>
+ </author>
+ <published>2024-01-19T17:49:36+00:00</published>
+ <entry>
+  <id>yt:video:eGw7VCXTR8g</id>
+  <yt:videoId>eGw7VCXTR8g</yt:videoId>
+  <yt:channelId>UC2XQhr7SNke-6B7tdCdX0AA</yt:channelId>
+  <title>Josep Albors (ESET): &quot;El candadito ya no significa que una web sea segura&quot; - Especial Euskalhack</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=eGw7VCXTR8g"/>
+  <author>
+   <name>EuskaDigital</name>
+   <uri>https://www.youtube.com/channel/UC2XQhr7SNke-6B7tdCdX0AA</uri>
+  </author>
+  <published>2025-06-23T17:01:01+00:00</published>
+  <updated>2026-11-25T00:36:40+00:00</updated>
+  <media:group>
+   <media:title>Josep Albors (ESET): &quot;El candadito ya no significa que una web sea segura&quot; - Especial Euskalhack</media:title>
+   <media:content url="https://www.youtube.com/v/eGw7VCXTR8g?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/eGw7VCXTR8g/hqdefault.jpg" width="480" height="360"/>
+   <media:description>En este episodio de Cibertxoko, regresamos al Congreso EuskalHack, en su octava edición en Donosti. Nos acompaña Josep Albors, responsable de investigación y concienciación en ESET España, para hablarnos de una amenaza que está causando estragos: Telekopye, una herramienta de estafa masiva en plataformas como Wallapop, Vinted o eBay, que se gestiona directamente desde Telegram. En esta entrevista, desvelamos cómo operan estas redes criminales, el papel de la inteligencia artificial en las estafas, y qué hacer para protegerte. Además, repasamos lo mejor del congreso, hablamos de los grupos APT y recibimos consejos directos para quienes quieren empezar en el mundo de la ciberseguridad.
+
+~ EUSKADIGITAL ~
+Web: https://www.euskadigital.eus/
+EnRedAndo - https://enredando.euskadigital.eus/
+Sarean Zehar - https://sareanzehar.euskadigital.eus/
+Gaming Room - https://gamingroom.euskadigital.eus/</media:description>
+   <media:community>
+    <media:starRating count="1" average="5.00" min="1" max="5"/>
+    <media:statistics views="83"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:DfmXiY_5_zU</id>
+  <yt:videoId>DfmXiY_5_zU</yt:videoId>
+  <yt:channelId>UC2XQhr7SNke-6B7tdCdX0AA</yt:channelId>
+  <title>Midudev: &quot;Estamos aquí para maratones, no sprints; el mundo de la programación es a largo plazo.&quot;</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=DfmXiY_5_zU"/>
+  <author>
+   <name>EuskaDigital</name>
+   <uri>https://www.youtube.com/channel/UC2XQhr7SNke-6B7tdCdX0AA</uri>
+  </author>
+  <published>2024-12-13T18:00:16+00:00</published>
+  <updated>2026-10-04T14:14:24+00:00</updated>
+  <media:group>
+   <media:title>Midudev: &quot;Estamos aquí para maratones, no sprints; el mundo de la programación es a largo plazo.&quot;</media:title>
+   <media:content url="https://www.youtube.com/v/DfmXiY_5_zU?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/DfmXiY_5_zU/hqdefault.jpg" width="480" height="360"/>
+   <media:description>El episodio número 6 de CiberTxoko, grabado en el DOK Summit, en el Palacio Euskalduna de Bilbao, contamos con la participación especial de Miguel Ángel Durán, más conocido como Midudev, un referente en el mundo del desarrollo web en español. Midu comparte su inspiradora trayectoria, desde sus inicios accidentales en la programación hasta convertirse en creador de contenido y mentor virtual de miles de desarrolladores. Hablamos sobre la importancia de la educación, el autoaprendizaje, y cómo gestionar el síndrome del impostor. También exploramos su experiencia liderando proyectos internacionales, sus retos como creador de contenido y cómo combina su pasión por la comunicación y la programación para impulsar la comunidad hispana.
+
+~ EUSKADIGITAL ~
+Web: https://www.euskadigital.eus/
+EnRedAndo - https://enredando.euskadigital.eus/
+Sarean Zehar - https://sareanzehar.euskadigital.eus/
+Gaming Room - https://gamingroom.euskadigital.eus/</media:description>
+   <media:community>
+    <media:starRating count="15" average="5.00" min="1" max="5"/>
+    <media:statistics views="455"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:xViTkDo3Uyo</id>
+  <yt:videoId>xViTkDo3Uyo</yt:videoId>
+  <yt:channelId>UC2XQhr7SNke-6B7tdCdX0AA</yt:channelId>
+  <title>CiberTxoko 005 - Especial Tercera edición Tracking Bilbao Podcasting</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=xViTkDo3Uyo"/>
+  <author>
+   <name>EuskaDigital</name>
+   <uri>https://www.youtube.com/channel/UC2XQhr7SNke-6B7tdCdX0AA</uri>
+  </author>
+  <published>2024-12-06T18:00:40+00:00</published>
+  <updated>2026-10-01T03:06:47+00:00</updated>
+  <media:group>
+   <media:title>CiberTxoko 005 - Especial Tercera edición Tracking Bilbao Podcasting</media:title>
+   <media:content url="https://www.youtube.com/v/xViTkDo3Uyo?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/xViTkDo3Uyo/hqdefault.jpg" width="480" height="360"/>
+   <media:description>En este episodio especial de CiberTxoko, nos trasladamos a Tracking Bilbao, el festival anual que celebra la cultura digital y la creatividad en internet. Desde este evento, conversamos con los ganadores de la tercera edición del concurso de podcasting, quienes destacan por su originalidad y enfoque único. Descubre cómo &quot;El año pasado&quot;, un podcast creado por Iker González Urresti y Ariadna Ollé, que combina cine, historia y tecnología, y &quot;Sol Minor&quot;, un emocionante viaje sonoro por la música y el rap que conduce Iosu Albizu, conquistaron al jurado con sus propuestas innovadoras. Además, exploramos los retos y alegrías de crear contenido en audio, desde la narrativa hasta la producción, y debatimos sobre la creciente presencia de los podcasts en vídeo. 
+
+~ EUSKADIGITAL ~
+Web: https://www.euskadigital.eus/
+EnRedAndo - https://enredando.euskadigital.eus/
+Sarean Zehar - https://sareanzehar.euskadigital.eus/
+Gaming Room - https://gamingroom.euskadigital.eus/</media:description>
+   <media:community>
+    <media:starRating count="1" average="5.00" min="1" max="5"/>
+    <media:statistics views="22"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:h_KCmPHmcyE</id>
+  <yt:videoId>h_KCmPHmcyE</yt:videoId>
+  <yt:channelId>UC2XQhr7SNke-6B7tdCdX0AA</yt:channelId>
+  <title>Jaime Gómez-Obregón: &quot;La tecnología debe ser una herramienta para la transparencia y el bien común.&quot;</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=h_KCmPHmcyE"/>
+  <author>
+   <name>EuskaDigital</name>
+   <uri>https://www.youtube.com/channel/UC2XQhr7SNke-6B7tdCdX0AA</uri>
+  </author>
+  <published>2024-11-29T18:00:06+00:00</published>
+  <updated>2026-10-05T01:13:37+00:00</updated>
+  <media:group>
+   <media:title>Jaime Gómez-Obregón: &quot;La tecnología debe ser una herramienta para la transparencia y el bien común.&quot;</media:title>
+   <media:content url="https://www.youtube.com/v/h_KCmPHmcyE?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/h_KCmPHmcyE/hqdefault.jpg" width="480" height="360"/>
+   <media:description>En este episodio de CiberTxoko nos trasladamos al DOK Summit, el evento tecnológico en Bilbao que reúne a más de 2.500 profesionales del sector público y privado. Conversamos con Jaime Gómez Obregón, ingeniero y activista destacado por su lucha por la transparencia y contra la corrupción en la administración pública. Jaime nos comparte su trayectoria como emprendedor y sus proyectos innovadores que combinan tecnología y activismo ciudadano, desde la creación de herramientas para analizar la contratación pública hasta iniciativas que buscan democratizar el acceso a los datos oficiales. Reflexionamos sobre el impacto de la tecnología en la sociedad, el papel de la ciudadanía en la fiscalización pública y la importancia de la transparencia para fortalecer las instituciones.
+
+~ EUSKADIGITAL ~
+Web: https://www.euskadigital.eus/
+EnRedAndo - https://enredando.euskadigital.eus/
+Sarean Zehar - https://sareanzehar.euskadigital.eus/
+Gaming Room - https://gamingroom.euskadigital.eus/</media:description>
+   <media:community>
+    <media:starRating count="5" average="5.00" min="1" max="5"/>
+    <media:statistics views="108"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:YumLoyCrXK8</id>
+  <yt:videoId>YumLoyCrXK8</yt:videoId>
+  <yt:channelId>UC2XQhr7SNke-6B7tdCdX0AA</yt:channelId>
+  <title>Juan Manuel Fernández: &quot;Las macros son la herramienta de hacking más usada de los últimos 20 años&quot;</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=YumLoyCrXK8"/>
+  <author>
+   <name>EuskaDigital</name>
+   <uri>https://www.youtube.com/channel/UC2XQhr7SNke-6B7tdCdX0AA</uri>
+  </author>
+  <published>2024-06-24T07:49:15+00:00</published>
+  <updated>2026-10-04T12:08:20+00:00</updated>
+  <media:group>
+   <media:title>Juan Manuel Fernández: &quot;Las macros son la herramienta de hacking más usada de los últimos 20 años&quot;</media:title>
+   <media:content url="https://www.youtube.com/v/YumLoyCrXK8?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/YumLoyCrXK8/hqdefault.jpg" width="480" height="360"/>
+   <media:description>En esta tercera edición de CiberTxoko hemos ido hasta Donosti, en específico, al colegio mayor Olarain, que es dónde se celebra la 7ª edición del congreso de ciberseguridad EuskalHack, organizado por la asociación del mismo nombre. Durante los días 21 y 22 de junio, los asistentes al evento han disfrutado de multitud de ponencias del más alto nivel, incluyendo la ponencia de Juan Manuel Fernández, también conocido como X-C3LL, quién nos ha informado sobre el desarrollo de macros para operaciones de Red Team. Con él hablaremos durante media hora sobre los eventos de Ciberseguridad, su trayectoria en este ámbito y su experiencia en Red Teams y auditoría de seguridad.
+
+~ EUSKADIGITAL ~
+Web: https://www.euskadigital.eus/
+EnRedAndo - https://enredando.euskadigital.eus/
+Sarean Zehar - https://sareanzehar.euskadigital.eus/
+Gaming Room - https://gamingroom.euskadigital.eus/</media:description>
+   <media:community>
+    <media:starRating count="40" average="5.00" min="1" max="5"/>
+    <media:statistics views="1684"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:4Sw2EN3LPXM</id>
+  <yt:videoId>4Sw2EN3LPXM</yt:videoId>
+  <yt:channelId>UC2XQhr7SNke-6B7tdCdX0AA</yt:channelId>
+  <title>CiberTxoko 002 – Ujue Agudo y Karlos G Liberal (Bikolabs)</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=4Sw2EN3LPXM"/>
+  <author>
+   <name>EuskaDigital</name>
+   <uri>https://www.youtube.com/channel/UC2XQhr7SNke-6B7tdCdX0AA</uri>
+  </author>
+  <published>2024-02-16T18:00:10+00:00</published>
+  <updated>2026-10-03T12:14:32+00:00</updated>
+  <media:group>
+   <media:title>CiberTxoko 002 – Ujue Agudo y Karlos G Liberal (Bikolabs)</media:title>
+   <media:content url="https://www.youtube.com/v/4Sw2EN3LPXM?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/4Sw2EN3LPXM/hqdefault.jpg" width="480" height="360"/>
+   <media:description>¡Bienvenidos a este segundo programa de &quot;CiberTxoko&quot;, el podcast donde exploramos las intersecciones entre la tecnología y la sociedad! En este episodio, tenemos el privilegio de conversar con dos destacados expertos: Ujue Agudo y Karlos G Liberal. Basándose en su trabajo en Bikolabs, Ujue y Karlos comparten sus perspectivas sobre la Inteligencia Artificial (IA) y su impacto en la toma de decisiones humanas. Ujue nos sumerge en su fascinación por la IA y la psicología, mientras que Karlos aporta su experiencia en tecnología y activismo. A través de esta entrevista, exploramos cómo los sistemas de recomendación influyen en nuestros procesos de decisión y reflexionamos sobre la importancia de considerar los aspectos éticos y humanos en el desarrollo tecnológico,  la evaluación de la necesidad de la automatización y la defensa de condiciones laborales justas en el sector tecnológico.
+
+~ EUSKADIGITAL ~
+Web: https://www.euskadigital.eus/
+EnRedando - https://enredando.euskadigital.eus/
+Sarean Zehar - https://sareanzehar.euskadigital.eus/
+Gaming Room - https://gamingroom.euskadigital.eus/</media:description>
+   <media:community>
+    <media:starRating count="5" average="5.00" min="1" max="5"/>
+    <media:statistics views="111"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:hNMla8smKXI</id>
+  <yt:videoId>hNMla8smKXI</yt:videoId>
+  <yt:channelId>UC2XQhr7SNke-6B7tdCdX0AA</yt:channelId>
+  <title>Jose Mari Cabero nos presenta Escudero - Cibertxoko 001</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=hNMla8smKXI"/>
+  <author>
+   <name>EuskaDigital</name>
+   <uri>https://www.youtube.com/channel/UC2XQhr7SNke-6B7tdCdX0AA</uri>
+  </author>
+  <published>2024-01-19T18:00:06+00:00</published>
+  <updated>2026-10-03T22:45:11+00:00</updated>
+  <media:group>
+   <media:title>Jose Mari Cabero nos presenta Escudero - Cibertxoko 001</media:title>
+   <media:content url="https://www.youtube.com/v/hNMla8smKXI?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/hNMla8smKXI/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Estrenamos CiberTxoko, un nuevo programa en EuskaDigital, donde conversaremos con destacadas figuras del ámbito tecnológico, descubriendo sus proyectos más innovadores y las ideas que están dando forma al futuro digital. En este primer episodio hablamos con Jose Mari Cabero, que nos presenta su proyecto Escudero, un servicio de protección contra ciberamenazas, dirigido específicamente a las personas mayores. Jose Mari nos cuenta cómo ha dirigido su carrera profesional a ayudar a las personas, especialmente a las personas mayores, a raiz de su percepción del aumento de los ciberdelitos en el País Vasco, en concreto las ventas abusivas y las estafas. Escudero tiene como objetivo detectar y filtrar llamadas no deseadas, desarrollar tecnología de inteligencia artificial para mejorar la escalabilidad y evitar que las personas que llaman oculten sus identidades.
+
+~ EUSKADIGITAL ~
+Web: https://www.euskadigital.eus/
+EnRedando - https://enredando.euskadigital.eus/
+Sarean Zehar - https://sareanzehar.euskadigital.eus/
+Gaming Room - https://gamingroom.euskadigital.eus/</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="50"/>
+   </media:community>
+  </media:group>
+ </entry>
+</feed>

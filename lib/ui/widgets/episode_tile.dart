@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/episode.dart';
 import '../../services/download_manager.dart';
+import '../../services/feed_repository.dart';
 import '../../services/library_store.dart';
 import '../../services/player_service.dart';
 import '../format.dart';
@@ -46,9 +47,7 @@ class EpisodeTile extends StatelessWidget {
     }
 
     return InkWell(
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => EpisodeScreen(episode: episode)),
-      ),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => EpisodeScreen(episode: episode))),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         child: Row(
@@ -63,10 +62,12 @@ class EpisodeTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (meta.isNotEmpty)
-                    Text(meta,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.labelMedium?.copyWith(color: scheme.primary)),
+                    Text(
+                      meta,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.labelMedium?.copyWith(color: scheme.primary),
+                    ),
                   const SizedBox(height: 2),
                   Text(
                     episode.title,
@@ -80,6 +81,10 @@ class EpisodeTile extends StatelessWidget {
                   const SizedBox(height: 6),
                   Row(
                     children: [
+                      if (context.watch<FeedRepository>().videoFor(episode) != null) ...[
+                        Icon(Icons.smart_display_outlined, size: 16, color: scheme.onSurfaceVariant),
+                        const SizedBox(width: 4),
+                      ],
                       if (downloaded) ...[
                         Icon(Icons.download_done_rounded, size: 16, color: scheme.primary),
                         const SizedBox(width: 4),
@@ -95,8 +100,7 @@ class EpisodeTile extends StatelessWidget {
                         const SizedBox(width: 6),
                       ],
                       if (lengthText != null)
-                        Text(lengthText,
-                            style: theme.textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant)),
+                        Text(lengthText, style: theme.textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant)),
                       if (fraction != null && fraction > 0 && fraction < 1) ...[
                         const SizedBox(width: 8),
                         Expanded(

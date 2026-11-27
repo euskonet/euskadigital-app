@@ -188,6 +188,7 @@ class ProgramConfig {
     required this.feedUrl,
     this.fallbackImage,
     this.aliases = const [],
+    this.videoPlaylistId,
   });
 
   final String id;
@@ -198,6 +199,12 @@ class ProgramConfig {
   /// título que envía el stream de la radio).
   final List<String> aliases;
 
+  /// Lista de YouTube con la versión en vídeo de los episodios, si la hay.
+  final String? videoPlaylistId;
+
+  String? get videoFeedUrl =>
+      videoPlaylistId == null ? null : 'https://www.youtube.com/feeds/videos.xml?playlist_id=$videoPlaylistId';
+
   /// Imagen local (asset) que se usa si el feed no trae portada.
   final String? fallbackImage;
 
@@ -207,6 +214,7 @@ class ProgramConfig {
         feedUrl: j['feedUrl'] as String,
         fallbackImage: j['fallbackImage'] as String?,
         aliases: [for (final a in (j['aliases'] as List? ?? const [])) a as String],
+        videoPlaylistId: j['videoPlaylistId'] as String?,
       );
 }
 

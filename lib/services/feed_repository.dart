@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import '../config/app_config.dart';
 import '../models/episode.dart';
 import 'feed_parser.dart';
+import 'video_matcher.dart';
 
 /// Estado de carga de un feed.
 class FeedState {
@@ -43,6 +44,9 @@ class FeedRepository extends ChangeNotifier {
 
   static const newsId = 'news';
   static const videosId = 'youtube';
+
+  /// Feed de la lista de YouTube con los vídeos de un programa.
+  static String videoFeedId(String programId) => 'video-$programId';
   static const _maxAge = Duration(minutes: 30);
 
   final AppConfig config;
@@ -80,20 +84,36 @@ class FeedRepository extends ChangeNotifier {
   @visibleForTesting
   void seed(String feedId, ParsedFeed feed) {
     _states[feedId] = FeedState(feed: feed, updatedAt: DateTime.now());
+    _videoCache.clear();
     notifyListeners();
   }
 
-  String _urlFor(String feedId) => switch (feedId) {
-        newsId => config.news.feedUrl,
-        videosId => config.youtube!.feedUrl,
-        _ => config.programById(feedId)!.feedUrl,
-      };
+  String _urlFor(String feedId) {
+    if (feedId == newsId) return config.news.feedUrl;
+    if (feedId == videosId) return config.youtube!.feedUrl;
+    if (feedId.startsWith('video-')) return config.programById(feedId.substring(6))!.videoFeedUrl!;
+    return config.programById(feedId)!.feedUrl;
+  }
 
   Iterable<String> get _allIds => [
         newsId,
         if (config.youtube != null) videosId,
         ...config.allPrograms.map((p) => p.id),
+        for (final p in config.allPrograms)
+          if (p.videoPlaylistId != null) videoFeedId(p.id),
       ];
+
+  /// Vídeo de YouTube (id) con la versión en vídeo de un episodio, si existe.
+  String? videoFor(Episode e) {
+    final program = config.programById(e.feedId);
+    if (program?.videoPlaylistId == null) return null;
+    // La lista del programa y, por si falta algún vídeo en ella, los últimos
+    // vídeos del canal.
+    final candidates = [...state(videoFeedId(program!.id)).items, ...videos.items];
+    return _videoCache.putIfAbsent(e.id, () => VideoMatcher.match(e, program.title, candidates));
+  }
+
+  final Map<String, String?> _videoCache = {};
 
   /// Carga la caché local de todos los feeds y luego los refresca.
   Future<void> init() async {
@@ -125,6 +145,7 @@ class FeedRepository extends ChangeNotifier {
       final body = _decode(res);
       final parsed = await compute(_parseIsolate, [body, feedId]);
       _states[feedId] = FeedState(feed: parsed, updatedAt: DateTime.now());
+      _videoCache.clear();
       onFeedLoaded?.call(feedId, parsed);
       unawaited(_saveToDisk(feedId, body));
     } catch (e) {
@@ -166,6 +187,7 @@ class FeedRepository extends ChangeNotifier {
       final parsed = await compute(_parseIsolate, [await f.readAsString(), feedId]);
       // updatedAt null => se refrescará igualmente desde la red.
       _states[feedId] = FeedState(feed: parsed);
+      _videoCache.clear();
     } catch (e) {
       debugPrint('Caché inválida para $feedId: $e');
     }

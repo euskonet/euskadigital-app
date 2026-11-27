@@ -371,6 +371,35 @@ void main() {
         .push(MaterialPageRoute(builder: (_) => ScheduleScreen(now: DateTime(2026, 11, 23, 20, 30))));
     await shot(tester, '13_parrilla');
   });
+
+  Future<void> openEpisodePlayer(WidgetTester tester, {required bool video}) async {
+    WebViewPlatform.instance = FakeWebViewPlatform();
+    await pumpApp(tester, ThemeMode.light);
+    final e = feeds.state('gaming-room').items.firstWhere((x) => x.hasAudio);
+    player.debugShow(NowPlaying(
+      id: e.id,
+      title: e.title,
+      subtitle: 'Gaming Room',
+      imageUrl: e.imageUrl,
+      fallbackImage: config.programById('gaming-room')!.fallbackImage,
+      episode: e,
+    ));
+    await settle(tester);
+    PlayerScreen.show(tester.element(find.byType(AppShell)));
+    await settle(tester);
+    final id = feeds.videoFor(e);
+    if (video && id != null) await player.enterVideo(id);
+  }
+
+  testWidgets('episodio con vídeo (audio)', skip: !_real, (tester) async {
+    await openEpisodePlayer(tester, video: false);
+    await shot(tester, '14_episodio_audio');
+  });
+
+  testWidgets('episodio con vídeo (vídeo)', skip: !_real, (tester) async {
+    await openEpisodePlayer(tester, video: true);
+    await shot(tester, '15_episodio_video');
+  });
 }
 
 /// Espera a que carguen las imágenes locales y terminen las animaciones.

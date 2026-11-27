@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:audio_session/audio_session.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 
@@ -36,9 +36,17 @@ class NowPlaying {
 
 /// Reproductor único de la app: episodios y directo, con controles en
 /// la notificación / pantalla de bloqueo y reproducción en segundo plano.
-class PlayerService extends ChangeNotifier {
+class PlayerService extends ChangeNotifier with WidgetsBindingObserver {
   PlayerService(this._config, this._library, this._settings) {
-    _player.playerStateStream.listen((_) => notifyListeners());
+    _player.playerStateStream.listen((st) {
+      // Si el audio arranca (p. ej. desde la notificación) mientras se ve el
+      // vídeo, se pausa el vídeo y se vuelve al audio.
+      if (st.playing && _videoMode) {
+        _pauseVideo?.call();
+        _videoMode = false;
+      }
+      notifyListeners();
+    });
     // Título de lo que suena en el directo (metadatos ICY del stream).
     _player.icyMetadataStream.listen((m) {
       if (!isLiveActive) return;
@@ -55,6 +63,7 @@ class PlayerService extends ChangeNotifier {
       notifyListeners();
     });
     _initSession();
+    WidgetsBinding.instance.addObserver(this);
   }
 
   static const liveId = 'live';
@@ -169,6 +178,7 @@ class PlayerService extends ChangeNotifier {
     if (isCurrent(e.id)) {
       return togglePlay();
     }
+    _leaveVideo();
     _saveCurrentProgress(force: true);
     final title = programTitle ?? _config.programById(e.feedId)?.title ?? _config.name;
     final image = e.imageUrl ?? programImage;
@@ -216,6 +226,7 @@ class PlayerService extends ChangeNotifier {
   Future<void> playLive({bool restart = false}) async {
     final live = _config.live;
     if (isLiveActive && !restart) return togglePlay();
+    _leaveVideo();
     _saveCurrentProgress(force: true);
     _liveTrack = null;
     _current = NowPlaying(
@@ -256,6 +267,7 @@ class PlayerService extends ChangeNotifier {
   // --------------------------------------------------------------- control
 
   Future<void> togglePlay() async {
+    if (_videoMode) return exitVideo(resume: true);
     if (_player.playing) {
       await _player.pause();
       _saveCurrentProgress(force: true);
@@ -287,6 +299,7 @@ class PlayerService extends ChangeNotifier {
   }
 
   Future<void> stop() async {
+    _leaveVideo();
     _saveCurrentProgress(force: true);
     await _player.stop();
     _current = null;
@@ -345,8 +358,65 @@ class PlayerService extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ------------------------------------------------------- audio / vídeo
+
+  bool _videoMode = false;
+  String? _videoId;
+  Duration _videoPosition = Duration.zero;
+  VoidCallback? _pauseVideo;
+
+  /// Se está viendo la versión en vídeo del episodio actual.
+  bool get videoMode => _videoMode;
+  String? get videoId => _videoMode ? _videoId : null;
+
+  /// Punto en el que debe empezar el vídeo (donde iba el audio).
+  Duration get videoStart => _videoPosition;
+
+  /// Pasa a la versión en vídeo del episodio que suena, en el mismo punto.
+  Future<void> enterVideo(String videoId) async {
+    if (_current?.episode == null) return;
+    _videoId = videoId;
+    _videoPosition = _player.position;
+    _videoMode = true;
+    if (_player.playing) await _player.pause();
+    _saveCurrentProgress(force: true);
+    notifyListeners();
+  }
+
+  /// Vuelve al audio en el punto al que había llegado el vídeo.
+  Future<void> exitVideo({bool resume = true}) async {
+    if (!_videoMode) return;
+    _pauseVideo?.call();
+    _videoMode = false;
+    notifyListeners();
+    if (_videoPosition > Duration.zero) await _player.seek(_videoPosition);
+    _saveCurrentProgress(force: true);
+    if (resume) unawaited(_player.play());
+  }
+
+  /// El reproductor de vídeo informa de su posición y de cómo pausarlo.
+  void updateVideoPosition(Duration d) => _videoPosition = d;
+  void attachVideo({required VoidCallback pause}) => _pauseVideo = pause;
+  void detachVideo() => _pauseVideo = null;
+
+  void _leaveVideo() {
+    if (!_videoMode) return;
+    _pauseVideo?.call();
+    _videoMode = false;
+  }
+
+  /// Con la pantalla bloqueada o la app en segundo plano el vídeo se corta:
+  /// se vuelve al audio en el mismo punto y sigue sonando.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (_videoMode && (state == AppLifecycleState.paused || state == AppLifecycleState.hidden)) {
+      exitVideo(resume: true);
+    }
+  }
+
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _sleepTimer?.cancel();
     _player.dispose();
     super.dispose();

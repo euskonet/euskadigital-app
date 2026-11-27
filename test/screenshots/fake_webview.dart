@@ -31,6 +31,10 @@ class _FakeController extends PlatformWebViewController {
   Future<void> loadHtmlString(String html, {String? baseUrl}) async => this.html.value = html;
   @override
   Future<void> reload() async {}
+  @override
+  Future<void> addJavaScriptChannel(JavaScriptChannelParams javaScriptChannelParams) async {}
+  @override
+  Future<void> runJavaScript(String javaScript) async {}
 }
 
 class _FakeDelegate extends PlatformNavigationDelegate {
@@ -48,7 +52,7 @@ class _FakeWidget extends PlatformWebViewWidget {
     return ValueListenableBuilder<String>(
       valueListenable: c.html,
       builder: (context, html, _) {
-        final video = html.contains('player.twitch.tv');
+        final video = html.contains('player.twitch.tv') || html.contains('YT.Player');
         final fg = video ? Colors.white70 : Theme.of(context).colorScheme.onSurfaceVariant;
         return Container(
           color: video ? Colors.black : Theme.of(context).colorScheme.surfaceContainerLowest,
@@ -66,7 +70,7 @@ class _FakeWidget extends PlatformWebViewWidget {
                 Icon(video ? Icons.smart_display_rounded : Icons.forum_rounded, color: fg, size: 36),
                 const SizedBox(height: 8),
                 Text(
-                  video ? 'Aquí se ve el vídeo de Twitch' : 'Aquí aparece el chat de Twitch',
+                  html.contains('YT.Player') ? 'Aquí se ve el vídeo del episodio' : video ? 'Aquí se ve el vídeo de Twitch' : 'Aquí aparece el chat de Twitch',
                   style: TextStyle(color: fg, fontWeight: FontWeight.w600),
                 ),
                 Text('(marcador de la captura)', style: TextStyle(color: fg, fontSize: 12)),

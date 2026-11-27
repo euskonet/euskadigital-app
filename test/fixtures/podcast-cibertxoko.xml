@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+xmlns:podcast="https://podcastindex.org/namespace/1.0"
+xmlns:rawvoice="https://blubrry.com/developer/rawvoice-rss/"
+>
+
+<channel>
+	<title>Cibertxoko - EuskaDigital</title>
+	<atom:link href="https://www.euskadigital.eus/contenidos/programas/cibertxoko/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.euskadigital.eus/contenidos/programas/cibertxoko/</link>
+	<description>En «Cibertxoko» te acercamos al mundo de la tecnología a través de entrevistas especiales. Conversaremos con destacadas figuras del ámbito tecnológico, descubriendo sus proyectos más innovadores y las ideas que están dando forma al futuro digital.</description>
+	<lastBuildDate>Sun, 22 Jun 2025 17:04:54 +0000</lastBuildDate>
+	<language>es</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.euskadigital.eus/wp-content/uploads/2014/04/cropped-edsmall-32x32.jpg</url>
+	<title>Cibertxoko - EuskaDigital</title>
+	<link>https://www.euskadigital.eus/contenidos/programas/cibertxoko/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<atom:link rel="hub" href="https://pubsubhubbub.appspot.com/" />
+	<podcast:locked owner="info@euskadigital.eus">yes</podcast:locked>
+	<itunes:author>EuskaDigital</itunes:author>
+	<itunes:explicit>false</itunes:explicit>
+	<itunes:image href="https://www.euskadigital.eus/wp-content/uploads/2024/01/caratula-3000-scaled.jpg" />
+	<itunes:type>episodic</itunes:type>
+	<itunes:owner>
+		<itunes:name>EuskaDigital</itunes:name>
+		<itunes:email>info@euskadigital.eus</itunes:email>
+	</itunes:owner>
+	<podcast:medium>podcast</podcast:medium>
+	<image>
+		<title>Cibertxoko - EuskaDigital</title>
+		<url>https://www.euskadigital.eus/wp-content/uploads/2024/01/caratula-3000-scaled.jpg</url>
+		<link>https://www.euskadigital.eus/contenidos/programas/cibertxoko/</link>
+	</image>
+	<itunes:category text="Technology" />
+	<itunes:category text="Business">
+		<itunes:category text="Entrepreneurship" />
+	</itunes:category>
+	<podcast:podping usesPodping="true" />
+	<podcast:guid>1d3162b7-276b-5421-857e-d7d6c2c3eeb1</podcast:guid>
+	<item>
+		<title>CiberTxoko 007 – Josep Albors (ESET)</title>
+		<link>https://www.euskadigital.eus/programas/cibertxoko/ct007/</link>
+		
+		<dc:creator><![CDATA[redacción]]></dc:creator>
+		<pubDate>Mon, 23 Jun 2025 17:00:00 +0000</pubDate>
+				<category><![CDATA[Cibertxoko]]></category>
+		<category><![CDATA[programa]]></category>
+		<guid isPermaLink="false">https://www.euskadigital.eus/?p=19179</guid>
+
+					<description><![CDATA[En este episodio de Cibertxoko, regresamos al Congreso EuskalHack, en su octava edición en Donosti. Nos acompaña Josep Albors, responsable de investigación y concienciación en ESET España, para hablarnos de una amenaza que está causando estragos: Telekopye, una herramienta de estafa masiva en plataformas como Wallapop, Vinted o eBay, que se gestiona directamente desde Telegram. [&#8230;]]]></description>
+										<content:encoded><![CDATA[<div class="wp-block-image">
+<figure class="aligncenter size-large is-resized"><a href="https://www.euskadigital.eus/wp-content/uploads/2025/06/cibertxoko-img-007.jpg"><img fetchpriority="high" decoding="async" width="1024" height="576" src="https://www.euskadigital.eus/wp-content/uploads/2025/06/cibertxoko-img-007-1024x576.jpg" alt="007" class="wp-image-19180" style="width:720px" srcset="https://www.euskadigital.eus/wp-content/uploads/2025/06/cibertxoko-img-007-1024x576.jpg 1024w, https://www.euskadigital.eus/wp-content/uploads/2025/06/cibertxoko-img-007-300x169.jpg 300w, https://www.euskadigital.eus/wp-content/uploads/2025/06/cibertxoko-img-007-768x432.jpg 768w, https://www.euskadigital.eus/wp-content/uploads/2025/06/cibertxoko-img-007.jpg 1280w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+</div>
+
+
+<p class="wp-block-paragraph">En este episodio de Cibertxoko, regresamos al Congreso EuskalHack, en su octava edición en Donosti. Nos acompaña Josep Albors, responsable de investigación y concienciación en ESET España, para hablarnos de una amenaza que está causando estragos: Telekopye, una herramienta de estafa masiva en plataformas como Wallapop, Vinted o eBay, que se gestiona directamente desde Telegram. En esta entrevista, desvelamos cómo operan estas redes criminales, el papel de la inteligencia artificial en las estafas, y qué hacer para protegerte. Además, repasamos lo mejor del congreso, hablamos de los grupos APT y recibimos consejos directos para quienes quieren empezar en el mundo de la ciberseguridad.</p>
+]]></content:encoded>
+					
+		
+				<enclosure url="https://www.euskadigital.eus/audio/cibertxoko/cibertxoko007.mp3" length="43410485" type="audio/mpeg" />
+
+				<itunes:episodeType>full</itunes:episodeType>
+		<itunes:duration>43:14</itunes:duration>
+	</item>
+		<item>
+		<title>CiberTxoko 006 &#8211; Miguel Ángel Durán (midudev)</title>
+		<link>https://www.euskadigital.eus/programas/cibertxoko/ct006/</link>
+		
+		<dc:creator><![CDATA[redacción]]></dc:creator>
+		<pubDate>Fri, 13 Dec 2024 18:00:00 +0000</pubDate>
+				<category><![CDATA[Cibertxoko]]></category>
+		<category><![CDATA[DOK Summit]]></category>
+		<category><![CDATA[programa]]></category>
+		<guid isPermaLink="false">https://www.euskadigital.eus/?p=18646</guid>
+
+					<description><![CDATA[En este episodio, grabado en el DOK Summit, en el Palacio Euskalduna de Bilbao, contamos con la participación especial de Miguel Ángel Durán, más conocido como MiduDev, un referente en el mundo del desarrollo web en español. Midu comparte su inspiradora trayectoria, desde sus inicios accidentales en la programación hasta convertirse en creador de contenido [&#8230;]]]></description>
+										<content:encoded><![CDATA[<div class="wp-block-image">
+<figure class="aligncenter size-large is-resized"><a href="https://www.euskadigital.eus/wp-content/uploads/2024/12/cibertxoko-img-006.jpg"><img decoding="async" width="1024" height="576" src="https://www.euskadigital.eus/wp-content/uploads/2024/12/cibertxoko-img-006-1024x576.jpg" alt="" class="wp-image-18647" style="width:720px" srcset="https://www.euskadigital.eus/wp-content/uploads/2024/12/cibertxoko-img-006-1024x576.jpg 1024w, https://www.euskadigital.eus/wp-content/uploads/2024/12/cibertxoko-img-006-300x169.jpg 300w, https://www.euskadigital.eus/wp-content/uploads/2024/12/cibertxoko-img-006-768x432.jpg 768w, https://www.euskadigital.eus/wp-content/uploads/2024/12/cibertxoko-img-006.jpg 1280w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+</div>
+
+
+<p class="wp-block-paragraph">En este episodio, grabado en el DOK Summit, en el Palacio Euskalduna de Bilbao, contamos con la participación especial de Miguel Ángel Durán, más conocido como MiduDev, un referente en el mundo del desarrollo web en español. Midu comparte su inspiradora trayectoria, desde sus inicios accidentales en la programación hasta convertirse en creador de contenido y mentor virtual de miles de desarrolladores. Hablamos sobre la importancia de la educación, el autoaprendizaje, y cómo gestionar el síndrome del impostor. También exploramos su experiencia liderando proyectos internacionales, sus retos como creador de contenido y cómo combina su pasión por la comunicación y la programación para impulsar la comunidad hispana.</p>
+]]></content:encoded>
+					
+		
+				<enclosure url="https://www.euskadigital.eus/audio/cibertxoko/cibertxoko006.mp3" length="31883552" type="audio/mpeg" />
+
+				<itunes:episodeType>full</itunes:episodeType>
+		<itunes:duration>31:16</itunes:duration>
+	</item>
+		<item>
+		<title>CiberTxoko 005 &#8211; Especial Tercera edición Tracking Bilbao Podcasting</title>
+		<link>https://www.euskadigital.eus/programas/cibertxoko/ct005/</link>
+		
+		<dc:creator><![CDATA[redacción]]></dc:creator>
+		<pubDate>Fri, 06 Dec 2024 18:00:00 +0000</pubDate>
+				<category><![CDATA[Cibertxoko]]></category>
+		<guid isPermaLink="false">https://www.euskadigital.eus/?p=18630</guid>
+
+					<description><![CDATA[En este episodio especial de CiberTxoko, nos trasladamos a Tracking Bilbao, el festival anual que celebra la cultura digital y la creatividad en internet. Desde este evento, conversamos con los ganadores de la tercera edición del concurso de podcasting, quienes destacan por su originalidad y enfoque único. Descubre cómo «El año pasado», un podcast creado [&#8230;]]]></description>
+										<content:encoded><![CDATA[<div class="wp-block-image">
+<figure class="aligncenter size-large is-resized"><a href="https://www.euskadigital.eus/wp-content/uploads/2024/12/cibertxoko-img-005.jpg"><img decoding="async" width="1024" height="576" src="https://www.euskadigital.eus/wp-content/uploads/2024/12/cibertxoko-img-005-1024x576.jpg" alt="" class="wp-image-18632" style="width:720px" srcset="https://www.euskadigital.eus/wp-content/uploads/2024/12/cibertxoko-img-005-1024x576.jpg 1024w, https://www.euskadigital.eus/wp-content/uploads/2024/12/cibertxoko-img-005-300x169.jpg 300w, https://www.euskadigital.eus/wp-content/uploads/2024/12/cibertxoko-img-005-768x432.jpg 768w, https://www.euskadigital.eus/wp-content/uploads/2024/12/cibertxoko-img-005.jpg 1280w" sizes="(max-width: 1024px) 100vw, 1024px" /></a><figcaption class="wp-element-caption">De izquierda a derecha, Iosu Albizu, de Sol Minor, Ariadna Ollé e Iker González Urresti, de El año pasado</figcaption></figure>
+</div>
+
+
+<p class="wp-block-paragraph">En este episodio especial de CiberTxoko, nos trasladamos a Tracking Bilbao, el festival anual que celebra la cultura digital y la creatividad en internet. Desde este evento, conversamos con los ganadores de la tercera edición del concurso de podcasting, quienes destacan por su originalidad y enfoque único. Descubre cómo «El año pasado», un podcast creado por Iker González Urresti y Ariadna Ollé, que combina cine, historia y tecnología, y «Sol Minor», un emocionante viaje sonoro por la música y el rap que conduce Iosu Albizu, conquistaron al jurado con sus propuestas innovadoras. Además, exploramos los retos y alegrías de crear contenido en audio, desde la narrativa hasta la producción, y debatimos sobre la creciente presencia de los podcasts en vídeo.</p>
+]]></content:encoded>
+					
+		
+				<enclosure url="https://www.euskadigital.eus/audio/cibertxoko/cibertxoko005.mp3" length="39716516" type="audio/mpeg" />
+
+				<itunes:episodeType>full</itunes:episodeType>
+		<itunes:duration>39:40</itunes:duration>
+		<podcast:transcript url="https://www.euskadigital.eus/audio/cibertxoko/cibertxoko005.srt" language="es" type="application/srt" rel="captions" />
+	</item>
+		<item>
+		<title>CiberTxoko 004 – Jaime Gómez Obregón</title>
+		<link>https://www.euskadigital.eus/programas/cibertxoko/ct004/</link>
+		
+		<dc:creator><![CDATA[redacción]]></dc:creator>
+		<pubDate>Fri, 29 Nov 2024 18:00:00 +0000</pubDate>
+				<category><![CDATA[Cibertxoko]]></category>
+		<category><![CDATA[DOK Summit]]></category>
+		<category><![CDATA[programa]]></category>
+		<guid isPermaLink="false">https://www.euskadigital.eus/?p=18609</guid>
+
+					<description><![CDATA[En este episodio de CiberTxoko nos trasladamos al DOK Summit, el evento tecnológico en Bilbao que reúne a más de 2.500 profesionales del sector público y privado. Conversamos con Jaime Gómez Obregón, ingeniero y activista destacado por su lucha por la transparencia y contra la corrupción en la administración pública. Jaime nos comparte su trayectoria [&#8230;]]]></description>
+										<content:encoded><![CDATA[<div class="wp-block-image">
+<figure class="aligncenter size-large is-resized"><a href="https://www.euskadigital.eus/wp-content/uploads/2024/11/cibertxoko-img-004.jpg"><img loading="lazy" decoding="async" width="1024" height="576" src="https://www.euskadigital.eus/wp-content/uploads/2024/11/cibertxoko-img-004-1024x576.jpg" alt="004" class="wp-image-18610" style="width:720px" srcset="https://www.euskadigital.eus/wp-content/uploads/2024/11/cibertxoko-img-004-1024x576.jpg 1024w, https://www.euskadigital.eus/wp-content/uploads/2024/11/cibertxoko-img-004-300x169.jpg 300w, https://www.euskadigital.eus/wp-content/uploads/2024/11/cibertxoko-img-004-768x432.jpg 768w, https://www.euskadigital.eus/wp-content/uploads/2024/11/cibertxoko-img-004.jpg 1280w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /></a></figure>
+</div>
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph">En este episodio de CiberTxoko nos trasladamos al DOK Summit, el evento tecnológico en Bilbao que reúne a más de 2.500 profesionales del sector público y privado. Conversamos con Jaime Gómez Obregón, ingeniero y activista destacado por su lucha por la transparencia y contra la corrupción en la administración pública. Jaime nos comparte su trayectoria como emprendedor y sus proyectos innovadores que combinan tecnología y activismo ciudadano, desde la creación de herramientas para analizar la contratación pública hasta iniciativas que buscan democratizar el acceso a los datos oficiales. Reflexionamos sobre el impacto de la tecnología en la sociedad, el papel de la ciudadanía en la fiscalización pública y la importancia de la transparencia para fortalecer las instituciones.</p>
+]]></content:encoded>
+					
+		
+				<enclosure url="https://www.euskadigital.eus/audio/cibertxoko/cibertxoko004.mp3" length="31841794" type="audio/mpeg" />
+
+				<itunes:episodeType>full</itunes:episodeType>
+		<itunes:duration>31:16</itunes:duration>
+	</item>
+		<item>
+		<title>CiberTxoko 003 &#8211; Juan Manuel Fernández (X-C3LL)</title>
+		<link>https://www.euskadigital.eus/programas/cibertxoko/ct003/</link>
+		
+		<dc:creator><![CDATA[redacción]]></dc:creator>
+		<pubDate>Sun, 23 Jun 2024 18:00:00 +0000</pubDate>
+				<category><![CDATA[Cibertxoko]]></category>
+		<category><![CDATA[programa]]></category>
+		<guid isPermaLink="false">https://www.euskadigital.eus/?p=18370</guid>
+
+					<description><![CDATA[En esta tercera edición de CiberTxoko hemos ido hasta Donosti, en específico, al colegio mayor Olarain, que es dónde se celebra la 7ª edición del congreso de ciberseguridad EuskalHack, organizado por la asociación del mismo nombre. Durante los días 21 y 22 de junio, los asistentes al evento han disfrutado de multitud de ponencias del [&#8230;]]]></description>
+										<content:encoded><![CDATA[<div class="wp-block-image">
+<figure class="aligncenter size-large is-resized"><a href="https://www.euskadigital.eus/wp-content/uploads/2024/06/cibertxoko-img-003.jpg"><img loading="lazy" decoding="async" width="1024" height="576" src="https://www.euskadigital.eus/wp-content/uploads/2024/06/cibertxoko-img-003-1024x576.jpg" alt="Cibertxoko-003" class="wp-image-18371" style="width:720px" srcset="https://www.euskadigital.eus/wp-content/uploads/2024/06/cibertxoko-img-003-1024x576.jpg 1024w, https://www.euskadigital.eus/wp-content/uploads/2024/06/cibertxoko-img-003-300x169.jpg 300w, https://www.euskadigital.eus/wp-content/uploads/2024/06/cibertxoko-img-003-768x432.jpg 768w, https://www.euskadigital.eus/wp-content/uploads/2024/06/cibertxoko-img-003.jpg 1280w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /></a></figure>
+</div>
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph">En esta tercera edición de CiberTxoko hemos ido hasta Donosti, en específico, al colegio mayor Olarain, que es dónde se celebra la 7ª edición del congreso de ciberseguridad EuskalHack, organizado por la asociación del mismo nombre. Durante los días 21 y 22 de junio, los asistentes al evento han disfrutado de multitud de ponencias del más alto nivel, incluyendo la ponencia de Juan Manuel Fernández, también conocido como X-C3LL, quién nos ha informado sobre el desarrollo de macros para operaciones de Red Team. Con él hablaremos durante media hora sobre los eventos de Ciberseguridad, su trayectoria en este ámbito y su experiencia en Red Teams y auditoría de seguridad.</p>
+]]></content:encoded>
+					
+		
+				<enclosure url="https://www.euskadigital.eus/audio/cibertxoko/cibertxoko003.mp3" length="30890417" type="audio/mpeg" />
+
+				<itunes:episodeType>full</itunes:episodeType>
+		<itunes:duration>30:13</itunes:duration>
+	</item>
+		<item>
+		<title>CiberTxoko 002 – Ujue Agudo y Karlos G Liberal (Bikolabs)</title>
+		<link>https://www.euskadigital.eus/programas/cibertxoko/ct002/</link>
+		
+		<dc:creator><![CDATA[redacción]]></dc:creator>
+		<pubDate>Fri, 16 Feb 2024 18:00:00 +0000</pubDate>
+				<category><![CDATA[Cibertxoko]]></category>
+		<category><![CDATA[programa]]></category>
+		<guid isPermaLink="false">https://www.euskadigital.eus/?p=18204</guid>
+
+					<description><![CDATA[¡Bienvenidos a este segundo programa de «CiberTxoko», el podcast donde exploramos las intersecciones entre la tecnología y la sociedad! En este episodio, tenemos el privilegio de conversar con dos destacados expertos: Ujue Agudo y Karlos G Liberal. Basándose en su trabajo en Bikolabs, Ujue y Karlos comparten sus perspectivas sobre la Inteligencia Artificial (IA) y [&#8230;]]]></description>
+										<content:encoded><![CDATA[<div class="wp-block-image">
+<figure class="aligncenter size-large is-resized"><a href="https://www.euskadigital.eus/wp-content/uploads/2024/02/cibertxoko-img-002.jpg"><img loading="lazy" decoding="async" width="1024" height="576" src="https://www.euskadigital.eus/wp-content/uploads/2024/02/cibertxoko-img-002-1024x576.jpg" alt="002" class="wp-image-18205" style="width:720px" srcset="https://www.euskadigital.eus/wp-content/uploads/2024/02/cibertxoko-img-002-1024x576.jpg 1024w, https://www.euskadigital.eus/wp-content/uploads/2024/02/cibertxoko-img-002-300x169.jpg 300w, https://www.euskadigital.eus/wp-content/uploads/2024/02/cibertxoko-img-002-768x432.jpg 768w, https://www.euskadigital.eus/wp-content/uploads/2024/02/cibertxoko-img-002.jpg 1280w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /></a></figure>
+</div>
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph">¡Bienvenidos a este segundo programa de «CiberTxoko», el podcast donde exploramos las intersecciones entre la tecnología y la sociedad! En este episodio, tenemos el privilegio de conversar con dos destacados expertos: Ujue Agudo y Karlos G Liberal. Basándose en su trabajo en Bikolabs, Ujue y Karlos comparten sus perspectivas sobre la Inteligencia Artificial (IA) y su impacto en la toma de decisiones humanas. Ujue nos sumerge en su fascinación por la IA y la psicología, mientras que Karlos aporta su experiencia en tecnología y activismo. A través de esta entrevista, exploramos cómo los sistemas de recomendación influyen en nuestros procesos de decisión y reflexionamos sobre la importancia de considerar los aspectos éticos y humanos en el desarrollo tecnológico, la evaluación de la necesidad de la automatización y la defensa de condiciones laborales justas en el sector tecnológico.</p>
+]]></content:encoded>
+					
+		
+				<enclosure url="https://www.euskadigital.eus/audio/cibertxoko/cibertxoko002.mp3" length="56394888" type="audio/mpeg" />
+
+				<itunes:episodeType>full</itunes:episodeType>
+		<itunes:duration>57:05</itunes:duration>
+	</item>
+		<item>
+		<title>CiberTxoko 001 &#8211; José Mari Cabero (Escudero)</title>
+		<link>https://www.euskadigital.eus/programas/cibertxoko/ct001/</link>
+		
+		<dc:creator><![CDATA[redacción]]></dc:creator>
+		<pubDate>Fri, 19 Jan 2024 19:11:16 +0000</pubDate>
+				<category><![CDATA[Cibertxoko]]></category>
+		<category><![CDATA[programa]]></category>
+		<guid isPermaLink="false">https://www.euskadigital.eus/?p=18165</guid>
+
+					<description><![CDATA[Estrenamos CiberTxoko, un nuevo programa en EuskaDigital, donde conversaremos con destacadas figuras del ámbito tecnológico, descubriendo sus proyectos más innovadores y las ideas que están dando forma al futuro digital. En este primer episodio hablamos con Jose Mari Cabero, que nos presenta su proyecto Escudero, un servicio de protección contra ciberamenazas, dirigido específicamente a las [&#8230;]]]></description>
+										<content:encoded><![CDATA[<div class="wp-block-image">
+<figure class="aligncenter size-large is-resized"><a href="https://www.euskadigital.eus/wp-content/uploads/2024/01/cibertxoko-img-001.jpg"><img loading="lazy" decoding="async" width="1024" height="576" src="https://www.euskadigital.eus/wp-content/uploads/2024/01/cibertxoko-img-001-1024x576.jpg" alt="CiberTxoko" class="wp-image-18166" style="width:720px" srcset="https://www.euskadigital.eus/wp-content/uploads/2024/01/cibertxoko-img-001-1024x576.jpg 1024w, https://www.euskadigital.eus/wp-content/uploads/2024/01/cibertxoko-img-001-300x169.jpg 300w, https://www.euskadigital.eus/wp-content/uploads/2024/01/cibertxoko-img-001-768x432.jpg 768w, https://www.euskadigital.eus/wp-content/uploads/2024/01/cibertxoko-img-001.jpg 1280w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /></a></figure>
+</div>
+
+
+<p class="wp-block-paragraph"></p>
+
+
+
+<p class="wp-block-paragraph">Estrenamos CiberTxoko, un nuevo programa en EuskaDigital, donde conversaremos con destacadas figuras del ámbito tecnológico, descubriendo sus proyectos más innovadores y las ideas que están dando forma al futuro digital. En este primer episodio hablamos con Jose Mari Cabero, que nos presenta su proyecto Escudero, un servicio de protección contra ciberamenazas, dirigido específicamente a las personas mayores. Jose Mari nos cuenta cómo ha dirigido su carrera profesional a ayudar a las personas, especialmente a las personas mayores, a raiz de su percepción del aumento de los ciberdelitos en el País Vasco, en concreto las ventas abusivas y las estafas. Escudero tiene como objetivo detectar y filtrar llamadas no deseadas, desarrollar tecnología de inteligencia artificial para mejorar la escalabilidad y evitar que las personas que llaman oculten sus identidades.</p>
+]]></content:encoded>
+					
+		
+				<enclosure url="https://www.euskadigital.eus/audio/cibertxoko/cibertxoko001.mp3" length="49225977" type="audio/mpeg" />
+
+				<itunes:episodeType>full</itunes:episodeType>
+		<itunes:duration>49:38</itunes:duration>
+	</item>
+	</channel>
+</rss>

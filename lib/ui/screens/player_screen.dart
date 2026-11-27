@@ -6,6 +6,7 @@ import '../../services/feed_repository.dart';
 import '../../services/player_service.dart';
 import '../format.dart';
 import '../widgets/artwork.dart';
+import '../widgets/episode_video.dart';
 import '../widgets/episode_actions.dart';
 
 /// Reproductor a pantalla completa (hoja modal).
@@ -41,6 +42,9 @@ class PlayerScreen extends StatelessWidget {
     final feeds = context.watch<FeedRepository>();
     final artUrl = liveProgram != null ? feeds.programImage(liveProgram.id) : now.imageUrl;
     final artFallback = liveProgram?.fallbackImage ?? now.fallbackImage;
+    // Versión en vídeo del episodio (Gaming Room, CiberTxoko...).
+    final videoId = now.episode == null ? null : feeds.videoFor(now.episode!);
+    final showVideo = player.videoMode && player.videoId != null;
 
     return LayoutBuilder(
       builder: (context, c) {
@@ -55,10 +59,12 @@ class PlayerScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Center(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: art, maxHeight: art),
-                      child: Artwork(url: artUrl, fallbackAsset: artFallback, radius: 28),
-                    ),
+                    child: showVideo
+                        ? EpisodeVideo(videoId: player.videoId!, start: player.videoStart)
+                        : ConstrainedBox(
+                            constraints: BoxConstraints(maxWidth: art, maxHeight: art),
+                            child: Artwork(url: artUrl, fallbackAsset: artFallback, radius: 28),
+                          ),
                   ),
                 ),
               ),
@@ -89,20 +95,46 @@ class PlayerScreen extends StatelessWidget {
                   style: theme.textTheme.headlineSmall,
                 ),
               ],
+              if (videoId != null) ...[const SizedBox(height: 16), _MediaToggle(videoId: videoId)],
               if (player.error != null) ...[
                 const SizedBox(height: 8),
                 Text(player.error!, style: TextStyle(color: scheme.error)),
               ],
-              const SizedBox(height: 24),
-              if (!now.isLive) const _SeekBar(),
-              const SizedBox(height: 12),
-              _Controls(isLive: now.isLive),
-              const SizedBox(height: 16),
-              _BottomActions(isLive: now.isLive),
+              // En vídeo, los controles son los del propio reproductor de vídeo.
+              if (!showVideo) ...[
+                const SizedBox(height: 24),
+                if (!now.isLive) const _SeekBar(),
+                const SizedBox(height: 12),
+                _Controls(isLive: now.isLive),
+                const SizedBox(height: 16),
+                _BottomActions(isLive: now.isLive),
+              ] else
+                const SizedBox(height: 24),
             ],
           ),
         );
       },
+    );
+  }
+}
+
+/// Cambiar entre la versión en audio y en vídeo del episodio.
+class _MediaToggle extends StatelessWidget {
+  const _MediaToggle({required this.videoId});
+  final String videoId;
+
+  @override
+  Widget build(BuildContext context) {
+    final player = context.watch<PlayerService>();
+    return SegmentedButton<bool>(
+      showSelectedIcon: false,
+      style: const ButtonStyle(visualDensity: VisualDensity.compact),
+      segments: const [
+        ButtonSegment(value: false, icon: Icon(Icons.headphones_rounded), label: Text('Audio')),
+        ButtonSegment(value: true, icon: Icon(Icons.smart_display_rounded), label: Text('Vídeo')),
+      ],
+      selected: {player.videoMode},
+      onSelectionChanged: (v) => v.first ? player.enterVideo(videoId) : player.exitVideo(),
     );
   }
 }

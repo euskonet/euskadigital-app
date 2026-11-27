@@ -52,7 +52,8 @@
           "id": "cibertxoko",
           "title": "CiberTxoko",
           "feedUrl": "https://www.euskadigital.eus/contenidos/programas/cibertxoko/feed/",
-          "fallbackImage": "assets/images/programs/cibertxoko.png"
+          "fallbackImage": "assets/images/programs/cibertxoko.png",
+          "videoPlaylistId": "PL6Izbjhvb8aCljwgi_QtaEEMctWhw-4ff"
         },
         {
           "id": "conferencias",
@@ -70,7 +71,8 @@
           "id": "gaming-room",
           "title": "Gaming Room",
           "feedUrl": "https://www.euskadigital.eus/contenidos/programas/gamingroom/feed/",
-          "fallbackImage": "assets/images/programs/gaming-room.png"
+          "fallbackImage": "assets/images/programs/gaming-room.png",
+          "videoPlaylistId": "PL6Izbjhvb8aDylafJ8W2hHycW-5hWJ8aA"
         },
         {
           "id": "sarean-zehar",
