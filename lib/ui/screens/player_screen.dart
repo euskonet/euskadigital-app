@@ -63,7 +63,7 @@ class PlayerScreen extends StatelessWidget {
                         ? EpisodeVideo(videoId: player.videoId!, start: player.videoStart)
                         : ConstrainedBox(
                             constraints: BoxConstraints(maxWidth: art, maxHeight: art),
-                            child: Artwork(url: artUrl, fallbackAsset: artFallback, radius: 28),
+                            child: Artwork(url: artUrl, fallbackAsset: artFallback, radius: 28, natural: true),
                           ),
                   ),
                 ),
